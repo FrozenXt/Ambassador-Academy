@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="recaptcha-wrap">
-                        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                        <div class="g-recaptcha" data-sitekey="{{ $settings['recaptcha_site_key']->value ?? '' }}"
                             data-theme="light" data-callback="onRecaptchaSuccess"
                             data-expired-callback="onRecaptchaExpired">
                         </div>
@@ -83,6 +83,18 @@
                         <div class="recaptcha-error" id="recaptchaError">
                             Please complete the reCAPTCHA check.
                         </div>
+
+                        @error('g-recaptcha-response')
+                            <div class="text-danger mt-2">
+                                Please verify that you are not a robot.
+                            </div>
+                        @enderror
+
+                        @error('captcha')
+                            <div class="text-danger mt-2">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
 
                     <!-- Status -->

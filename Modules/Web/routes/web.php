@@ -14,6 +14,10 @@ use Modules\Web\Http\Controllers\PageController;
 |--------------------------------------------------------------------------
 */
 
+Route::get('/phpinfo-test', function () {
+    phpinfo();
+});
+
 // ── Home
 Route::get('/', [WebController::class, 'home'])->name('web.home');
 
@@ -70,5 +74,9 @@ Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/menu', [PageController::class, 'menu'])->name('menu');
 Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
 Route::get('/services', [PageController::class, 'services'])->name('services');
-Route::get('/contact', [PageController::class, 'contact'])->name('contact');
-Route::post('/contact', [PageController::class, 'processContact'])->name('contact.process');
+// Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+// Route::post('/contact', [PageController::class, 'processContact'])->name('contact.process');
+
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'process'])->name('contact.process');
