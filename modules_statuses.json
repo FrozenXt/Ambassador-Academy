@@ -1,0 +1,13 @@
+{
+    "Admin": true,
+    "Product": false,
+    "Category": false,
+    "SiteSettings": false,
+    "Web": true,
+    "Page": false,
+    "Media": false,
+    "Controller": true,
+    "EventController": false,
+    "Common": true,
+    "ClientController": true
+}
