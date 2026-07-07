@@ -15,14 +15,16 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function getAll(array $filters = [])
     {
-        $query = Product::with('category');
+        $query = Product::with('categories');
 
         if (!empty($filters['search'])) {
             $query->where('name', 'like', '%' . $filters['search'] . '%');
         }
 
         if (!empty($filters['category_id'])) {
-            $query->where('category_id', $filters['category_id']);
+            $query->whereHas('categories', function ($q) use ($filters) {
+                $q->where('categories.id', $filters['category_id']);
+            });
         }
 
         if (!empty($filters['status'])) {
@@ -37,16 +39,14 @@ class ProductRepository implements ProductRepositoryInterface
             $query->where('price', '<=', $filters['max_price']);
         }
 
-        // **Add ordering by sort_order**
         $query->orderBy('sort_order', 'asc');
 
         return $query->get();
     }
 
-
     public function findById(int $id)
     {
-        return $this->model->with('category')->findOrFail($id);
+        return $this->model->with('categories')->findOrFail($id);
     }
 
     public function create(array $data)
@@ -70,24 +70,22 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function paginate(int $perPage = 15, array $filters = [])
     {
-        $query = $this->model->with('category');
+        $query = $this->model->with('categories');
 
-        // Search by name
         if (!empty($filters['search'])) {
             $query->where('name', 'like', '%' . $filters['search'] . '%');
         }
 
-        // Filter by category
         if (!empty($filters['category_id'])) {
-            $query->where('category_id', $filters['category_id']);
+            $query->whereHas('categories', function ($q) use ($filters) {
+                $q->where('categories.id', $filters['category_id']);
+            });
         }
 
-        // Filter by status
         if (!empty($filters['status'])) {
             $query->where('status', $filters['status']);
         }
 
-        // Filter by price range
         if (!empty($filters['min_price'])) {
             $query->where('price', '>=', $filters['min_price']);
         }

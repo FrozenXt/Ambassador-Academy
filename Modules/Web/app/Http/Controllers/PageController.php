@@ -10,17 +10,17 @@ class PageController extends Controller
     public function home()
     {
         $mainCourses = Product::where('status', 'active')
-            ->whereHas('category', fn($q) => $q->where('name', 'Main Course'))
+            ->whereHas('categories', fn($q) => $q->where('name', 'Main Course'))
             ->orderBy('sort_order')
             ->get();
 
         $appetizers = Product::where('status', 'active')
-            ->whereHas('category', fn($q) => $q->where('name', 'Appetizers'))
+            ->whereHas('categories', fn($q) => $q->where('name', 'Appetizers'))
             ->orderBy('sort_order')
             ->get();
 
         $desserts = Product::where('status', 'active')
-            ->whereHas('category', fn($q) => $q->where('name', 'Desserts'))
+            ->whereHas('categories', fn($q) => $q->where('name', 'Desserts'))
             ->orderBy('sort_order')
             ->get();
 
@@ -35,17 +35,17 @@ class PageController extends Controller
     public function menu()
     {
         $mainCourses = Product::where('status', 'active')
-            ->whereHas('category', fn($q) => $q->where('name', 'Main Course'))
+            ->whereHas('categories', fn($q) => $q->where('name', 'Main Course'))
             ->orderBy('sort_order')
             ->get();
 
         $appetizers = Product::where('status', 'active')
-            ->whereHas('category', fn($q) => $q->where('name', 'Appetizers'))
+            ->whereHas('categories', fn($q) => $q->where('name', 'Appetizers'))
             ->orderBy('sort_order')
             ->get();
 
         $desserts = Product::where('status', 'active')
-            ->whereHas('category', fn($q) => $q->where('name', 'Desserts'))
+            ->whereHas('categories', fn($q) => $q->where('name', 'Desserts'))
             ->orderBy('sort_order')
             ->get();
 

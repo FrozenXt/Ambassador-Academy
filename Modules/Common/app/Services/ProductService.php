@@ -30,14 +30,13 @@ class ProductService
         return $this->productRepository->getAll();
     }
 
-    public function createProduct(array $data, $imageFile = null)
+    public function createProduct(array $data, $imageFile = null, array $categoryIds = [])
     {
         // Filter empty feature lines
         if (isset($data['features']) && is_array($data['features'])) {
             $data['features'] = array_values(
                 array_filter($data['features'], fn($f) => trim($f) !== '')
             );
-            // Set null if no features
             if (empty($data['features'])) {
                 $data['features'] = null;
             }
@@ -47,10 +46,16 @@ class ProductService
             $data['image'] = $imageFile->store('products', 'public');
         }
 
-        return $this->productRepository->create($data);
+        $product = $this->productRepository->create($data);
+
+        if (!empty($categoryIds)) {
+            $product->categories()->attach($categoryIds);
+        }
+
+        return $product;
     }
 
-    public function updateProduct(int $id, array $data, $imageFile = null)
+    public function updateProduct(int $id, array $data, $imageFile = null, array $categoryIds = [])
     {
         $product = $this->productRepository->findById($id);
 
@@ -71,7 +76,12 @@ class ProductService
             $data['image'] = $imageFile->store('products', 'public');
         }
 
-        return $this->productRepository->update($id, $data);
+        $updatedProduct = $this->productRepository->update($id, $data);
+
+        // sync() replaces old category set with the new one
+        $product->categories()->sync($categoryIds);
+
+        return $updatedProduct;
     }
 
     public function deleteProduct(int $id)
@@ -81,6 +91,10 @@ class ProductService
         if ($product->image) {
             Storage::disk('public')->delete($product->image);
         }
+
+        // Not strictly required if you added cascadeOnDelete() in the pivot migration,
+        // but explicit detach is safer and clearer
+        $product->categories()->detach();
 
         return $this->productRepository->delete($id);
     }
@@ -99,7 +113,7 @@ class ProductService
     {
         return Product::where('stock', '<=', $threshold)
             ->where('status', 'active')
-            ->with('category')
+            ->with('categories')   // changed from 'category' to 'categories'
             ->get();
     }
 }

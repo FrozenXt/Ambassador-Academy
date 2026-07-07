@@ -137,9 +137,11 @@
                                 <td class="font-weight-bold">{{ $product->name }}</td>
 
                                 <td>
-                                    <span class="badge badge-info">
-                                        {{ $product->category->name ?? '—' }}
-                                    </span>
+                                    @forelse ($product->categories as $category)
+                                        <span class="badge badge-info">{{ $category->name }}</span>
+                                    @empty
+                                        <span class="text-muted">—</span>
+                                    @endforelse
                                 </td>
 
                                 <td class="font-weight-bold text-success">

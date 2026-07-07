@@ -16,11 +16,6 @@ class Category extends Model
         'sort_order'
     ];
 
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
-
 
     protected static function boot()
     {
@@ -31,5 +26,9 @@ class Category extends Model
                 $category->slug = Str::slug($category->name);
             }
         });
+    }
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
     }
 }

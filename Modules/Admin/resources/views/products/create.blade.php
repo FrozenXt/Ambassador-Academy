@@ -29,20 +29,41 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group">
-                            <label>Food Category <span class="text-danger">*</span></label>
-                            <select name="category_id" class="form-control @error('category_id') is-invalid @enderror">
-                                <option value="">— Select Category —</option>
-                                @foreach ($categories as $cat)
-                                    <option value="{{ $cat->id }}"
-                                        {{ old('category_id') == $cat->id ? 'selected' : '' }}>
-                                        {{ $cat->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('category_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                            <label class="font-weight-bold">
+                                Food Categories <span class="text-danger">*</span>
+                            </label>
+
+                            <div class="border rounded p-3 @error('category_ids') is-invalid @enderror"
+                                style="background:#f8f9fa;">
+                                <div class="row">
+                                    @php
+                                        $selectedCategories = old('category_ids', []);
+                                    @endphp
+
+                                    @foreach ($categories as $cat)
+                                        <div class="col-md-3 col-sm-4 col-6 mb-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" name="category_ids[]" value="{{ $cat->id }}"
+                                                    class="custom-control-input" id="cat_{{ $cat->id }}"
+                                                    {{ in_array($cat->id, $selectedCategories) ? 'checked' : '' }} />
+                                                <label class="custom-control-label" for="cat_{{ $cat->id }}">
+                                                    {{ $cat->name }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <small class="text-muted">Tick all categories this item belongs to.</small>
+
+                            @error('category_ids')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                            @error('category_ids.*')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>

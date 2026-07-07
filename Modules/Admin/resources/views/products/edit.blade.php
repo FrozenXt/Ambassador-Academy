@@ -33,27 +33,8 @@
                         </div>
                     </div>
 
-                    {{-- Category --}}
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Category <span class="text-danger">*</span></label>
-                            <select name="category_id" class="form-control @error('category_id') is-invalid @enderror">
-                                <option value="">— Select Category —</option>
-                                @foreach ($categories as $cat)
-                                    <option value="{{ $cat->id }}"
-                                        {{ old('category_id', $product->category_id) == $cat->id ? 'selected' : '' }}>
-                                        {{ $cat->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('category_id')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
                     {{-- Price --}}
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Price <span class="text-danger">*</span></label>
                             <div class="input-group">
@@ -71,7 +52,7 @@
                     </div>
 
                     {{-- Stock --}}
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Stock <span class="text-danger">*</span></label>
                             <input type="number" name="stock" value="{{ old('stock', $product->stock) }}"
@@ -83,7 +64,7 @@
                     </div>
 
                     {{-- Status --}}
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label>Status <span class="text-danger">*</span></label>
                             <select name="status" class="form-control @error('status') is-invalid @enderror">
@@ -94,6 +75,49 @@
                             </select>
                             @error('status')
                                 <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Categories (multi-select checkboxes) --}}
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="font-weight-bold">
+                                Food Categories <span class="text-danger">*</span>
+                            </label>
+
+                            <div class="border rounded p-3 @error('category_ids') is-invalid @enderror"
+                                style="background:#f8f9fa;">
+                                <div class="row">
+                                    @php
+                                        $selectedCategories = old(
+                                            'category_ids',
+                                            $product->categories->pluck('id')->toArray(),
+                                        );
+                                    @endphp
+
+                                    @foreach ($categories as $cat)
+                                        <div class="col-md-3 col-sm-4 col-6 mb-2">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" name="category_ids[]" value="{{ $cat->id }}"
+                                                    class="custom-control-input" id="cat_{{ $cat->id }}"
+                                                    {{ in_array($cat->id, $selectedCategories) ? 'checked' : '' }} />
+                                                <label class="custom-control-label" for="cat_{{ $cat->id }}">
+                                                    {{ $cat->name }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <small class="text-muted">Tick all categories this item belongs to.</small>
+
+                            @error('category_ids')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                            @enderror
+                            @error('category_ids.*')
+                                <div class="invalid-feedback d-block">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>

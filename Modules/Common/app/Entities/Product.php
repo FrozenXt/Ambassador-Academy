@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'category_id',
         'name',
         'description',
         'image',
@@ -17,8 +16,6 @@ class Product extends Model
         'stock',
         'status',
         'sort_order'
-
-
     ];
 
     protected $casts = [
@@ -26,13 +23,14 @@ class Product extends Model
         'stock' => 'integer',
         'features' => 'array',
     ];
+
     public function getFeaturesListAttribute(): array
     {
         return $this->features ?? [];
     }
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 }
