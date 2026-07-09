@@ -54,6 +54,39 @@
                     Technologies</a></span>
         </div>
     </div>
+    <style>
+        .course-tab-wrapper {
+            display: none;
+        }
+
+        .course-tab-wrapper.active {
+            display: block;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.course-tabs .tab-btn');
+            const tabContents = document.querySelectorAll('.course-tab-wrapper');
+
+            tabButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const targetId = 'tab-' + this.dataset.tab;
+
+                    tabButtons.forEach(function(b) {
+                        b.classList.remove('active');
+                    });
+                    tabContents.forEach(function(c) {
+                        c.classList.remove('active');
+                    });
+
+                    this.classList.add('active');
+                    const targetContent = document.getElementById(targetId);
+                    if (targetContent) targetContent.classList.add('active');
+                });
+            });
+        });
+    </script>
 </footer>
 <!-- Bootstrap 5 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -30,7 +30,7 @@
             <p class="label-script reveal delay-1">Visual Experience</p>
             <!-- Title -->
             <h2 class="title reveal delay-2">
-                Moments of Arabian Excellence
+                {{ $album->title ?? 'Moments of Arabian Excellence' }}
             </h2>
             <!-- Divider -->
             <div class="divider-gold reveal delay-3"><i></i></div>
@@ -39,53 +39,41 @@
         <!-- Gallery -->
         <div class="gallery-grid pt-4" id="galleryGrid">
 
-            @php
-                $galleryItems = [
-                    ['name' => 'Umm Ali', 'img' => 'g1.jpg'],
-                    ['name' => 'Kunafa', 'img' => 'g2.jpg'],
-                    ['name' => 'Baklava', 'img' => 'g3.jpg'],
-                    ['name' => 'Lamb Chops', 'img' => 'g4.jpg'],
-                    ['name' => 'Lamb Chops', 'img' => 'g11.jpg'],
-                ];
-            @endphp
+            @if ($album && $album->galleries->count())
+                @foreach ($album->galleries as $i => $img)
+                    {{-- Drop the quote block in as the 6th cell, same spot as before --}}
+                    @if ($i == 5)
+                        <div class="gallery-item quote-cell large reveal delay-6">
+                            <div class="quote-cell-inner">
+                                <blockquote>{{ $album->description }}</blockquote>
+                            </div>
+                        </div>
+                    @endif
 
-            @foreach ($galleryItems as $i => $item)
-                <div class="gallery-item reveal delay-{{ $i + 1 }}" data-name="{{ $item['name'] }}"
-                    data-index="{{ $i }}">
-                    <img src="{{ asset('images/' . $item['img']) }}" alt="{{ $item['name'] }}" />
-                    <div class="gallery-overlay">
-                        <div class="overlay-name">{{ $item['name'] }}</div>
+                    <div class="gallery-item reveal delay-{{ ($i % 9) + 1 }}" data-name="{{ $img->title }}"
+                        data-index="{{ $i }}">
+                        <img src="{{ $img->image_url }}" alt="{{ $img->title }}" />
+                        <div class="gallery-overlay">
+                            <div class="overlay-name">{{ $img->title }}</div>
+                        </div>
+                    </div>
+                @endforeach
+
+                {{-- If there were fewer than 6 images, still show the quote at the end --}}
+                @if ($album->galleries->count() < 6)
+                    <div class="gallery-item quote-cell large reveal delay-6">
+                        <div class="quote-cell-inner">
+                            <blockquote>{{ $album->description }}</blockquote>
+                        </div>
+                    </div>
+                @endif
+            @else
+                <div class="gallery-item quote-cell large reveal delay-1">
+                    <div class="quote-cell-inner">
+                        <blockquote>No gallery images yet.</blockquote>
                     </div>
                 </div>
-            @endforeach
-
-            <!-- Quote cell – no lightbox -->
-            <div class="gallery-item quote-cell large reveal delay-6">
-                <div class="quote-cell-inner">
-                    <blockquote>'Kathmandu's Premier Luxury
-                        Arabic Dining and Premium Social Destination.'</blockquote>
-                </div>
-            </div>
-
-            @php
-                $galleryItemsTwo = [
-                    ['name' => 'Swarma', 'img' => 'g12.jpg', 'index' => 5],
-                    ['name' => 'Swarma', 'img' => 'g5.jpg', 'index' => 6],
-                    ['name' => 'Mixed Grill', 'img' => 'g6.jpg', 'index' => 7],
-                    ['name' => 'Ambience', 'img' => 'g7.jpg', 'index' => 8],
-                    ['name' => 'Kitchen', 'img' => 'g8.jpg', 'index' => 9],
-                ];
-            @endphp
-
-            @foreach ($galleryItemsTwo as $j => $item)
-                <div class="gallery-item reveal delay-{{ $j + 7 }}" data-name="{{ $item['name'] }}"
-                    data-index="{{ $item['index'] }}">
-                    <img src="{{ asset('images/' . $item['img']) }}" alt="{{ $item['name'] }}" />
-                    <div class="gallery-overlay">
-                        <div class="overlay-name">{{ $item['name'] }}</div>
-                    </div>
-                </div>
-            @endforeach
+            @endif
 
         </div><!-- /gallery-grid -->
     </div>

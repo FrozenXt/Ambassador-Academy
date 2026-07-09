@@ -13,7 +13,7 @@
 
         /* ── WELCOME BANNER ── */
         .welcome-banner {
-            background: #111827;
+            background: #1c1410;
             border-radius: 16px;
             padding: 26px 30px;
             margin-bottom: 22px;
@@ -33,7 +33,7 @@
             right: -50px;
             width: 200px;
             height: 200px;
-            background: rgba(99, 102, 241, .15);
+            background: rgba(217, 119, 6, .18);
             border-radius: 50%;
         }
 
@@ -44,7 +44,7 @@
             right: 140px;
             width: 100px;
             height: 100px;
-            background: rgba(139, 92, 246, .1);
+            background: rgba(190, 18, 60, .12);
             border-radius: 50%;
         }
 
@@ -81,13 +81,13 @@
         }
 
         .banner-btn-primary {
-            background: #6366f1;
+            background: #d97706;
             color: #fff;
-            border-color: #6366f1;
+            border-color: #d97706;
         }
 
         .banner-btn-primary:hover {
-            background: #4f46e5;
+            background: #b45309;
             color: #fff;
             text-decoration: none;
         }
@@ -107,14 +107,14 @@
         /* ── STAT GRID ── */
         .stat-grid {
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 14px;
             margin-bottom: 22px;
         }
 
         @media (max-width: 1200px) {
             .stat-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -155,19 +155,9 @@
             font-size: 1.05rem;
         }
 
-        .si-indigo {
-            background: #e0e7ff;
-            color: #4338ca;
-        }
-
-        .si-violet {
-            background: #ede9fe;
-            color: #7c3aed;
-        }
-
-        .si-sky {
-            background: #e0f2fe;
-            color: #0369a1;
+        .si-amber {
+            background: #fef3c7;
+            color: #b45309;
         }
 
         .si-emerald {
@@ -180,9 +170,9 @@
             color: #be123c;
         }
 
-        .si-amber {
-            background: #fef3c7;
-            color: #b45309;
+        .si-sky {
+            background: #e0f2fe;
+            color: #0369a1;
         }
 
         .stat-label {
@@ -249,24 +239,20 @@
             margin: 0;
         }
 
-        .panel-title .ico-violet {
-            color: #7c3aed;
+        .panel-title .ico-amber {
+            color: #b45309;
         }
 
         .panel-title .ico-rose {
             color: #be123c;
         }
 
-        .panel-title .ico-amber {
-            color: #b45309;
-        }
-
-        .panel-title .ico-indigo {
-            color: #4338ca;
+        .panel-title .ico-emerald {
+            color: #047857;
         }
 
         .panel-title .ico-def {
-            color: #6366f1;
+            color: #d97706;
         }
 
         .pill {
@@ -298,16 +284,6 @@
             color: #0369a1;
         }
 
-        .pill-indigo {
-            background: #e0e7ff;
-            color: #4338ca;
-        }
-
-        .pill-violet {
-            background: #ede9fe;
-            color: #7c3aed;
-        }
-
         .btn-sm-action {
             font-size: .7rem;
             font-weight: 600;
@@ -322,97 +298,107 @@
         }
 
         .btn-sm-action:hover {
-            border-color: #6366f1;
-            color: #6366f1;
-            background: #f5f3ff;
+            border-color: #d97706;
+            color: #d97706;
+            background: #fffbeb;
             text-decoration: none;
         }
 
-        /* ── GALLERY GRID ── */
-        .gallery-grid {
+        /* ── FOOD ITEM GRID ── */
+        .food-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            padding: 12px;
+            gap: 10px;
+            padding: 14px;
         }
 
         @media (max-width: 900px) {
-            .gallery-grid {
+            .food-grid {
                 grid-template-columns: repeat(4, 1fr);
             }
         }
 
         @media (max-width: 600px) {
-            .gallery-grid {
+            .food-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        .g-thumb {
-            border-radius: 8px;
+        .food-card {
+            border-radius: 10px;
             overflow: hidden;
-            aspect-ratio: 1;
-            position: relative;
-            background: #f3f4f6;
-            cursor: pointer;
+            background: #f9fafb;
+            border: 1px solid #f0f0f5;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: transform .16s, box-shadow .16s;
         }
 
-        .g-thumb img {
+        .food-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 14px rgba(0, 0, 0, .08);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .food-thumb {
+            aspect-ratio: 1;
+            background: #f3f4f6;
+            position: relative;
+        }
+
+        .food-thumb img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform .22s;
         }
 
-        .g-thumb:hover img {
-            transform: scale(1.07);
-        }
-
-        .g-thumb .g-over {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, .6) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity .2s;
+        .food-placeholder {
+            width: 100%;
+            height: 100%;
             display: flex;
-            align-items: flex-end;
-            padding: 6px 7px;
+            align-items: center;
+            justify-content: center;
+            color: #d1d5db;
+            font-size: 1.3rem;
         }
 
-        .g-thumb:hover .g-over {
-            opacity: 1;
+        .food-status {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            font-size: .58rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 99px;
         }
 
-        .g-thumb .g-cap {
-            font-size: .6rem;
-            color: #fff;
-            font-weight: 600;
-            line-height: 1.2;
+        .food-info {
+            padding: 8px 9px;
+        }
+
+        .food-name {
+            font-size: .7rem;
+            font-weight: 700;
+            color: #111827;
+            line-height: 1.25;
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
+            margin-bottom: 3px;
         }
 
-        .g-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #d1d5db;
-            font-size: .65rem;
-            gap: 3px;
+        .food-price {
+            font-size: .68rem;
+            font-weight: 700;
+            color: #b45309;
         }
 
-        .g-placeholder i {
-            font-size: 1.2rem;
-        }
-
-        /* ── ALBUM ROWS ── */
-        .album-row {
+        /* ── CATEGORY ROWS ── */
+        .cat-row {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -423,55 +409,47 @@
             color: inherit;
         }
 
-        .album-row:last-child {
+        .cat-row:last-child {
             border-bottom: none;
         }
 
-        .album-row:hover {
-            background: #fafbff;
+        .cat-row:hover {
+            background: #fffbeb;
             text-decoration: none;
             color: inherit;
         }
 
-        .album-cover {
-            width: 46px;
-            height: 46px;
+        .cat-icon {
+            width: 42px;
+            height: 42px;
             border-radius: 9px;
-            overflow: hidden;
             flex-shrink: 0;
-            background: #ede9fe;
+            background: #fef3c7;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #7c3aed;
-            font-size: 1rem;
+            color: #b45309;
+            font-size: .95rem;
         }
 
-        .album-cover img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .album-name {
+        .cat-name {
             font-size: .8rem;
             font-weight: 600;
             color: #111827;
             margin-bottom: 2px;
         }
 
-        .album-meta {
+        .cat-meta {
             font-size: .67rem;
             color: #9ca3af;
         }
 
-        .album-count-badge {
+        .cat-count-badge {
             margin-left: auto;
             font-size: .67rem;
             font-weight: 700;
-            color: #6366f1;
-            background: #e0e7ff;
+            color: #b45309;
+            background: #fef3c7;
             padding: 3px 10px;
             border-radius: 99px;
             flex-shrink: 0;
@@ -508,7 +486,7 @@
         }
 
         .msg-table tbody tr:hover td {
-            background: #fafbff;
+            background: #fffbeb;
         }
 
         .msg-table tbody tr.is-unread td {
@@ -523,8 +501,8 @@
             width: 28px;
             height: 28px;
             border-radius: 50%;
-            background: #dbeafe;
-            color: #1d4ed8;
+            background: #fef3c7;
+            color: #b45309;
             font-size: .6rem;
             font-weight: 700;
             display: flex;
@@ -539,15 +517,15 @@
             padding: 3px 10px;
             border-radius: 6px;
             border: 1.5px solid #e5e7eb;
-            color: #6366f1;
+            color: #d97706;
             text-decoration: none;
             transition: all .13s;
         }
 
         .btn-view:hover {
-            background: #6366f1;
+            background: #d97706;
             color: #fff;
-            border-color: #6366f1;
+            border-color: #d97706;
             text-decoration: none;
         }
 
@@ -593,19 +571,9 @@
             color: #047857;
         }
 
-        .mv-blue {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-
-        .mv-indigo {
-            background: #e0e7ff;
-            color: #3730a3;
-        }
-
-        .mv-violet {
-            background: #ede9fe;
-            color: #6d28d9;
+        .mv-amber {
+            background: #fef3c7;
+            color: #b45309;
         }
 
         .mv-sky {
@@ -653,12 +621,8 @@
             transition: width .5s;
         }
 
-        .pf-indigo {
-            background: #6366f1;
-        }
-
-        .pf-violet {
-            background: #8b5cf6;
+        .pf-amber {
+            background: #d97706;
         }
 
         .pf-emerald {
@@ -765,9 +729,9 @@
         }
 
         .settings-btn:hover {
-            border-color: #6366f1;
-            color: #6366f1;
-            background: #f5f3ff;
+            border-color: #d97706;
+            color: #d97706;
+            background: #fffbeb;
             text-decoration: none;
             transform: translateY(-1px);
         }
@@ -801,13 +765,10 @@
     {{-- ── WELCOME BANNER ── --}}
     <div class="welcome-banner">
         <div style="position:relative;z-index:2;">
-            <h4>Welcome back, {{ session('admin_name', 'Admin') }} </h4>
+            <h4><i class="fas fa-utensils mr-2"></i>Welcome back, {{ session('admin_name', 'Admin') }}</h4>
             <p class="sub"><i class="far fa-calendar-alt mr-1"></i>{{ now()->format('l, d F Y') }}</p>
         </div>
         <div class="banner-actions">
-            {{-- <a href="{{ route('web.home') }}" target="_blank" class="banner-btn banner-btn-ghost">
-                <i class="fas fa-external-link-alt" style="font-size:.65rem;"></i> View Site
-            </a> --}}
             <a href="{{ route('admin.settings.general') }}" class="banner-btn banner-btn-primary">
                 <i class="fas fa-cog" style="font-size:.7rem;"></i> Settings
             </a>
@@ -817,30 +778,21 @@
     {{-- ── TOP STAT CARDS ── --}}
     <div class="stat-grid">
 
-        <div class="stat-card">
-            <div class="stat-icon si-violet"><i class="fas fa-book-open"></i></div>
+        <a href="{{ route('admin.products.index') }}" class="stat-card">
+            <div class="stat-icon si-amber"><i class="fas fa-utensils"></i></div>
             <div>
-                <div class="stat-value">{{ $totalAlbums ?? 0 }}</div>
-                <div class="stat-label">Total Albums</div>
-                <div class="stat-sub">{{ $activeAlbums ?? 0 }} active</div>
-            </div>
-        </div>
-
-        <a href="{{ route('admin.gallery.index') }}" class="stat-card">
-            <div class="stat-icon si-indigo"><i class="fas fa-images"></i></div>
-            <div>
-                <div class="stat-value">{{ $totalGalleries ?? 0 }}</div>
-                <div class="stat-label">Gallery Photos</div>
-                <div class="stat-sub">{{ $activeGalleries ?? 0 }} active</div>
+                <div class="stat-value">{{ $totalProducts ?? 0 }}</div>
+                <div class="stat-label">Food Items</div>
+                <div class="stat-sub">{{ $activeProducts ?? 0 }} active</div>
             </div>
         </a>
 
-        <a href="{{ route('admin.blogs.index') }}" class="stat-card">
-            <div class="stat-icon si-amber"><i class="fas fa-blog"></i></div>
+        <a href="{{ route('admin.categories.index') }}" class="stat-card">
+            <div class="stat-icon si-emerald"><i class="fas fa-tags"></i></div>
             <div>
-                <div class="stat-value">{{ $totalBlogs ?? 0 }}</div>
-                <div class="stat-label">Total Blogs</div>
-                <div class="stat-sub">+{{ $todayBlogs ?? 0 }} today</div>
+                <div class="stat-value">{{ $totalCategories ?? 0 }}</div>
+                <div class="stat-label">Categories</div>
+                <div class="stat-sub">{{ $activeCategories ?? 0 }} active</div>
             </div>
         </a>
 
@@ -854,22 +806,13 @@
         </a>
 
         <a href="{{ route('admin.counters.index') }}" class="stat-card">
-            <div class="stat-icon si-sky"><i class="fas fa-sort-numeric-up"></i></div>
+            <div class="stat-icon si-sky"><i class="fas fa-eye"></i></div>
             <div>
-                <div class="stat-value">{{ $totalCounters ?? 0 }}</div>
-                <div class="stat-label">Counters</div>
-                <div class="stat-sub">site statistics</div>
+                <div class="stat-value">{{ $totalSiteViews ?? 0 }}</div>
+                <div class="stat-label">Site Views</div>
+                <div class="stat-sub">all time</div>
             </div>
         </a>
-
-        {{-- <div class="stat-card">
-            <div class="stat-icon si-emerald"><i class="fas fa-user-plus"></i></div>
-            <div>
-                <div class="stat-value">{{ $thisMonthUsers }}</div>
-                <div class="stat-label">Monthly Signups</div>
-                <div class="stat-sub">this month</div>
-            </div>
-        </div> --}}
 
     </div>
 
@@ -879,98 +822,94 @@
         {{-- ===== LEFT COLUMN ===== --}}
         <div>
 
-            {{-- Recent Gallery Uploads --}}
+            {{-- Recent Food Items --}}
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="panel-title">
-                        <i class="fas fa-images ico-violet"></i> Recent Gallery Uploads
-                        @if (isset($totalGalleries) && $totalGalleries > 0)
-                            <span class="pill pill-violet">{{ $totalGalleries }} total</span>
+                        <i class="fas fa-utensils ico-amber"></i> Recent Menu Items
+                        @if (isset($totalProducts) && $totalProducts > 0)
+                            <span class="pill pill-amber">{{ $totalProducts }} total</span>
                         @endif
                     </h3>
                     <div style="display:flex;gap:7px;">
-                        <a href="{{ route('admin.gallery.create') }}" class="btn-sm-action">
-                            <i class="fas fa-plus mr-1"></i> Upload
+                        <a href="{{ route('admin.products.create') }}" class="btn-sm-action">
+                            <i class="fas fa-plus mr-1"></i> Add Item
                         </a>
-                        <a href="{{ route('admin.gallery.index') }}" class="btn-sm-action">View All</a>
+                        <a href="{{ route('admin.products.index') }}" class="btn-sm-action">View All</a>
                     </div>
                 </div>
 
-                @if (isset($recentGalleries) && $recentGalleries->count())
-                    <div class="gallery-grid">
-                        @foreach ($recentGalleries as $img)
-                            <div class="g-thumb">
-                                @if ($img->path)
-                                    <img src="{{ $img->image_url }}" alt="{{ $img->title ?? '' }}" loading="lazy">
-                                @else
-                                    <div class="g-placeholder">
-                                        <i class="fas fa-image"></i>
-                                        <span>No Image</span>
-                                    </div>
-                                @endif
-                                <div class="g-over">
-                                    <span class="g-cap">{{ $img->title ?? 'Untitled' }}</span>
+                @if (isset($recentProducts) && $recentProducts->count())
+                    <div class="food-grid">
+                        @foreach ($recentProducts as $item)
+                            <a href="{{ route('admin.products.edit', $item->id) }}" class="food-card">
+                                <div class="food-thumb">
+                                    @if ($item->image)
+                                        <img src="{{ Storage::url($item->image) }}" alt="{{ $item->name }}"
+                                            loading="lazy">
+                                    @else
+                                        <div class="food-placeholder"><i class="fas fa-utensils"></i></div>
+                                    @endif
+                                    <span class="food-status {{ $item->status == 'active' ? 'pill-green' : 'pill-red' }}">
+                                        {{ ucfirst($item->status) }}
+                                    </span>
                                 </div>
-                            </div>
+                                <div class="food-info">
+                                    <div class="food-name">{{ $item->name }}</div>
+                                    <div class="food-price">NPR {{ number_format($item->price, 2) }}</div>
+                                </div>
+                            </a>
                         @endforeach
                     </div>
                 @else
                     <div class="empty-box">
-                        <i class="fas fa-images"></i>
-                        No gallery photos yet.
+                        <i class="fas fa-utensils"></i>
+                        No menu items yet.
                     </div>
                 @endif
 
                 <div class="panel-foot">
-                    <a href="{{ route('admin.gallery.index') }}" class="btn-sm-action">
-                        All Gallery Items &rarr;
+                    <a href="{{ route('admin.products.index') }}" class="btn-sm-action">
+                        All Menu Items &rarr;
                     </a>
                 </div>
             </div>
 
-            {{-- Recent Albums --}}
+            {{-- Categories --}}
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="panel-title">
-                        <i class="fas fa-book-open ico-violet"></i> Albums
-                        <span class="pill pill-indigo">{{ $totalAlbums ?? 0 }} total</span>
+                        <i class="fas fa-tags ico-amber"></i> Categories
+                        <span class="pill pill-amber">{{ $totalCategories ?? 0 }} total</span>
                     </h3>
-                    <a href="{{ route('admin.albums.create') }}" class="btn-sm-action">
-                        <i class="fas fa-plus mr-1"></i> New Album
+                    <a href="{{ route('admin.categories.create') }}" class="btn-sm-action">
+                        <i class="fas fa-plus mr-1"></i> New Category
                     </a>
                 </div>
 
-                @forelse($recentAlbums ?? [] as $album)
-                    <a href="{{ route('admin.albums.edit', $album->id) }}" class="album-row">
-                        <div class="album-cover">
-                            @if ($album->cover_image ?? ($album->image ?? null))
-                                <img src="{{ asset('storage/' . ($album->cover_image ?? $album->image)) }}"
-                                    alt="{{ $album->title }}">
-                            @else
-                                <i class="fas fa-book-open"></i>
-                            @endif
+                @forelse($categories ?? [] as $category)
+                    <a href="{{ route('admin.categories.edit', $category->id) }}" class="cat-row">
+                        <div class="cat-icon">
+                            <i class="fas fa-utensils"></i>
                         </div>
                         <div style="flex:1;min-width:0;">
-                            <div class="album-name">{{ Str::limit($album->title, 32) }}</div>
-                            <div class="album-meta">
-                                {{ $album->galleries_count ?? ($album->galleries ? $album->galleries->count() : 0) }}
-                                photos
-                                &middot; {{ $album->created_at->format('d M Y') }}
-                            </div>
+                            <div class="cat-name">{{ $category->name }}</div>
+                            <div class="cat-meta">{{ $category->status == 'active' ? 'Active' : 'Inactive' }}</div>
                         </div>
-                        <span class="album-count-badge">
-                            {{ $album->galleries_count ?? ($album->galleries ? $album->galleries->count() : 0) }}
+                        <span class="cat-count-badge">
+                            {{ $category->products_count ?? ($category->products ? $category->products->count() : 0) }}
+                            items
                         </span>
                     </a>
                 @empty
                     <div class="empty-box">
-                        <i class="fas fa-book-open"></i>
-                        No albums yet. <a href="{{ route('admin.albums.create') }}">Create one</a>
+                        <i class="fas fa-tags"></i>
+                        No categories yet. <a href="{{ route('admin.categories.create') }}">Create one</a>
                     </div>
                 @endforelse
 
                 <div class="panel-foot">
-                    <a href="{{ route('admin.albums.index') }}" class="btn-sm-action">View All Albums &rarr;</a>
+                    <a href="{{ route('admin.categories.index') }}" class="btn-sm-action">View All Categories &rarr;</a>
                 </div>
             </div>
 
@@ -998,18 +937,17 @@
                     </thead>
                     <tbody>
                         @forelse($recentContacts ?? [] as $contact)
-                            <tr class="{{ $contact->status == 'unread' ? 'is-unread' : '' }}">
+                            <tr class="{{ $contact->isUnread() ? 'is-unread' : '' }}">
                                 <td>
                                     <div style="display:flex;align-items:center;gap:8px;">
-                                        <div class="avatar">{{ strtoupper(substr($contact->name, 0, 1)) }}</div>
-                                        <span
-                                            style="{{ $contact->status == 'unread' ? 'font-weight:700;color:#111827;' : '' }}">
-                                            {{ Str::limit($contact->name, 14) }}
+                                        <div class="avatar">{{ strtoupper(substr($contact->display_name, 0, 1)) }}</div>
+                                        <span style="{{ $contact->isUnread() ? 'font-weight:700;color:#111827;' : '' }}">
+                                            {{ Str::limit($contact->display_name, 14) }}
                                         </span>
                                     </div>
                                 </td>
                                 <td
-                                    style="{{ $contact->status == 'unread' ? 'font-weight:600;color:#111827;' : 'color:#6b7280;' }}">
+                                    style="{{ $contact->isUnread() ? 'font-weight:600;color:#111827;' : 'color:#6b7280;' }}">
                                     {{ Str::limit($contact->subject ?? 'No Subject', 28) }}
                                 </td>
                                 <td>
@@ -1056,50 +994,32 @@
                     <h3 class="panel-title"><i class="fas fa-chart-bar ico-def"></i> Content Overview</h3>
                 </div>
 
-                <div class="sec-divider">Gallery</div>
+                <div class="sec-divider">Menu Items</div>
                 <div class="mini-row">
-                    <span class="mini-label">Total Photos</span>
-                    <span class="mini-val mv-indigo">{{ $totalGalleries ?? 0 }}</span>
+                    <span class="mini-label">Total Items</span>
+                    <span class="mini-val mv-amber">{{ $totalProducts ?? 0 }}</span>
                 </div>
                 <div class="mini-row">
-                    <span class="mini-label">Active Photos</span>
-                    <span class="mini-val mv-green">{{ $activeGalleries ?? 0 }}</span>
+                    <span class="mini-label">Active Items</span>
+                    <span class="mini-val mv-green">{{ $activeProducts ?? 0 }}</span>
                 </div>
                 <div class="mini-row">
-                    <span class="mini-label">Inactive Photos</span>
-                    <span class="mini-val mv-sky">{{ $inactiveGalleries ?? 0 }}</span>
-                </div>
-
-                <div class="sec-divider">Albums</div>
-                <div class="mini-row">
-                    <span class="mini-label">Total Albums</span>
-                    <span class="mini-val mv-violet">{{ $totalAlbums ?? 0 }}</span>
-                </div>
-                <div class="mini-row">
-                    <span class="mini-label">Active Albums</span>
-                    <span class="mini-val mv-green">{{ $activeAlbums ?? 0 }}</span>
-                </div>
-                <div class="mini-row">
-                    <span class="mini-label">Inactive Albums</span>
-                    <span class="mini-val mv-sky">{{ $inactiveAlbums ?? 0 }}</span>
+                    <span class="mini-label">Inactive Items</span>
+                    <span class="mini-val mv-sky">{{ $inactiveProducts ?? 0 }}</span>
                 </div>
 
-                <div class="sec-divider">Blogs</div>
+                <div class="sec-divider">Categories</div>
                 <div class="mini-row">
-                    <span class="mini-label">Today</span>
-                    <span class="mini-val mv-green">{{ $todayBlogs ?? 0 }}</span>
+                    <span class="mini-label">Total Categories</span>
+                    <span class="mini-val mv-amber">{{ $totalCategories ?? 0 }}</span>
                 </div>
                 <div class="mini-row">
-                    <span class="mini-label">Active</span>
-                    <span class="mini-val mv-blue">{{ $activeBlogs ?? 0 }}</span>
+                    <span class="mini-label">Active Categories</span>
+                    <span class="mini-val mv-green">{{ $activeCategories ?? 0 }}</span>
                 </div>
                 <div class="mini-row">
-                    <span class="mini-label">Inactive</span>
-                    <span class="mini-val mv-sky">{{ $inactiveBlogs ?? 0 }}</span>
-                </div>
-                <div class="mini-row">
-                    <span class="mini-label">Total Blogs</span>
-                    <span class="mini-val mv-indigo">{{ $totalBlogs ?? 0 }}</span>
+                    <span class="mini-label">Inactive Categories</span>
+                    <span class="mini-val mv-sky">{{ $inactiveCategories ?? 0 }}</span>
                 </div>
 
                 <div class="sec-divider">Messages</div>
@@ -1107,53 +1027,29 @@
                     <span class="mini-label">Unread</span>
                     <span class="mini-val mv-rose">{{ $unreadContacts ?? 0 }}</span>
                 </div>
+                <div class="mini-row">
+                    <span class="mini-label">Replied</span>
+                    <span class="mini-val mv-green">{{ $repliedContacts ?? 0 }}</span>
+                </div>
             </div>
 
             {{-- Content Health Bars --}}
             <div class="panel">
                 <div class="panel-header">
-                    <h3 class="panel-title"><i class="fas fa-layer-group" style="color:#8b5cf6;"></i> Content Health</h3>
+                    <h3 class="panel-title"><i class="fas fa-layer-group" style="color:#d97706;"></i> Content Health</h3>
                 </div>
                 <div class="prog-wrap">
                     @php
-                        $tG = $totalGalleries ?? 0;
-                        $aG = $activeGalleries ?? 0;
-                        $tA = $totalAlbums ?? 0;
-                        $aA = $activeAlbums ?? 0;
                         $tP = $totalProducts ?? 0;
                         $aP = $activeProducts ?? 0;
                         $iP = $inactiveProducts ?? 0;
+                        $tC = $totalCategories ?? 0;
+                        $aC = $activeCategories ?? 0;
                     @endphp
 
                     <div class="prog-row">
                         <div class="prog-meta">
-                            <span>Active Photos</span>
-                            <span
-                                style="font-weight:700;color:#6366f1;">{{ $tG > 0 ? round(($aG / $tG) * 100) : 0 }}%</span>
-                        </div>
-                        <div class="prog-bg">
-                            <div class="prog-fill pf-indigo"
-                                style="width:{{ $tG > 0 ? round(($aG / $tG) * 100) : 0 }}%;">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="prog-row">
-                        <div class="prog-meta">
-                            <span>Active Albums</span>
-                            <span
-                                style="font-weight:700;color:#8b5cf6;">{{ $tA > 0 ? round(($aA / $tA) * 100) : 0 }}%</span>
-                        </div>
-                        <div class="prog-bg">
-                            <div class="prog-fill pf-violet"
-                                style="width:{{ $tA > 0 ? round(($aA / $tA) * 100) : 0 }}%;">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="prog-row">
-                        <div class="prog-meta">
-                            <span>Active Products</span>
+                            <span>Active Menu Items</span>
                             <span
                                 style="font-weight:700;color:#10b981;">{{ $tP > 0 ? round(($aP / $tP) * 100) : 0 }}%</span>
                         </div>
@@ -1166,7 +1062,7 @@
 
                     <div class="prog-row">
                         <div class="prog-meta">
-                            <span>Inactive Products</span>
+                            <span>Inactive Menu Items</span>
                             <span
                                 style="font-weight:700;color:#ef4444;">{{ $tP > 0 ? round(($iP / $tP) * 100) : 0 }}%</span>
                         </div>
@@ -1175,14 +1071,26 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="prog-row">
+                        <div class="prog-meta">
+                            <span>Active Categories</span>
+                            <span
+                                style="font-weight:700;color:#d97706;">{{ $tC > 0 ? round(($aC / $tC) * 100) : 0 }}%</span>
+                        </div>
+                        <div class="prog-bg">
+                            <div class="prog-fill pf-amber" style="width:{{ $tC > 0 ? round(($aC / $tC) * 100) : 0 }}%;">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {{-- Site Counters --}}
+            {{-- Site Views
             <div class="panel">
                 <div class="panel-header">
                     <h3 class="panel-title">
-                        <i class="fas fa-sort-numeric-up ico-amber"></i> Site Counters
+                        <i class="fas fa-eye ico-amber"></i> Site Views
                     </h3>
                     <a href="{{ route('admin.counters.index') }}" class="btn-sm-action">Manage</a>
                 </div>
@@ -1199,14 +1107,14 @@
                     </div>
                 @else
                     <div class="empty-box" style="padding:18px;">
-                        <i class="fas fa-sort-numeric-up"></i>
+                        <i class="fas fa-eye"></i>
                         No counters yet. <a href="{{ route('admin.counters.create') }}">Add one</a>
                     </div>
                 @endif
-            </div>
+            </div> --}}
 
             {{-- Low Stock Alert --}}
-            <div class="panel">
+            {{-- <div class="panel">
                 <div class="panel-header">
                     <h3 class="panel-title">
                         <i class="fas fa-exclamation-triangle ico-amber"></i> Low Stock
@@ -1228,10 +1136,10 @@
                 @empty
                     <div class="empty-box" style="padding:14px;">
                         <i class="fas fa-check-circle" style="color:#10b981;"></i>
-                        All products stocked!
+                        All items stocked!
                     </div>
                 @endforelse
-            </div>
+            </div> --}}
 
             {{-- Site Settings --}}
             <div class="panel">

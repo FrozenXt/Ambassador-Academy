@@ -79,7 +79,8 @@
     <div
         style="padding:16px 40px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:0 0 4px 4px;text-align:center;margin-top:24px;">
         <p style="margin:0;font-size:11px;color:#d1d5db;">
-            &copy; {{ date('Y') }} MG Motor Nepal &middot; Automated notification &middot; Do not reply to this
+            &copy; {{ date('Y') }} Sultan's Arabic Grill &middot; Automated notification &middot; Do not reply to
+            this
             email
         </p>
     </div>

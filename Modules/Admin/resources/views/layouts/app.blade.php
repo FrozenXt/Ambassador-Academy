@@ -149,7 +149,7 @@
                         </li>
                         <li class="nav-header">CONTENT</li>
 
-                        {{-- <li class="nav-item">
+                        <li class="nav-item">
                             <a href="{{ route('admin.pages.index') }}"
                                 class="nav-link {{ request()->is('admin/pages*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-file-alt"></i>
@@ -161,8 +161,20 @@
                                     @endif
                                 </p>
                             </a>
-                        </li> --}}
-
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.posts.index') }}"
+                                class="nav-link {{ request()->is('admin/posts*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>Posts
+                                    @if (\Modules\Common\Entities\Post::count() > 0)
+                                        <span class="badge badge-info right">
+                                            {{ \Modules\Common\Entities\Post::count() }}
+                                        </span>
+                                    @endif
+                                </p>
+                            </a>
+                        </li>
                         {{-- <li class="nav-item">
                             <a href="{{ route('admin.media.index') }}"
                                 class="nav-link {{ request()->is('admin/media*') ? 'active' : '' }}">
@@ -222,7 +234,7 @@
                             </a>
                         </li> --}}
 
-                        {{-- <li class="nav-item">
+                        <li class="nav-item">
                             <a href="{{ route('admin.services.index') }}"
                                 class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}">
 
@@ -234,7 +246,7 @@
                                     @endif
                                 </p>
                             </a>
-                        </li> --}}
+                        </li>
                         {{-- Contact Messages --}}
                         <li class="nav-item">
                             <a href="{{ route('admin.contacts.index', ['source' => 'contact']) }}"
@@ -261,7 +273,7 @@
                         </li>
 
                         {{-- Booking Messages --}}
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ route('admin.contacts.index', ['source' => 'booking']) }}"
                                 class="nav-link {{ request()->get('source') == 'booking' ? 'active' : '' }}">
 
@@ -283,8 +295,8 @@
                                     @endif
                                 </p>
                             </a>
-                        </li>
-                        {{-- <li class="nav-item">
+                        </li> --}}
+                        <li class="nav-item">
                             <a href="{{ route('admin.testimonials.index') }}"
                                 class="nav-link {{ request()->is('admin/testimonials*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-quote-left"></i>
@@ -295,7 +307,7 @@
                                     @endif
                                 </p>
                             </a>
-                        </li> --}}
+                        </li>
 
                         {{-- <li class="nav-item">
                             <a href="{{ route('admin.events.index') }}"
@@ -337,7 +349,7 @@
                             </a>
                         </li> --}}
 
-                        <li class="nav-header">BLOG</li>
+                        {{-- <li class="nav-header">BLOG</li>
 
                         <li class="nav-item {{ request()->is('admin/blogs*') ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link {{ request()->is('admin/blogs*') ? 'active' : '' }}">
@@ -377,7 +389,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
 
                         {{-- <li class="nav-item">
                             <a href="{{ route('admin.faqs.index') }}"
@@ -393,7 +405,7 @@
                             </a>
                         </li> --}}
 
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ route('admin.counters.index') }}"
                                 class="nav-link {{ request()->is('admin/counters*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-sort-numeric-up"></i>
@@ -405,8 +417,8 @@
                                     @endif
                                 </p>
                             </a>
-                        </li>
-                        <li class="nav-item">
+                        </li> --}}
+                        {{-- <li class="nav-item">
                             <a href="{{ route('admin.brochures.index') }}"
                                 class="nav-link {{ request()->is('admin/brochures*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-sort-numeric-up"></i>
@@ -418,7 +430,7 @@
                                     @endif
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         {{-- <li class="nav-item">
                             <a href="{{ route('admin.pricings.index') }}"
                                 class="nav-link {{ request()->is('admin/pricings*') ? 'active' : '' }}">

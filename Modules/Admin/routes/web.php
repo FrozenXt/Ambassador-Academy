@@ -26,6 +26,7 @@ use Modules\Admin\Http\Controllers\GalleryController;
 use Modules\Admin\Http\Controllers\BlogCategoryController;
 use Modules\Admin\Http\Controllers\BlogController;
 use Modules\Admin\Http\Controllers\BrochureController;
+use Modules\Admin\Http\Controllers\PostController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -99,19 +100,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
             // ── Services ──
-            // Route::get('services', [ServiceController::class, 'index'])->name('services.index')->middleware('checkRole:superadmin,admin,manager,staff');
-            // Route::get('services/create', [ServiceController::class, 'create'])->name('services.create')->middleware('checkRole:superadmin,admin,manager');
-            // Route::post('services', [ServiceController::class, 'store'])->name('services.store')->middleware('checkRole:superadmin,admin,manager');
-            // Route::get('services/trash', [ServiceController::class, 'trash'])->name('services.trash')->middleware('checkRole:superadmin,admin');
-            // Route::get('services/{id}/edit', [ServiceController::class, 'edit'])->name('services.edit')->middleware('checkRole:superadmin,admin,manager');
-            // Route::get('services/{id}', [ServiceController::class, 'show'])->name('services.show')->middleware('checkRole:superadmin,admin,manager,staff');
-            // Route::put('services/{id}', [ServiceController::class, 'update'])->name('services.update')->middleware('checkRole:superadmin,admin,manager');
-            // Route::delete('services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy')->middleware('checkRole:superadmin,admin');
-            // Route::post('services/{id}/restore', [ServiceController::class, 'restore'])->name('services.restore')->middleware('checkRole:superadmin,admin');
-            // Route::delete('services/{id}/force-delete', [ServiceController::class, 'forceDelete'])->name('services.force-delete')->middleware('checkRole:superadmin,admin');
-            // Route::post('services/{id}/toggle-status', [ServiceController::class, 'toggleStatus'])->name('services.toggle-status')->middleware('checkRole:superadmin,admin,manager');
-            // Route::post('services/reorder', [ServiceController::class, 'reorder'])->name('services.reorder')->middleware('checkRole:superadmin,admin,manager');
-            // Route::delete('services/{id}/remove-image', [ServiceController::class, 'removeImage'])->name('services.remove-image')->middleware('checkRole:superadmin,admin,manager');
+            Route::get('services', [ServiceController::class, 'index'])->name('services.index')->middleware('checkRole:superadmin,admin,manager,staff');
+            Route::get('services/create', [ServiceController::class, 'create'])->name('services.create')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('services', [ServiceController::class, 'store'])->name('services.store')->middleware('checkRole:superadmin,admin,manager');
+            Route::get('services/trash', [ServiceController::class, 'trash'])->name('services.trash')->middleware('checkRole:superadmin,admin');
+            Route::get('services/{id}/edit', [ServiceController::class, 'edit'])->name('services.edit')->middleware('checkRole:superadmin,admin,manager');
+            Route::get('services/{id}', [ServiceController::class, 'show'])->name('services.show')->middleware('checkRole:superadmin,admin,manager,staff');
+            Route::put('services/{id}', [ServiceController::class, 'update'])->name('services.update')->middleware('checkRole:superadmin,admin,manager');
+            Route::delete('services/{id}', [ServiceController::class, 'destroy'])->name('services.destroy')->middleware('checkRole:superadmin,admin');
+            Route::post('services/{id}/restore', [ServiceController::class, 'restore'])->name('services.restore')->middleware('checkRole:superadmin,admin');
+            Route::delete('services/{id}/force-delete', [ServiceController::class, 'forceDelete'])->name('services.force-delete')->middleware('checkRole:superadmin,admin');
+            Route::post('services/{id}/toggle-status', [ServiceController::class, 'toggleStatus'])->name('services.toggle-status')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('services/reorder', [ServiceController::class, 'reorder'])->name('services.reorder')->middleware('checkRole:superadmin,admin,manager');
+            Route::delete('services/{id}/remove-image', [ServiceController::class, 'removeImage'])->name('services.remove-image')->middleware('checkRole:superadmin,admin,manager');
             // // ── Albums ──
             Route::resource('albums', AlbumController::class)->except(['show']);
             Route::post('albums/sort-order', [AlbumController::class, 'updateSortOrder'])
@@ -136,19 +137,33 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
             // ── Pages ──
-            // Route::get('pages',                  [PageController::class, 'index'])->name('pages.index')->middleware('checkRole:superadmin,admin,manager,staff');
-            // Route::get('pages/create',           [PageController::class, 'create'])->name('pages.create')->middleware('checkRole:superadmin,admin,manager');
-            // Route::post('pages',                 [PageController::class, 'store'])->name('pages.store')->middleware('checkRole:superadmin,admin,manager');
-            // Route::get('pages/{id}/edit',        [PageController::class, 'edit'])->name('pages.edit')->middleware('checkRole:superadmin,admin,manager');
-            // Route::put('pages/{id}',             [PageController::class, 'update'])->name('pages.update')->middleware('checkRole:superadmin,admin,manager');
-            // Route::delete('pages/{id}',          [PageController::class, 'destroy'])->name('pages.destroy')->middleware('checkRole:superadmin,admin');
-            // Route::get('pages/trash',            [PageController::class, 'trash'])->name('pages.trash')->middleware('checkRole:superadmin,admin');
-            // Route::post('pages/{id}/restore',    [PageController::class, 'restore'])->name('pages.restore')->middleware('checkRole:superadmin,admin');
-            // Route::delete('pages/{id}/force',    [PageController::class, 'forceDelete'])->name('pages.force-delete')->middleware('checkRole:superadmin,admin');
-            // Route::post('pages/{id}/remove-image', [PageController::class, 'removeImage'])->name('pages.remove-image')->middleware('checkRole:superadmin,admin,manager');
-            // Route::post('pages/update-order', [PageController::class, 'updateOrder'])->name('pages.update-order')->middleware('checkRole:superadmin,admin,manager');
+            Route::get('pages',                  [PageController::class, 'index'])->name('pages.index')->middleware('checkRole:superadmin,admin,manager,staff');
+            Route::get('pages/create',           [PageController::class, 'create'])->name('pages.create')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('pages',                 [PageController::class, 'store'])->name('pages.store')->middleware('checkRole:superadmin,admin,manager');
+            Route::get('pages/{id}/edit',        [PageController::class, 'edit'])->name('pages.edit')->middleware('checkRole:superadmin,admin,manager');
+            Route::put('pages/{id}',             [PageController::class, 'update'])->name('pages.update')->middleware('checkRole:superadmin,admin,manager');
+            Route::delete('pages/{id}',          [PageController::class, 'destroy'])->name('pages.destroy')->middleware('checkRole:superadmin,admin');
+            Route::get('pages/trash',            [PageController::class, 'trash'])->name('pages.trash')->middleware('checkRole:superadmin,admin');
+            Route::post('pages/{id}/restore',    [PageController::class, 'restore'])->name('pages.restore')->middleware('checkRole:superadmin,admin');
+            Route::delete('pages/{id}/force',    [PageController::class, 'forceDelete'])->name('pages.force-delete')->middleware('checkRole:superadmin,admin');
+            Route::post('pages/{id}/remove-image', [PageController::class, 'removeImage'])->name('pages.remove-image')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('pages/update-order', [PageController::class, 'updateOrder'])->name('pages.update-order')->middleware('checkRole:superadmin,admin,manager');
 
 
+            Route::get('posts',                    [PostController::class, 'index'])->name('posts.index')->middleware('checkRole:superadmin,admin,manager,staff');
+            Route::get('posts/create',             [PostController::class, 'create'])->name('posts.create')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('posts',                   [PostController::class, 'store'])->name('posts.store')->middleware('checkRole:superadmin,admin,manager');
+            Route::get('posts/{id}/edit',          [PostController::class, 'edit'])->name('posts.edit')->middleware('checkRole:superadmin,admin,manager');
+            Route::put('posts/{id}',               [PostController::class, 'update'])->name('posts.update')->middleware('checkRole:superadmin,admin,manager');
+            Route::delete('posts/{id}',            [PostController::class, 'destroy'])->name('posts.destroy')->middleware('checkRole:superadmin,admin');
+            Route::get('posts/trash',              [PostController::class, 'trash'])->name('posts.trash')->middleware('checkRole:superadmin,admin');
+            Route::post('posts/{id}/restore',      [PostController::class, 'restore'])->name('posts.restore')->middleware('checkRole:superadmin,admin');
+            Route::delete('posts/{id}/force',      [PostController::class, 'forceDelete'])->name('posts.force-delete')->middleware('checkRole:superadmin,admin');
+            Route::post('posts/{id}/remove-image', [PostController::class, 'removeImage'])->name('posts.remove-image')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('posts/update-order',      [PostController::class, 'updateOrder'])->name('posts.update-order')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('posts/{id}/toggle-featured', [PostController::class, 'toggleFeatured'])->name('posts.toggle-featured')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('posts/{id}/toggle-status',   [PostController::class, 'toggleStatus'])->name('posts.toggle-status')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('posts/sort-order',           [PostController::class, 'sortOrder'])->name('posts.sort-order')->middleware('checkRole:superadmin,admin,manager');
             // ── Notices ──
             // Route::get('notices',                      [NoticeController::class, 'index'])->name('notices.index')->middleware('checkRole:superadmin,admin,manager,staff');
             // Route::get('notices/create',               [NoticeController::class, 'create'])->name('notices.create')->middleware('checkRole:superadmin,admin,manager');
@@ -163,19 +178,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
             // Route::get('notices/check-slug',           [NoticeController::class, 'checkSlug'])->name('notices.checkSlug')->middleware('checkRole:superadmin,admin,manager');
 
 
-            // // ── Testimonials ──
-            // Route::get('testimonials',                       [TestimonialController::class, 'index'])->name('testimonials.index')->middleware('checkRole:superadmin,admin,manager,staff');
-            // Route::get('testimonials/create',                [TestimonialController::class, 'create'])->name('testimonials.create')->middleware('checkRole:superadmin,admin,manager');
-            // Route::post('testimonials',                      [TestimonialController::class, 'store'])->name('testimonials.store')->middleware('checkRole:superadmin,admin,manager');
-            // Route::get('testimonials/{id}/edit',             [TestimonialController::class, 'edit'])->name('testimonials.edit')->middleware('checkRole:superadmin,admin,manager');
-            // Route::get('testimonials/{id}', [TestimonialController::class, 'show'])->name('testimonials.show')->middleware('checkRole:superadmin,admin,manager,staff');
-            // Route::put('testimonials/{id}',                  [TestimonialController::class, 'update'])->name('testimonials.update')->middleware('checkRole:superadmin,admin,manager');
-            // Route::delete('testimonials/{id}',               [TestimonialController::class, 'destroy'])->name('testimonials.destroy')->middleware('checkRole:superadmin,admin');
-            // Route::get('testimonials/trash', [TestimonialController::class, 'trash'])->name('testimonials.trash')->middleware('checkRole:superadmin,admin');
-            // Route::post('testimonials/{id}/toggle-status',   [TestimonialController::class, 'toggleStatus'])->name('testimonials.toggle-status')->middleware('checkRole:superadmin,admin,manager');
-            // Route::post('testimonials/{id}/toggle-featured', [TestimonialController::class, 'toggleFeatured'])->name('testimonials.toggle-featured')->middleware('checkRole:superadmin,admin,manager');
-            // Route::post('testimonials/reorder',              [TestimonialController::class, 'reorder'])->name('testimonials.reorder')->middleware('checkRole:superadmin,admin,manager');
-            // Route::post('testimonials/update-order',         [TestimonialController::class, 'updateOrder'])->name('testimonials.update-order')->middleware('checkRole:superadmin,admin,manager');
+            // ── Testimonials ──
+            Route::get('testimonials',                       [TestimonialController::class, 'index'])->name('testimonials.index')->middleware('checkRole:superadmin,admin,manager,staff');
+            Route::get('testimonials/create',                [TestimonialController::class, 'create'])->name('testimonials.create')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('testimonials',                      [TestimonialController::class, 'store'])->name('testimonials.store')->middleware('checkRole:superadmin,admin,manager');
+            Route::get('testimonials/{id}/edit',             [TestimonialController::class, 'edit'])->name('testimonials.edit')->middleware('checkRole:superadmin,admin,manager');
+            Route::get('testimonials/{id}', [TestimonialController::class, 'show'])->name('testimonials.show')->middleware('checkRole:superadmin,admin,manager,staff');
+            Route::put('testimonials/{id}',                  [TestimonialController::class, 'update'])->name('testimonials.update')->middleware('checkRole:superadmin,admin,manager');
+            Route::delete('testimonials/{id}',               [TestimonialController::class, 'destroy'])->name('testimonials.destroy')->middleware('checkRole:superadmin,admin');
+            Route::get('testimonials/trash', [TestimonialController::class, 'trash'])->name('testimonials.trash')->middleware('checkRole:superadmin,admin');
+            Route::post('testimonials/{id}/toggle-status',   [TestimonialController::class, 'toggleStatus'])->name('testimonials.toggle-status')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('testimonials/{id}/toggle-featured', [TestimonialController::class, 'toggleFeatured'])->name('testimonials.toggle-featured')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('testimonials/reorder',              [TestimonialController::class, 'reorder'])->name('testimonials.reorder')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('testimonials/update-order',         [TestimonialController::class, 'updateOrder'])->name('testimonials.update-order')->middleware('checkRole:superadmin,admin,manager');
 
 
             // // ── Events ──

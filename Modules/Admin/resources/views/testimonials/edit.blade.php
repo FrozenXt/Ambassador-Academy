@@ -43,6 +43,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" name="address" value="{{ old('address', $testimonial->address) }}"
+                                        class="form-control" placeholder="e.g. jorpati, Kathmandu" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
                                     <label>Company</label>
                                     <input type="text" name="company" value="{{ old('company', $testimonial->company) }}"
                                         class="form-control" />

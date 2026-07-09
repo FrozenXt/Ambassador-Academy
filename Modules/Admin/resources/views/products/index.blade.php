@@ -101,9 +101,9 @@
                             <th style="width:60px">Order</th>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Category</th>
+                            <th style="width:200px">Category</th>
                             <th>Price</th>
-                            <th>Stock</th>
+                            {{-- <th>Stock</th> --}}
                             <th>Status</th>
                             <th>Created</th>
                             <th>Actions</th>
@@ -137,23 +137,27 @@
                                 <td class="font-weight-bold">{{ $product->name }}</td>
 
                                 <td>
-                                    @forelse ($product->categories as $category)
-                                        <span class="badge badge-info">{{ $category->name }}</span>
-                                    @empty
-                                        <span class="text-muted">—</span>
-                                    @endforelse
+                                    <div class="d-flex flex-wrap justify-content-center"
+                                        style="gap:4px; max-width:180px; margin:0 auto;">
+                                        @forelse ($product->categories as $category)
+                                            <span class="badge badge-info"
+                                                style="font-weight:500; white-space:nowrap;">{{ $category->name }}</span>
+                                        @empty
+                                            <span class="text-muted">—</span>
+                                        @endforelse
+                                    </div>
                                 </td>
 
                                 <td class="font-weight-bold text-success">
                                     Rs. {{ number_format($product->price, 2) }}
                                 </td>
 
-                                <td>
+                                {{-- <td>
                                     <span
                                         class="badge badge-{{ $product->stock > 5 ? 'primary' : ($product->stock > 0 ? 'warning' : 'danger') }}">
                                         {{ $product->stock }}
                                     </span>
-                                </td>
+                                </td> --}}
 
                                 <td>
                                     <span class="badge badge-{{ $product->status == 'active' ? 'success' : 'danger' }}">

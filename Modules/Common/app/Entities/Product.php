@@ -3,6 +3,7 @@
 namespace Modules\Common\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
@@ -28,6 +29,11 @@ class Product extends Model
     {
         return $this->features ?? [];
     }
+
+    // public function categories()
+    // {
+    //     return $this->belongsToMany(Category::class);
+    // }
 
     public function categories()
     {
