@@ -210,31 +210,39 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") modal.classList.remove("open");
 });
 // ── Activate tab from URL hash on page load ──
+
 (function () {
-    const hash = window.location.hash.replace("#", "") || "main";
-    const validTabs = ["main", "appetizers", "desserts"];
-    const targetTab = validTabs.includes(hash) ? hash : "main";
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabSections = document.querySelectorAll(".course-tab-wrapper");
+    if (!tabButtons.length) return;
 
-    document
-        .querySelectorAll(".tab-btn")
-        .forEach((b) => b.classList.remove("active"));
-    document
-        .querySelectorAll(".course-tab-wrapper")
-        .forEach((s) => s.classList.remove("active"));
+    const hash = window.location.hash.replace("#", "");
+    let targetBtn = hash
+        ? document.querySelector(`.tab-btn[data-tab="${hash}"]`)
+        : null;
 
-    const targetBtn = document.querySelector(
-        `.tab-btn[data-tab="${targetTab}"]`,
-    );
+    // No valid hash match → fall back to whichever button Blade already marked active,
+    // or just the first button if none are marked.
+    if (!targetBtn) {
+        targetBtn = document.querySelector(".tab-btn.active") || tabButtons[0];
+    }
+
+    const targetTab = targetBtn.dataset.tab;
     const targetSection = document.getElementById(`tab-${targetTab}`);
 
-    if (targetBtn) targetBtn.classList.add("active");
+    tabButtons.forEach((b) => b.classList.remove("active"));
+    tabSections.forEach((s) => {
+        s.classList.remove("active");
+        s.classList.remove("visible");
+    });
+
+    targetBtn.classList.add("active");
     if (targetSection) {
         targetSection.classList.add("active");
-        requestAnimationFrame(() => targetSection.classList.add("visible"));
-        targetSection.querySelectorAll(".course-card").forEach((c, i) => {
-            c.style.animation = `cardReveal 0.5s ${i * 0.05}s ease both`;
-        });
+        targetSection.classList.add("visible");
     }
+
+    updateViewAllLink(targetTab);
 })();
 const swiper1 = new Swiper(".testimonial-swiper", {
     slidesPerView: 1,
