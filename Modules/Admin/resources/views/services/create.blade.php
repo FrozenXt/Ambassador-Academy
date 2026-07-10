@@ -320,7 +320,7 @@
                             </h6>
 
                             <small class="text-muted">
-                                JPG, PNG, WebP, SVG, GIF • Max 7MB
+                                JPG, PNG, WebP, SVG, GIF, AVIF • Max 7MB
                             </small>
                         </div>
 

@@ -22,7 +22,7 @@ class ServiceRequest extends FormRequest
             'description'      => 'nullable|string|max:500',
             'content'          => 'nullable|string',
             'icon'             => 'nullable|string|max:100',
-            'image'            => 'nullable|image|mimes:jpg,jpeg,png,webp,svg,gif|max:7168',
+            'image'            => 'nullable|image|mimes:jpg,jpeg,png,webp,svg,gif,avif|max:7168',
             'status'           => 'required|in:active,inactive',
             'order'            => 'nullable|integer',
             'meta_title'       => 'nullable|string|max:255',
