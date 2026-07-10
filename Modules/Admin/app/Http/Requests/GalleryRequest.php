@@ -36,8 +36,8 @@ class GalleryRequest extends FormRequest
 
             // MEDIA INPUT (IMPORTANT FIX)
             'media' => $this->isMethod('POST')
-                ? 'required_if:file_type,image,video|file|mimes:jpg,jpeg,png,mp4,mov,webp|max:20480'
-                : 'nullable|file|mimes:jpg,jpeg,png,mp4,mov,webp|max:20480',
+                ? 'required_if:file_type,image,video|file|mimes:jpg,jpeg,png,mp4,mov,webp,avif|max:20480'
+                : 'nullable|file|mimes:jpg,jpeg,png,mp4,mov,webp,avif|max:20480',
             'youtube_url' => 'required_if:file_type,youtube|nullable|url',
         ];
 

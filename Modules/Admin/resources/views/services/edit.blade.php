@@ -7,9 +7,9 @@
             <i class="fas fa-arrow-left mr-1"></i> Back
         </a>
         @if ($service->status == 'active')
-            <a href="{{ route('web.service.detail', $service->slug) }}" class="service-link">
+            {{-- <a href="{{ route('admin.services.detail', $service->slug) }}" class="service-link">
                 <i class="fas fa-eye mr-1"></i> Preview
-            </a>
+            </a> --}}
         @endif
     </div>
 @endsection
@@ -600,7 +600,7 @@
                             </h6>
 
                             <small class="text-muted">
-                                JPG, PNG, WebP, SVG, GIF • Max 7MB
+                                JPG, PNG, WebP, SVG, GIF, AVIF • Max 7MB
                             </small>
                         </div>
 

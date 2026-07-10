@@ -112,6 +112,7 @@ class PageService
     public function getServicesData(): array
     {
         $services = Service::where('status', 'active')
+            ->where('type', 'servicepage')
             ->orderBy('order')
             ->get();
 
