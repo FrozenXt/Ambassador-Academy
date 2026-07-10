@@ -140,7 +140,7 @@
                                 class="nav-link {{ request()->is('admin/products*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-box"></i>
                                 <p>
-                                    Products
+                                    Food-Items
                                     <span class="badge badge-info right">
                                         {{ \Modules\Common\Entities\Product::count() }}
                                     </span>
@@ -194,6 +194,9 @@
                                 class="nav-link {{ request()->is('admin/albums*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-images"></i>
                                 <p>Albums</p>
+                                <span class="badge badge-info right">
+                                    {{ \Modules\Common\Entities\Album::count() }}
+                                </span>
                             </a>
                         </li>
 
@@ -202,6 +205,9 @@
                                 class="nav-link {{ request()->is('admin/gallery*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-images"></i>
                                 <p>Gallery</p>
+                                <span class="badge badge-info right">
+                                    {{ \Modules\Common\Entities\Gallery::count() }}
+                                </span>
                             </a>
                         </li>
 

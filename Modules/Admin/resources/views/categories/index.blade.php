@@ -83,7 +83,7 @@
                             <th>Image</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Products</th>
+                            <th>Food-Items</th>
                             <th>Status</th>
                             <th>Created</th>
                             <th>Actions</th>

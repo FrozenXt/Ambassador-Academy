@@ -40,9 +40,7 @@ class ContactController extends Controller
             'g-recaptcha-response.required' => 'Please complete the reCAPTCHA check.',
         ]);
 
-        // -------------------------
-        // CAPTCHA VALIDATION
-        // -------------------------
+
         $secret = SiteSetting::where('key', 'recaptcha_secret_key')->value('value');
 
         if ($secret) {
@@ -76,9 +74,7 @@ class ContactController extends Controller
             }
         }
 
-        // -------------------------
-        // SAVE TO DATABASE
-        // -------------------------
+
         try {
             Contact::create([
                 'type'    => 'contact',
@@ -98,9 +94,7 @@ class ContactController extends Controller
             ], 500);
         }
 
-        // -------------------------
-        // MAIL CONFIG
-        // -------------------------
+
         $activeSetting = $this->emailSettingService->getActive();
 
         if (!$activeSetting) {
@@ -123,9 +117,7 @@ class ContactController extends Controller
 
         $adminEmail = $activeSetting->admin_mail;
 
-        // -------------------------
-        // SEND MAIL
-        // -------------------------
+
         try {
             Mail::send('common::emails.admin-notification', $data, function ($mail) use ($adminEmail, $activeSetting, $request) {
 
@@ -167,8 +159,7 @@ class ContactController extends Controller
                 'exception' => $e,
             ]);
 
-            // Note: the contact was already saved to the DB above, so we don't
-            // fail the whole request just because the email didn't send.
+
             return response()->json([
                 'success' => true,
                 'message' => 'Your message has been saved. (Email notification failed, but your message was received.)',
