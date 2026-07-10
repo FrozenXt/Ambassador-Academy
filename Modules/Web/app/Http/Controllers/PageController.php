@@ -3,83 +3,35 @@
 namespace Modules\Web\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Modules\Common\Entities\Product;
-use Modules\Common\Entities\Album;
-use Modules\Common\Entities\Post;
+use Modules\Web\Services\PageService;
 
 class PageController extends Controller
 {
+    public function __construct(protected PageService $pageService) {}
+
     public function home()
     {
-        $categories = \Modules\Common\Entities\Category::where('status', 'active')
-            ->with(['products' => function ($q) {
-                $q->where('status', 'active')->orderBy('sort_order');
-            }])
-            ->orderBy('sort_order')
-            ->get();
-        $testimonials = \Modules\Common\Entities\Testimonial::latest()->get();
-        $banner = \Modules\Common\Entities\Album::where('code', 'banner')->first();
-        $bannerSlides = $banner ? $banner->gallery : collect();
-        $heroAlbum = \Modules\Common\Entities\Album::where('code', 'hero')->first();
-        $heroImages = $heroAlbum ? $heroAlbum->gallery : collect();
-
-        $whyChooseUsServices = \Modules\Common\Entities\Service::where('status', 'active')
-            ->where('type', 'Why People Choose Us?')
-            ->orderBy('order')
-            ->get();
-
-        $heroVideoAlbum = \Modules\Common\Entities\Album::where('code', 'home-video')->first();
-        $heroVideoItem = $heroVideoAlbum ? $heroVideoAlbum->gallery->first() : null;
-        return view('web::web.home', compact('categories', 'testimonials', 'bannerSlides', 'heroAlbum', 'heroImages', 'whyChooseUsServices', 'heroVideoItem'));
+        return view('web::web.home', $this->pageService->getHomeData());
     }
 
     public function about()
     {
-        $aboutAlbum = \Modules\Common\Entities\Album::where('code', 'aboutuus')->first();
-        $aboutImages = $aboutAlbum ? $aboutAlbum->gallery : collect();
-        $chefAlbum = \Modules\Common\Entities\Album::where('code', 'chef')->first();
-        $chefImages = $chefAlbum ? $chefAlbum->gallery : collect();
-
-        $aboutBrandPost = Post::where('code', 'first')->first();
-        $chairmanPost = Post::where('code', 'second')->first();
-
-        return view('web::web.about', compact('aboutAlbum', 'aboutImages', 'chefAlbum', 'chefImages', 'aboutBrandPost', 'chairmanPost'));
+        return view('web::web.about', $this->pageService->getAboutData());
     }
 
     public function menu()
     {
-        $categories = \Modules\Common\Entities\Category::where('status', 'active')
-            ->with(['products' => function ($q) {
-                $q->where('status', 'active')->orderBy('sort_order');
-            }])
-            ->orderBy('sort_order')
-            ->get();
-
-        return view('web::web.menu', compact('categories'));
+        return view('web::web.menu', $this->pageService->getMenuData());
     }
 
     public function gallery()
     {
-        $album = Album::where('code', 'gallery')
-            ->with(['galleries' => function ($query) {
-                $query->where('file_type', 'image')
-                    ->whereNotNull('path')
-                    ->where('path', '!=', '')
-                    ->where('status', 'active')
-                    ->orderBy('sort_order');
-            }])
-            ->first();
-
-        return view('web::web.gallery', compact('album'));
+        return view('web::web.gallery', $this->pageService->getGalleryData());
     }
 
     public function services()
     {
-        $services = \Modules\Common\Entities\Service::where('status', 'active')
-            ->orderBy('order')
-            ->get();
-
-        return view('web::web.services', compact('services'));
+        return view('web::web.services', $this->pageService->getServicesData());
     }
 
     public function contact()
