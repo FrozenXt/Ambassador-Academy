@@ -17,6 +17,7 @@ class ServiceRequest extends FormRequest
 
         return [
             'title'            => 'required|string|max:255',
+            'type'             => 'nullable|string|max:255',
             'slug'             => 'nullable|string|unique:services,slug' . ($serviceId ? ",$serviceId" : ''),
             'description'      => 'nullable|string|max:500',
             'content'          => 'nullable|string',

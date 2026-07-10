@@ -2,29 +2,39 @@
 <html lang="en">
 
 <head>
+    @php
+        $siteSettings = app(\Modules\Common\Services\SiteSettingService::class);
+    @endphp
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <title><?= $pageTitle ?? 'Sultan Arabic Restaurant' ?></title>
+    <title>{{ $pageTitle ?? $siteSettings->getByKey('meta_title', 'Sultan Arabic Restaurant') }}</title>
 
-    <meta name="description" content="<?= $pageDescription ?? 'Default website description.' ?>">
+    <meta name="description"
+        content="{{ $pageDescription ?? $siteSettings->getByKey('meta_description', 'Default website description.') }}">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index,follow">
     <meta name="rating" content="general">
     <meta name="abstract" content="Sultan Arabic Restaurant">
-    <meta name="keywords" content="<?= $pageKeywords ?? 'keyword1, keyword2' ?>">
+    <meta name="keywords"
+        content="{{ $pageKeywords ?? $siteSettings->getByKey('meta_keywords', 'keyword1, keyword2') }}">
     <meta name="author" content="Sultan Arabic Restaurant">
     <meta name="geo.region" content="NP">
     <meta name="geo.placename" content="Kathmandu">
     <meta name="ICBM" content="27.7172,85.3240">
-    <link rel="canonical" href="<?= $canonicalUrl ?? 'https://dev.sultansarabicrestro.com' ?>">
+    <link rel="canonical" href="{{ $canonicalUrl ?? url()->current() }}">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="<?= $pageTitle ?? 'Sultan Arabic Restaurant' ?>">
-    <meta property="og:description" content="<?= $pageDescription ?? '' ?>">
+    <meta property="og:title"
+        content="{{ $pageTitle ?? $siteSettings->getByKey('meta_title', 'Sultan Arabic Restaurant') }}">
+    <meta property="og:description" content="{{ $pageDescription ?? $siteSettings->getByKey('meta_description', '') }}">
     <meta property="og:type" content="website">
+
     <!-- Bootstrap 5 -->
-    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon"
+        href="{{ $siteSettings->getByKey('site_logo') ? Storage::url($siteSettings->getByKey('site_logo')) : asset('images/favicon.ico') }}"
+        type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicon-16x16.png') }}">
@@ -36,10 +46,24 @@
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <!-- ── Google reCAPTCHA v2 ── -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- ── Google Analytics (gtag.js) ── -->
+    @if ($siteSettings->getByKey('google_analytics'))
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $siteSettings->getByKey('google_analytics') }}">
+        </script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', '{{ $siteSettings->getByKey('google_analytics') }}');
+        </script>
+    @endif
 </head>
 
 <body>
-    <?php $currentPage = basename($_SERVER['PHP_SELF']); ?>
     <nav class="site-nav" aria-label="Main navigation">
         <div class="nav-inner">
             <ul class="nav-links">
@@ -62,7 +86,8 @@
                 </li>
                 <div class="nav-logo">
                     <a href="{{ route('home') }}" class="logo-badge">
-                        <img src="{{ asset('images/logo.png') }}" alt="Sultan Arabic" title="Sultan Arabic">
+                        <img src="{{ $siteSettings->getByKey('site_logo') ? Storage::url($siteSettings->getByKey('site_logo')) : asset('images/logo.png') }}"
+                            alt="Sultan Arabic" title="Sultan Arabic">
                     </a>
                 </div>
                 <ul class="nav-links">
@@ -95,7 +120,8 @@
     <aside class="sidebar" id="sidebar" aria-hidden="true">
         <div class="sidebar-head">
             <div class="sidebar-logo">
-                <img src="{{ asset('images/logo.png') }}" alt="Sultan Arabic" title="Sultan Arabic">
+                <img src="{{ $siteSettings->getByKey('site_logo') ? Storage::url($siteSettings->getByKey('site_logo')) : asset('images/logo.png') }}"
+                    alt="Sultan Arabic" title="Sultan Arabic">
             </div>
             <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">
                 <iconify-icon icon="mingcute:close-fill"></iconify-icon>

@@ -29,95 +29,26 @@
     <div class="container position-relative z-1">
         <div class="row g-4 justify-content-center">
 
-            <div class="col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">
-                <div class="service-page-card reveal delay-1">
-                    <div class="service-card-inner">
-                        <div class="service-icon-wrap">
-                            <iconify-icon icon="material-symbols-light:menu-book-2"></iconify-icon>
+            @foreach ($services as $service)
+                <div class="col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">
+                    <div class="service-page-card reveal delay-{{ min($loop->iteration, 6) }}">
+                        <div class="service-card-inner">
+                            <div class="service-icon-wrap">
+                                @if (!empty($service->image))
+                                    <img src="{{ Storage::url($service->image) }}" alt="{{ $service->title }}"
+                                        style="width:100%;height:100%;object-fit:contain;">
+                                @elseif (!empty($service->icon))
+                                    <iconify-icon icon="{{ $service->icon }}"></iconify-icon>
+                                @endif
+                            </div>
+                            <h3 class="service-title">{{ $service->title }}</h3>
+                            <p class="service-desc">
+                                {{ $service->description }}
+                            </p>
                         </div>
-                        <h3 class="service-title">Menu: For Every Taste</h3>
-                        <p class="service-desc">
-                            Authentic cuisine, elegant surroundings, premium beverages, and
-                            world-class hospitality tailored to every palate.
-                        </p>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">
-                <div class="service-page-card reveal delay-2">
-                    <div class="service-card-inner">
-                        <div class="service-icon-wrap">
-                            <iconify-icon icon="material-symbols-light:menu-book-2"></iconify-icon>
-                        </div>
-                        <h3 class="service-title">Always Fresh Ingredients</h3>
-                        <p class="service-desc">
-                            We source the finest imported spices, herbs, and premium-grade produce
-                            daily to guarantee every plate is extraordinary.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">
-                <div class="service-page-card reveal delay-3">
-                    <div class="service-card-inner">
-                        <div class="service-icon-wrap">
-                            <iconify-icon icon="material-symbols:chef-hat"></iconify-icon>
-                        </div>
-                        <h3 class="service-title">Experienced Arabic Chefs</h3>
-                        <p class="service-desc">
-                            Our kitchen is led by seasoned masters of Levantine and Gulf cuisine,
-                            framed in Dubai's finest establishments.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">
-                <div class="service-page-card reveal delay-4">
-                    <div class="service-card-inner">
-                        <div class="service-icon-wrap">
-                            <iconify-icon icon="fluent:building-townhouse-32-filled"></iconify-icon>
-                        </div>
-                        <h3 class="service-title">Luxury Ambiance</h3>
-                        <p class="service-desc">
-                            Inspired by the grandeur of Arabian palaces - from the lighting to
-                            the tableware, every detail is curated for elegance.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">
-                <div class="service-page-card reveal delay-5">
-                    <div class="service-card-inner">
-                        <div class="service-icon-wrap">
-                            <iconify-icon icon="iconamoon:music-2-fill"></iconify-icon>
-                        </div>
-                        <h3 class="service-title">Live Entertainment</h3>
-                        <p class="service-desc">
-                            Experience vibrant DJ nights, oud performances, and exclusive
-                            cultural events.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">
-                <div class="service-page-card reveal delay-6">
-                    <div class="service-card-inner">
-                        <div class="service-icon-wrap">
-                            <iconify-icon icon="ph:cheers-fill"></iconify-icon>
-                        </div>
-                        <h3 class="service-title">Private Events &amp; Banquets</h3>
-                        <p class="service-desc">
-                            Corporate dinners, private functions, and memorable events -
-                            perfectly managed.
-                        </p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
 
         </div>
     </div>

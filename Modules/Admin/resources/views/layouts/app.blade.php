@@ -149,7 +149,7 @@
                         </li>
                         <li class="nav-header">CONTENT</li>
 
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ route('admin.pages.index') }}"
                                 class="nav-link {{ request()->is('admin/pages*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-file-alt"></i>
@@ -161,7 +161,7 @@
                                     @endif
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="{{ route('admin.posts.index') }}"
                                 class="nav-link {{ request()->is('admin/posts*') ? 'active' : '' }}">

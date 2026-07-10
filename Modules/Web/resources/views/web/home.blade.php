@@ -193,23 +193,18 @@
         {{-- Service cards --}}
         <div class="row justify-content-center">
 
-            @php
-                $services = [
-                    ['icon' => 's8.svg', 'title' => 'Menu For Every Taste'],
-                    ['icon' => 's7.svg', 'title' => 'Always Fresh Ingredients'],
-                    ['icon' => 's6.svg', 'title' => 'Experienced Arabic Chefs'],
-                ];
-            @endphp
-
-            @foreach ($services as $service)
+            @foreach ($whyChooseUsServices as $service)
                 <div class="col-12 col-md-4">
                     <div class="service-card reveal delay-4">
                         <div class="icon-wrap">
-                            <img src="{{ asset('images/' . $service['icon']) }}" alt="{{ $service['title'] }}">
+                            @if (!empty($service->image))
+                                <img src="{{ Storage::url($service->image) }}" alt="{{ $service->title }}">
+                            @elseif (!empty($service->icon))
+                                <iconify-icon icon="{{ $service->icon }}"></iconify-icon>
+                            @endif
                         </div>
-                        <div class="card-title-text">{{ $service['title'] }}</div>
-                        <div class="card-body-text">Authentic Cuisine, Elegant Surroundings, Premium Beverages, And
-                            World-Class Hospitality.</div>
+                        <div class="card-title-text">{{ $service->title }}</div>
+                        <div class="card-body-text">{{ $service->description }}</div>
                     </div>
                 </div>
             @endforeach
@@ -217,11 +212,11 @@
     </div><!-- /container -->
 
 </section>
-
 {{-- ── VIDEO SECTION ── --}}
 <section class="video-section section-padding">
     <video class="video-wrapper" autoplay muted loop playsinline>
-        <source src="{{ asset('images/v2.mp4') }}" type="video/mp4" />
+        <source src="{{ $heroVideoItem ? Storage::url($heroVideoItem->path) : asset('images/v2.mp4') }}"
+            type="video/mp4" />
     </video>
 
     <!-- Overlay -->
@@ -230,13 +225,12 @@
     <!-- Text content -->
     <div class="video-content">
         <h2 class="title reveal delay-1">
-            A Taste of Dubai, Now in Kathmandu
+            {{ $heroVideoItem->title ?? 'A Taste of Dubai, Now in Kathmandu' }}
         </h2>
 
         <!-- Description -->
         <p class="reveal delay-2">
-            Experience authentic Arabic fine dining, luxurious hospitality, live cultural performances, and
-            Kathmandu's largest rooftopbar-all in one extraordinary destination.
+            {{ $heroVideoItem->description ?? "Experience authentic Arabic fine dining, luxurious hospitality, live cultural performances, and Kathmandu's largest rooftopbar-all in one extraordinary destination." }}
         </p>
     </div>
 </section>

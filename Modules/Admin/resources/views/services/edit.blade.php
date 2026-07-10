@@ -363,6 +363,17 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="required-field">Service Type</label>
+                            <input type="text" name="type" value="{{ old('type', $service->type) }}"
+                                class="form-control form-control-lg @error('type') is-invalid @enderror" id="serviceType"
+                                placeholder="Enter service type" autofocus>
+                            @error('type')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <div class="help-text">This will be displayed as the main heading for the service.</div>
+                        </div>
+
+                        <div class="form-group">
                             <label>Slug / URL</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">

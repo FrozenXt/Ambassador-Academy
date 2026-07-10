@@ -21,9 +21,16 @@ class PageController extends Controller
         $banner = \Modules\Common\Entities\Album::where('code', 'banner')->first();
         $bannerSlides = $banner ? $banner->gallery : collect();
         $heroAlbum = \Modules\Common\Entities\Album::where('code', 'hero')->first();
-        $heroImages = $heroAlbum ? $heroAlbum->gallery : collect(); // same relationship name as banner — confirm once you share the Album model
+        $heroImages = $heroAlbum ? $heroAlbum->gallery : collect();
 
-        return view('web::web.home', compact('categories', 'testimonials', 'bannerSlides', 'heroAlbum', 'heroImages'));
+        $whyChooseUsServices = \Modules\Common\Entities\Service::where('status', 'active')
+            ->where('type', 'Why People Choose Us?')
+            ->orderBy('order')
+            ->get();
+
+        $heroVideoAlbum = \Modules\Common\Entities\Album::where('code', 'home-video')->first();
+        $heroVideoItem = $heroVideoAlbum ? $heroVideoAlbum->gallery->first() : null;
+        return view('web::web.home', compact('categories', 'testimonials', 'bannerSlides', 'heroAlbum', 'heroImages', 'whyChooseUsServices', 'heroVideoItem'));
     }
 
     public function about()
@@ -68,7 +75,11 @@ class PageController extends Controller
 
     public function services()
     {
-        return view('web::web.services');
+        $services = \Modules\Common\Entities\Service::where('status', 'active')
+            ->orderBy('order')
+            ->get();
+
+        return view('web::web.services', compact('services'));
     }
 
     public function contact()

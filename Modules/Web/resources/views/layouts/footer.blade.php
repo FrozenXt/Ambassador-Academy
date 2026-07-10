@@ -1,3 +1,7 @@
+@php
+    $siteSettings = app(\Modules\Common\Services\SiteSettingService::class);
+@endphp
+
 <!-- ── Footer SECTION ── -->
 <footer>
     <div class="container">
@@ -5,39 +9,40 @@
         <div class="footer-main text-center">
 
             <!-- Logo -->
-            <a href="index.php" class="footer-logo">
+            <a href="{{ route('home') }}" class="footer-logo">
                 <div class="logo-circle">
-                    <img src="{{ asset('images/logo.png') }}" alt="Sultan Arabic Restaurant">
+                    <img src="{{ $siteSettings->getByKey('site_logo') ? Storage::url($siteSettings->getByKey('site_logo')) : asset('images/logo.png') }}"
+                        alt="{{ $siteSettings->getByKey('site_name', "Sultan's Arabic Grill") }}">
                 </div>
                 <div class="text-center text-sm-start">
-                    <div class="logo-title">Sultan's Arabic Grill</div>
-                    <div class="logo-sub">Halal Arabic Dining Destination</div>
+                    <div class="logo-title">{{ $siteSettings->getByKey('site_name', "Sultan's Arabic Grill") }}</div>
+                    <div class="logo-sub">{{ $siteSettings->getByKey('site_sub', 'Halal Arabic Dining Destination') }}
+                    </div>
                 </div>
             </a>
 
             <!-- Tagline -->
             <p class="footer-tagline">
-                Kathmandu's premier luxury Arabic dining and premium social destination,
-                inspired by Dubai's world-class dining culture.
+                {{ $siteSettings->getByKey('site_description', "Kathmandu's premier luxury Arabic dining and premium social destination, inspired by Dubai's world-class dining culture.") }}
             </p>
 
             <!-- Social icons -->
             <div class="social-icons">
 
-                <!-- Facebook -->
-                <a class="social-btn" target="_blank" href="https://www.facebook.com/profile.php?id=61590732414617"
+                <a class="social-btn" target="_blank"
+                    href="{{ $siteSettings->getByKey('social_facebook', 'https://www.facebook.com/profile.php?id=61590732414617') }}"
                     aria-label="Facebook">
                     <iconify-icon icon="mynaui:facebook-solid"></iconify-icon>
                 </a>
 
-                <!-- Instagram -->
-                <a class="social-btn" target="_blank" href="https://www.instagram.com/sultansarabicgrill/"
+                <a class="social-btn" target="_blank"
+                    href="{{ $siteSettings->getByKey('social_instagram', 'https://www.instagram.com/sultansarabicgrill/') }}"
                     aria-label="Instagram">
                     <iconify-icon icon="lets-icons:insta-fill"></iconify-icon>
                 </a>
 
-                <!-- TikTok -->
-                <a class="social-btn" target="_blank" href="https://www.tiktok.com/@sultansarabicgrill"
+                <a class="social-btn" target="_blank"
+                    href="{{ $siteSettings->getByKey('social_tiktok', 'https://www.tiktok.com/@sultansarabicgrill') }}"
                     aria-label="TikTok">
                     <iconify-icon icon="prime:tiktok"></iconify-icon>
                 </a>
@@ -48,12 +53,22 @@
         <!-- Bottom bar -->
         <div
             class="footer-bottom d-flex flex-wrap justify-content-center justify-content-md-between align-items-center">
-            <span class="footer-copy">© <?php echo date('Y'); ?> <strong>Sultan's Arabic Grill</strong>. All rights
-                reserved.</span>
+            <span class="footer-copy">
+                {!! $siteSettings->getByKey(
+                    'footer_text',
+                    '© ' .
+                        date('Y') .
+                        ' <strong>' .
+                        $siteSettings->getByKey('site_name', "Sultan's Arabic Grill") .
+                        '</strong>. All rights reserved.',
+                ) !!}
+            </span>
             <span class="footer-dev">Developed By: <a href="https://bentraytech.com/" target="_blank">Bent Ray
                     Technologies</a></span>
         </div>
     </div>
+
+    <!-- ── Course/Menu Tab Toggle (used on Home + Menu pages) ── -->
     <style>
         .course-tab-wrapper {
             display: none;
@@ -87,14 +102,12 @@
             });
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{{ asset('js/iconify-icon.min.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
 </footer>
-<!-- Bootstrap 5 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Swiper 11 -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<!-- reCAPTCHA script -->
-<script src="{{ asset('js/iconify-icon.min.js') }}"></script>
-<script src="{{ asset('js/custom.js') }}"></script>
 </body>
 
 </html>

@@ -33,6 +33,7 @@ class SiteSettingController extends Controller
     {
         $data = $request->only([
             'site_name',
+            'site_sub',
             'site_email',
             'site_phone',
             'site_telephone',

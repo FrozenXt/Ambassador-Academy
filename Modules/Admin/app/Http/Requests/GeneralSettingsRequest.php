@@ -15,6 +15,7 @@ class GeneralSettingsRequest extends FormRequest
     {
         return [
             'site_name'        => 'required|string|max:255',
+            'site_sub'     => 'nullable|string|max:255',
             'site_email'       => 'nullable|email',
             'site_phone'       => 'nullable|string|max:20',
             'site_address'     => 'nullable|string|max:255',

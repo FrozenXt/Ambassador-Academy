@@ -13,6 +13,7 @@ class Service extends Model
 
     protected $fillable = [
         'title',
+        'type',
         'slug',
         'description',
         'content',
@@ -29,6 +30,7 @@ class Service extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
         'deleted_at' => 'datetime',
+        'type' => 'string',
     ];
 
     /**

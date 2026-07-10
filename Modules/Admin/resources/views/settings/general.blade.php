@@ -41,6 +41,18 @@
                         </div>
                     </div>
 
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Site Sub-Name <span class="text-danger">*</span></label>
+                            <input type="text" name="site_sub" value="{{ old('site_sub', $s['site_sub']->value ?? '') }}"
+                                class="form-control @error('site_sub') is-invalid @enderror"
+                                placeholder="Enter site sub-name">
+                            @error('site_sub')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                     <!-- Site Email -->
                     <div class="col-md-6">
                         <div class="form-group">
