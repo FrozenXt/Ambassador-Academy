@@ -15,38 +15,37 @@ class PageService
      */
     public function getHomeData(): array
     {
-        $categories = Category::where('status', 'active')
-            ->with(['products' => function ($q) {
-                $q->where('status', 'active')->orderBy('sort_order');
-            }])
-            ->orderBy('sort_order')
-            ->get();
+        $bannerAlbum = \Modules\Common\Entities\Album::where('code', 'banner')->first();
+        $bannerItem = $bannerAlbum ? $bannerAlbum->gallery->first() : null;
 
-        $testimonials = Testimonial::latest()->get();
+        $heroAlbum = \Modules\Common\Entities\Album::where('code', 'hero')->first();
+        $heroBottleBack = $heroAlbum ? $heroAlbum->gallery->first() : null;
+        $heroBottleFront = $heroAlbum ? $heroAlbum->gallery->skip(1)->first() : null;
+        $storyPost = \Modules\Common\Entities\Post::where('code', 'story')->first();
 
-        $banner = Album::where('code', 'banner')->first();
-        $bannerSlides = $banner ? $banner->gallery : collect();
-
-        $heroAlbum = Album::where('code', 'hero')->first();
-        $heroImages = $heroAlbum ? $heroAlbum->gallery : collect();
-
-        $whyChooseUsServices = Service::where('status', 'active')
-            ->where('type', 'Why People Choose Us?')
+        $revealFeatures = \Modules\Common\Entities\Service::where('status', 'active')
+            ->where('type', 'hero')
             ->orderBy('order')
             ->get();
 
-        $heroVideoAlbum = Album::where('code', 'home-video')->first();
-        $heroVideoItem = $heroVideoAlbum ? $heroVideoAlbum->gallery->first() : null;
 
-        return compact(
-            'categories',
-            'testimonials',
-            'bannerSlides',
-            'heroAlbum',
-            'heroImages',
-            'whyChooseUsServices',
-            'heroVideoItem'
-        );
+        $papasFeatures = \Modules\Common\Entities\Service::where('status', 'active')
+            ->where('type', 'features')
+            ->orderBy('order')
+            ->get();
+        $menuCategory = \Modules\Common\Entities\Category::where('name', 'menu')
+            ->where('status', 'active')
+            ->with(['products' => function ($q) {
+                $q->where('status', 'active')->orderBy('sort_order')->take(4);
+            }])
+            ->first();
+
+        $galleryAlbum = \Modules\Common\Entities\Album::where('code', 'gallery')->first();
+        $galleryImages = $galleryAlbum ? $galleryAlbum->gallery : collect();
+        $menuAlbum = \Modules\Common\Entities\Album::where('code', 'menu')->first();
+        $menuGalleryImages = $menuAlbum ? $menuAlbum->gallery->take(2) : collect();
+
+        return compact('bannerItem', 'heroBottleBack', 'heroBottleFront', 'papasFeatures', 'revealFeatures', 'storyPost', 'menuCategory', 'menuGalleryImages', 'galleryImages');
     }
 
     /**
