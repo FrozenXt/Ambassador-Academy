@@ -11,6 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/iconify@1.0.7/dist/iconify.min.css" rel="stylesheet">
 
     <style>
         #quill-editor {
@@ -280,7 +281,7 @@
                     <div class="card card-info card-outline mt-3">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="fas fa-icons mr-2"></i> Font Awesome Icon
+                                <i class="fas fa-icons mr-2"></i> Font Awesome Icon or Iconify Icon
                             </h3>
                         </div>
                         <div class="card-body">
@@ -295,6 +296,11 @@
                                     <i class="fas fa-info-circle"></i>
                                     <a href="https://fontawesome.com/icons" target="_blank" rel="noopener">
                                         Browse Font Awesome Icons
+                                    </a>
+                                    <br>
+                                    <i class="fas fa-info-circle"></i>
+                                    <a href="https://icon-sets.iconify.design/" target="_blank" rel="noopener">
+                                        Browse Iconify Icons
                                     </a>
                                 </div>
                             </div>
