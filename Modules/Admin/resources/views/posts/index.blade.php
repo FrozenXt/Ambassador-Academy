@@ -2,9 +2,9 @@
 @section('page_title', 'Posts')
 
 @section('page_actions')
-    <a href="{{ route('admin.posts.trash') }}" class="btn btn-outline-danger btn-sm mr-2">
+    {{-- <a href="{{ route('admin.posts.trash') }}" class="btn btn-outline-danger btn-sm mr-2">
         <i class="fas fa-trash mr-1"></i> Trash
-    </a>
+    </a> --}}
     <a href="{{ route('admin.posts.create') }}" class="btn btn-primary btn-sm">
         <i class="fas fa-plus mr-1"></i> New Post
     </a>
@@ -176,6 +176,83 @@
         </div>
     </div>
 
+@endsection
+
+@section('extra_css')
+    <style>
+        #postsTable_wrapper {
+            display: block;
+            padding: 0.9rem 1rem;
+        }
+
+        /* the "Search" + length controls DataTables renders above the table */
+        #postsTable_wrapper .dataTables_length,
+        #postsTable_wrapper .dataTables_filter {
+            margin-bottom: 0.85rem;
+        }
+
+        /* info text + pagination rendered below the table */
+        #postsTable_wrapper .dataTables_info,
+        #postsTable_wrapper .dataTables_paginate {
+            margin-top: 0.85rem;
+        }
+
+
+        #postsTable_wrapper .dataTables_paginate {
+            float: right;
+            text-align: right;
+            width: auto;
+        }
+
+        #postsTable_wrapper .dataTables_paginate .pagination {
+            justify-content: flex-end;
+            margin: 0;
+        }
+
+        /* info text floats left of it on the same row */
+        #postsTable_wrapper .dataTables_info {
+            float: left;
+        }
+
+        #postsTable_wrapper::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        #postsTable_wrapper .dataTables_length select {
+            display: inline-block;
+            width: auto;
+            margin: 0 0.35rem;
+        }
+
+        /* the info banner + table sit directly above the wrapper's own
+                                   top padding, so remove any double gap between them */
+        #postsTable_wrapper>table.dataTable {
+            margin-top: 0 !important;
+        }
+
+        @media (max-width: 575.98px) {
+
+            #postsTable_wrapper .dataTables_length,
+            #postsTable_wrapper .dataTables_filter,
+            #postsTable_wrapper .dataTables_info {
+                text-align: left;
+                float: none !important;
+            }
+
+
+            #postsTable_wrapper .dataTables_paginate {
+                float: none !important;
+                text-align: right;
+                margin-top: 0.5rem;
+            }
+
+            #postsTable_wrapper .dataTables_paginate .pagination {
+                justify-content: flex-end;
+            }
+        }
+    </style>
 @endsection
 
 @section('extra_js')

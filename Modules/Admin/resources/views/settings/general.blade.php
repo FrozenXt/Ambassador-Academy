@@ -5,9 +5,9 @@
     <button type="submit" form="settingsForm" class="btn btn-primary btn-sm">
         <i class="fas fa-save mr-1"></i> Save Changes
     </button>
-    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#resetModal">
+    {{-- <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#resetModal">
         <i class="fas fa-undo mr-1"></i> Reset
-    </button>
+    </button> --}}
 @endsection
 
 @section('admin_content')

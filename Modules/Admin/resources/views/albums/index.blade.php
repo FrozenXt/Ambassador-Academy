@@ -2,6 +2,12 @@
 
 @section('page_title', 'Albums')
 
+@section('page_actions')
+    <a href="{{ route('admin.albums.create') }}" class="btn btn-primary btn-sm">
+        <i class="fas fa-plus mr-1"></i> Add New Album
+    </a>
+@endsection
+
 @section('admin_content')
     <div class="container-fluid">
 
@@ -50,17 +56,12 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <div class="card card-outline card-primary">
 
                     <div class="card-header">
                         <h3 class="card-title">
                             <i class="fas fa-book-open mr-2"></i> Manage Albums
                         </h3>
-                        <div class="card-tools">
-                            <a href="{{ route('admin.albums.create') }}" class="btn btn-primary btn-sm">
-                                <i class="fas fa-plus"></i> Add New Album
-                            </a>
-                        </div>
                     </div>
 
                     <div class="card-body">
@@ -70,7 +71,7 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <input type="text" name="search" value="{{ request('search') }}"
-                                        class="form-control" placeholder="Search by title or slug...">
+                                        class="form-control" placeholder="Search by title, slug, or code...">
                                 </div>
 
                                 <div class="col-md-3">
@@ -112,6 +113,7 @@
                                     <th width="50">ID</th>
                                     <th width="80">Cover</th>
                                     <th>Title</th>
+                                    <th>Code</th>
                                     <th>Slug</th>
                                     <th width="100">Status</th>
                                     <th width="100">Featured</th>
@@ -131,8 +133,20 @@
                                         <td>{{ $album->id }}</td>
 
                                         <td>
-                                            <img src="{{ $album->cover_image_url }}"
-                                                style="width:50px;height:50px;object-fit:cover;border-radius:5px;">
+                                            @if (!empty($album->cover_image))
+                                                <img src="{{ $album->cover_image }}" alt="{{ $album->title }}"
+                                                    style="width:50px;height:50px;object-fit:cover;border-radius:5px;"
+                                                    onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='flex';">
+                                                <div class="album-cover-placeholder"
+                                                    style="display:none;width:50px;height:50px;background:#f4f6f9;border-radius:5px;align-items:center;justify-content:center;color:#c2c7d0;">
+                                                    <i class="fas fa-image"></i>
+                                                </div>
+                                            @else
+                                                <div class="album-cover-placeholder"
+                                                    style="width:50px;height:50px;background:#f4f6f9;border-radius:5px;display:flex;align-items:center;justify-content:center;color:#c2c7d0;">
+                                                    <i class="fas fa-image"></i>
+                                                </div>
+                                            @endif
                                         </td>
 
                                         <td>
@@ -140,6 +154,15 @@
                                             @if ($album->description)
                                                 <br>
                                                 <small class="text-muted">{{ Str::limit($album->description, 50) }}</small>
+                                            @endif
+                                        </td>
+
+                                        <td>
+                                            @if ($album->code)
+                                                <span class="badge badge-dark"><i
+                                                        class="fas fa-code mr-1"></i>{{ $album->code }}</span>
+                                            @else
+                                                <span class="text-muted">—</span>
                                             @endif
                                         </td>
 
@@ -182,7 +205,9 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="9" class="text-center">No albums found.</td>
+                                        <td colspan="10" class="text-center py-4 text-muted">
+                                            <i class="fas fa-info-circle mr-1"></i> No albums found.
+                                        </td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -214,17 +239,14 @@
     <script>
         $(document).ready(function() {
 
-            /* =========================
-               DATATABLE (FULL FEATURED)
-               ========================= */
             $('#albumsTable').DataTable({
                 paging: true,
                 searching: true,
                 info: true,
                 lengthChange: true,
                 pageLength: 10,
-                ordering: false, // important (because drag sort)
-                dom: 'lfrtip', // length, filter, table, info, pagination
+                ordering: false,
+                dom: 'lfrtip',
                 language: {
                     search: "Search albums:",
                     lengthMenu: "Show _MENU_ albums",
@@ -232,9 +254,6 @@
                 }
             });
 
-            /* =========================
-               DRAG SORT (UNCHANGED)
-               ========================= */
             const tbody = document.getElementById('sortableAlbums');
 
             new Sortable(tbody, {
@@ -268,7 +287,6 @@
                         error: function() {
                             toastr.error('Error updating sort order');
                         }
-
                     });
                 }
             });

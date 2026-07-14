@@ -19,6 +19,9 @@ class SocialSettingsRequest extends FormRequest
             'instagram_url' => 'nullable|url',
             'youtube_url'   => 'nullable|url',
             'linkedin_url'  => 'nullable|url',
+            'whatsapp_url'  => 'nullable|url',
+            'viber_url'     => 'nullable|url',
+            'tiktok_url'    => 'nullable|url',
         ];
     }
 }

@@ -70,6 +70,9 @@ class SiteSettingController extends Controller
             'instagram_url',
             'youtube_url',
             'linkedin_url',
+            'whatsapp_url',
+            'viber_url',
+            'tiktok_url',
         ]));
 
         return back()->with('success', 'Social settings updated successfully.');

@@ -75,6 +75,45 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><i class="fab fa-whatsapp text-success mr-2"></i> What'sApp URL</label>
+                            <input type="url" name="whatsapp_url"
+                                value="{{ old('whatsapp_url', $s['whatsapp_url']->value ?? '') }}"
+                                class="form-control @error('whatsapp_url') is-invalid @enderror"
+                                placeholder="https://wa.me/yourphonenumber" />
+                            @error('whatsapp_url')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label> <i class="fab fa-viber mr-2" style="color:#7360F2;"></i> Viber</label>
+                            <input type="url" name="viber_url"
+                                value="{{ old('viber_url', $s['viber_url']->value ?? '') }}"
+                                class="form-control @error('viber_url') is-invalid @enderror"
+                                placeholder="https://invite.viber.com/yourphonenumber" />
+                            @error('viber_url')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>
+                                <i class="fab fa-tiktok mr-2"></i>
+                                TikTok
+                            </label>
+                            <input type="url" name="tiktok_url"
+                                value="{{ old('tiktok_url', $s['tiktok_url']->value ?? '') }}"
+                                class="form-control @error('tiktok_url') is-invalid @enderror"
+                                placeholder="https://www.tiktok.com/@yourusername" />
+                            @error('tiktok_url')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
                 <hr>
                 <button type="submit" class="btn btn-info">

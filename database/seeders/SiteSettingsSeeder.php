@@ -25,6 +25,9 @@ class SiteSettingsSeeder extends Seeder
             ['key' => 'instagram_url', 'value' => '#', 'group' => 'social', 'type' => 'url'],
             ['key' => 'youtube_url',   'value' => '#', 'group' => 'social', 'type' => 'url'],
             ['key' => 'linkedin_url',  'value' => '#', 'group' => 'social', 'type' => 'url'],
+            ['key' => 'whatsapp_url',  'value' => '#', 'group' => 'social', 'type' => 'url'],
+            ['key' => 'viber_url',     'value' => '#', 'group' => 'social', 'type' => 'url'],
+            ['key' => 'tiktok_url',    'value' => '#', 'group' => 'social', 'type' => 'url'],
 
             // SEO
             ['key' => 'meta_title',       'value' => 'My CMS',        'group' => 'seo', 'type' => 'text'],
