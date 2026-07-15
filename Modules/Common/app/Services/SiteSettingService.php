@@ -33,18 +33,16 @@ class SiteSettingService
 
     public function updateGeneral(array $data, $logo = null, $favicon = null)
     {
-        // Handle logo
         if ($logo && $logo instanceof \Illuminate\Http\UploadedFile) {
             $data['site_logo'] = $logo->store('settings', 'public');
         } else if (is_string($logo)) {
-            $data['site_logo'] = $logo; // keep old value
+            $data['site_logo'] = $logo;
         }
 
-        // Handle favicon
         if ($favicon && $favicon instanceof \Illuminate\Http\UploadedFile) {
             $data['site_favicon'] = $favicon->store('settings', 'public');
         } else if (is_string($favicon)) {
-            $data['site_favicon'] = $favicon; // keep old value
+            $data['site_favicon'] = $favicon;
         }
 
         foreach ($data as $key => $value) {
@@ -54,11 +52,20 @@ class SiteSettingService
             );
         }
     }
-    public function updateSocial(array $data)
+
+    public function updateSocial(array $data, array $activeStates = [])
     {
         foreach ($data as $key => $value) {
             $this->repository->updateOrCreate($key, $value, 'social', 'url');
+            $this->repository->setActive($key, isset($activeStates[$key]));
         }
+        $this->clearCache();
+        return true;
+    }
+
+    public function addSetting(string $group, string $key, string $value, ?string $icon = null, string $type = 'url')
+    {
+        $this->repository->updateOrCreate($key, $value, $group, $type, $icon);
         $this->clearCache();
         return true;
     }
@@ -101,5 +108,12 @@ class SiteSettingService
     private function clearCache()
     {
         Cache::forget('site_settings');
+    }
+
+    public function deleteSetting(string $key): bool
+    {
+        $result = $this->repository->deleteByKey($key);
+        $this->clearCache();
+        return $result;
     }
 }

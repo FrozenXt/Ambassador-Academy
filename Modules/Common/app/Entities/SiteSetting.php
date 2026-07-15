@@ -13,6 +13,11 @@ class SiteSetting extends Model
         'value',
         'group',
         'type',
+        'icon',
+        'is_active'
+    ];
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 
     public static function get(string $key, $default = null)

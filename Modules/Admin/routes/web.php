@@ -341,6 +341,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 Route::get('/footer',         [SiteSettingController::class, 'footer'])->name('footer');
                 Route::post('/footer',        [SiteSettingController::class, 'updateFooter'])->name('footer.update');
                 Route::post('/reset/{group}', [SiteSettingController::class, 'reset'])->name('reset');
+                Route::post('/social/store', [SiteSettingController::class, 'storeSocial'])
+                    ->name('social.store');
+                Route::delete('social/{key}', [SiteSettingController::class, 'destroySocial'])
+                    ->name('social.destroy');
             });
         });
 });

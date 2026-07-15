@@ -64,7 +64,11 @@ class SiteSettingController extends Controller
 
     public function updateSocial(SocialSettingsRequest $request)
     {
-        $this->service->updateSocial($request->only([
+        // Pull ALL existing social keys (built-in + custom) from DB,
+        // so nothing gets silently skipped on save.
+        $existingKeys = $this->service->getByGroup('social')->pluck('key');
+
+        $knownKeys = [
             'facebook_url',
             'twitter_url',
             'instagram_url',
@@ -73,11 +77,37 @@ class SiteSettingController extends Controller
             'whatsapp_url',
             'viber_url',
             'tiktok_url',
-        ]));
+        ];
+
+        $allKeys = collect($knownKeys)
+            ->merge($existingKeys)
+            ->unique()
+            ->values();
+
+        $urls = [];
+        foreach ($allKeys as $key) {
+            $urls[$key] = $request->input($key, '');
+        }
+
+        $activeStates = $request->input('is_active', []); // unchecked boxes just won't appear here
+
+        $this->service->updateSocial($urls, $activeStates);
 
         return back()->with('success', 'Social settings updated successfully.');
     }
 
+    public function storeSocial(Request $request)
+    {
+        $validated = $request->validate([
+            'key'   => 'required|string|max:255|alpha_dash|unique:site_settings,key',
+            'value' => 'required|url',
+            'icon'  => 'nullable|string|max:255',
+        ]);
+
+        $this->service->addSetting('social', $validated['key'], $validated['value'], $validated['icon'] ?? null);
+
+        return back()->with('success', 'New social media link added.');
+    }
     // SEO Settings
     public function seo()
     {
@@ -130,5 +160,11 @@ class SiteSettingController extends Controller
     {
         $this->service->resetGroup($group);
         return back()->with('success', ucfirst($group) . ' settings reset to default.');
+    }
+    public function destroySocial(string $key)
+    {
+        $this->service->deleteSetting($key);
+
+        return back()->with('success', 'Social media link deleted.');
     }
 }

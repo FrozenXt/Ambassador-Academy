@@ -2,6 +2,7 @@
 // service service interface
 
 namespace Modules\Common\Services;
+
 use Illuminate\Http\UploadedFile;
 
 interface ServiceServiceInterface

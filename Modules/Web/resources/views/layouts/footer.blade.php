@@ -68,12 +68,21 @@
 
             <div class="col-12 col-md-4">
                 <div class="social-row">
-                    <a href="{{ $siteSettings->getByKey('social_instagram', '#') }}"
-                        aria-label="Instagram"><iconify-icon icon="mdi:instagram"></iconify-icon></a>
-                    <a href="{{ $siteSettings->getByKey('social_facebook', '#') }}" aria-label="Facebook"><iconify-icon
-                            icon="ic:outline-facebook"></iconify-icon></a>
-                    <a href="{{ $siteSettings->getByKey('social_whatsapp', '#') }}" aria-label="WhatsApp"><iconify-icon
-                            icon="mingcute:whatsapp-line"></iconify-icon></a>
+                    @php
+                        $activeSocialLinks = $siteSettings
+                            ->getByGroup('social')
+                            ->filter(fn($link) => $link->is_active && !empty($link->value));
+                    @endphp
+
+                    @foreach ($activeSocialLinks as $link)
+                        @php
+                            $label = ucwords(str_replace(['_url', '_'], ['', ' '], $link->key));
+                            $iconName = $link->icon ?: 'mdi:link-variant';
+                        @endphp
+                        <a href="{{ $link->value }}" aria-label="{{ $label }}" target="_blank" rel="noopener">
+                            <iconify-icon icon="{{ $iconName }}"></iconify-icon>
+                        </a>
+                    @endforeach
                 </div>
             </div>
         </div>

@@ -28,12 +28,24 @@ class SiteSettingRepository implements SiteSettingRepositoryInterface
         return $this->model->where('key', $key)->first();
     }
 
-    public function updateOrCreate(string $key, $value, string $group = 'general', string $type = 'text')
+    public function updateOrCreate(string $key, $value, string $group, string $type = 'text', ?string $icon = null)
     {
-        return $this->model->updateOrCreate(
-            ['key'   => $key],
-            ['value' => $value, 'group' => $group, 'type' => $type]
+        $data = ['value' => $value, 'group' => $group, 'type' => $type];
+
+        if ($icon !== null) {
+            $data['icon'] = $icon;
+        }
+
+        return \Modules\Common\Entities\SiteSetting::updateOrCreate(
+            ['key' => $key],
+            $data
         );
+    }
+
+    public function setActive(string $key, bool $active): void
+    {
+        \Modules\Common\Entities\SiteSetting::where('key', $key)
+            ->update(['is_active' => $active]);
     }
 
     public function updateGroup(string $group, array $data)
@@ -51,5 +63,9 @@ class SiteSettingRepository implements SiteSettingRepositoryInterface
             $query->where('group', $group);
         }
         return $query->update(['value' => null]);
+    }
+    public function deleteByKey(string $key): bool
+    {
+        return \Modules\Common\Entities\SiteSetting::where('key', $key)->delete(); // permanent, no SoftDeletes trait = hard delete
     }
 }
