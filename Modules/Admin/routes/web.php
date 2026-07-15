@@ -27,6 +27,7 @@ use Modules\Admin\Http\Controllers\BlogCategoryController;
 use Modules\Admin\Http\Controllers\BlogController;
 use Modules\Admin\Http\Controllers\BrochureController;
 use Modules\Admin\Http\Controllers\PostController;
+use Modules\Admin\Http\Controllers\AccountController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -133,7 +134,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 Route::post('/sort-order',              [GalleryController::class, 'updateSortOrder'])->name('sort-order');
             });
 
-
+            Route::prefix('account')->name('account.')->middleware(['web', 'auth'])->group(function () {
+                Route::get('/', [AccountController::class, 'edit'])->name('edit');
+                Route::put('/', [AccountController::class, 'update'])->name('update');
+                Route::get('change-password', [AccountController::class, 'showChangePassword'])->name('change-password');
+                Route::put('change-password', [AccountController::class, 'updatePassword'])->name('update-password');
+                Route::get('change-email', [AccountController::class, 'showChangeEmail'])->name('change-email');
+                Route::put('change-email', [AccountController::class, 'updateEmail'])->name('update-email');
+            });
 
 
             // ── Pages ──

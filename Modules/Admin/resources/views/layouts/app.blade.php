@@ -137,11 +137,28 @@
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <span class="nav-link text-muted">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"
+                        aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-user-circle mr-1"></i>
                         {{ session('admin_name') }}
-                    </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        {{-- <a href="{{ route('admin.account.edit') }}" class="dropdown-item">
+                            <i class="fas fa-user-edit mr-2 text-muted"></i> Account Settings
+                        </a> --}}
+                        <a href="{{ route('admin.account.change-password') }}" class="dropdown-item">
+                            <i class="fas fa-key mr-2 text-muted"></i> Change Password
+                        </a>
+                        <a href="{{ route('admin.account.change-email') }}" class="dropdown-item">
+                            <i class="fas fa-envelope mr-2 text-muted"></i> Change Email
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item text-danger"
+                            onclick="event.preventDefault(); document.getElementById('admin-logout-form').submit();">
+                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                        </a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <form action="{{ route('admin.logout') }}" method="POST" id="admin-logout-form">
@@ -492,6 +509,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
     @yield('extra_js')
