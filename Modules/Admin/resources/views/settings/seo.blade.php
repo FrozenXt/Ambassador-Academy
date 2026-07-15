@@ -33,10 +33,12 @@
                         placeholder="keyword1, keyword2, keyword3" />
                 </div>
                 <div class="form-group">
-                    <label>Google Analytics Code</label>
-                    <textarea name="google_analytics" rows="6" class="form-control" style="font-family:monospace;font-size:13px;"
-                        placeholder="<!-- Google Analytics script -->">{{ old('google_analytics', $s['google_analytics']->value ?? '') }}</textarea>
-                    <small class="text-muted">Paste your full Google Analytics script here.</small>
+                    <label>Google Analytics Measurement ID</label>
+                    <input type="text" name="google_analytics" class="form-control"
+                        style="font-family:monospace;font-size:13px;" placeholder="G-XXXXXXXXXX"
+                        value="{{ old('google_analytics', $s['google_analytics']->value ?? '') }}">
+                    <small class="text-muted">Enter your GA4 Measurement ID only (e.g. G-XXXXXXXXXX) — not the full
+                        script.</small>
                 </div>
                 <hr>
                 <button type="submit" class="btn btn-success">

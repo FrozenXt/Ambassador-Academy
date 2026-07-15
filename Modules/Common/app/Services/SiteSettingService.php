@@ -66,7 +66,7 @@ class SiteSettingService
     public function updateSeo(array $data)
     {
         foreach ($data as $key => $value) {
-            $type = in_array($key, ['meta_description', 'google_analytics']) ? 'textarea' : 'text';
+            $type = $key === 'meta_description' ? 'textarea' : 'text';
             $this->repository->updateOrCreate($key, $value, 'seo', $type);
         }
         $this->clearCache();

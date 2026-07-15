@@ -21,6 +21,7 @@ class Gallery extends Model
         'path',           // file path (image/video)
         'youtube_url',
         'description',
+        'subtitle',
         // 'image_path',
         'image_alt',
         'sort_order',

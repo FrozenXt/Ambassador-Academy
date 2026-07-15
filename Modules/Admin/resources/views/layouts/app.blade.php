@@ -10,6 +10,111 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/adminlte.min.css') }}">
+
+    <style>
+        /* ── RESPONSIVE FIXES ── */
+
+        /* Prevent any element from causing horizontal scroll on small screens */
+        html,
+        body {
+            overflow-x: hidden;
+        }
+
+        /* Content header: stack title and actions on small screens instead of
+           title-left / actions-float-right colliding */
+        @media (max-width: 767px) {
+            .content-header .row>.col-sm-6:first-child {
+                margin-bottom: 8px;
+            }
+
+            .content-header .float-right {
+                float: none !important;
+            }
+
+            .content-header h1 {
+                font-size: 1.3rem;
+            }
+
+            .content-header .float-right .btn,
+            .content-header .float-right a.btn {
+                margin-bottom: 6px;
+            }
+        }
+
+        /* Sidebar brand + user panel: prevent long site names / emails from
+           overflowing and breaking the sidebar width */
+        .brand-text,
+        .user-panel .info span,
+        .user-panel .info small {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 160px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        /* Sidebar nav badges: keep them from wrapping oddly on narrow sidebar */
+        .nav-sidebar .badge.right {
+            flex-shrink: 0;
+        }
+
+        /* Cards / tables: force horizontal scroll INSIDE the card instead of
+           the whole page overflowing on mobile (belt-and-braces; most tables
+           should already be wrapped in .table-responsive individually) */
+        @media (max-width: 767px) {
+            .card-body table:not(.table-responsive table) {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        /* Small-box / info-box stat cards: ensure comfortable tap targets and
+           spacing when stacked 2-per-row on phones */
+        @media (max-width: 575px) {
+            .small-box .inner h3 {
+                font-size: 1.6rem;
+            }
+
+            .small-box .inner p {
+                font-size: .75rem;
+            }
+
+            .small-box .icon {
+                font-size: 2.4rem;
+            }
+        }
+
+        /* Buttons in card-tools / page_actions: wrap instead of overflowing
+           off-screen on narrow viewports */
+        .card-tools,
+        .content-header .float-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: flex-end;
+        }
+
+        /* Navbar top-right admin name: hide the long email/name text on very
+           small screens, keep just the icon + logout visible */
+        @media (max-width: 400px) {
+            .main-header .navbar-nav .nav-link.text-muted {
+                display: none;
+            }
+        }
+
+        /* Footer: stack version info under copyright on small screens instead
+           of float-right overlapping the text */
+        @media (max-width: 575px) {
+            .main-footer .float-right {
+                float: none !important;
+                display: block;
+                margin-top: 4px;
+            }
+        }
+    </style>
+
     @yield('extra_css')
 </head>
 
@@ -118,8 +223,6 @@
                             </li>
                         @endif
 
-                        {{-- <li class="nav-header">CATALOGUE</li> --}}
-
                         {{-- Categories --}}
                         <li class="nav-item">
                             <a href="/admin/categories"
@@ -149,19 +252,6 @@
                         </li>
                         <li class="nav-header">CONTENT</li>
 
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('admin.pages.index') }}"
-                                class="nav-link {{ request()->is('admin/pages*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-file-alt"></i>
-                                <p>Pages
-                                    @if (\Modules\Common\Entities\Page::count() > 0)
-                                        <span class="badge badge-info right">
-                                            {{ \Modules\Common\Entities\Page::count() }}
-                                        </span>
-                                    @endif
-                                </p>
-                            </a>
-                        </li> --}}
                         <li class="nav-item">
                             <a href="{{ route('admin.posts.index') }}"
                                 class="nav-link {{ request()->is('admin/posts*') ? 'active' : '' }}">
@@ -175,19 +265,6 @@
                                 </p>
                             </a>
                         </li>
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('admin.media.index') }}"
-                                class="nav-link {{ request()->is('admin/media*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-photo-video"></i>
-                                <p>Media Library
-                                    @if (\Modules\Common\Entities\Media::count() > 0)
-                                        <span class="badge badge-info right">
-                                            {{ \Modules\Common\Entities\Media::count() }}
-                                        </span>
-                                    @endif
-                                </p>
-                            </a>
-                        </li> --}}
 
                         <li class="nav-item">
                             <a href="{{ route('admin.albums.index') }}"
@@ -210,35 +287,6 @@
                                 </span>
                             </a>
                         </li>
-
-
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('admin.banners.index') }}"
-                                class="nav-link {{ request()->is('admin/banners*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-images"></i>
-                                <p>Gallery
-                                    @if (\Modules\Common\Entities\Banner::count() > 0)
-                                        <span class="badge badge-info right">
-                                            {{ \Modules\Common\Entities\Banner::count() }}
-                                        </span>
-                                    @endif
-                                </p>
-                            </a>
-                        </li> --}}
-
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('admin.menus.index') }}"
-                                class="nav-link {{ request()->is('admin/menus*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-bars"></i>
-                                <p>Menus
-                                    @if (\Modules\Common\Entities\Menu::count() > 0)
-                                        <span class="badge badge-info right">
-                                            {{ \Modules\Common\Entities\Menu::count() }}
-                                        </span>
-                                    @endif
-                                </p>
-                            </a>
-                        </li> --}}
 
                         <li class="nav-item">
                             <a href="{{ route('admin.services.index') }}"
@@ -278,30 +326,6 @@
                             </a>
                         </li>
 
-                        {{-- Booking Messages --}}
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('admin.contacts.index', ['source' => 'booking']) }}"
-                                class="nav-link {{ request()->get('source') == 'booking' ? 'active' : '' }}">
-
-                                <i class="nav-icon fas fa-calendar-check"></i>
-
-                                <p>
-                                    Book Now Messages
-
-                                    @php
-                                        $bookingUnread = \Modules\Common\Entities\Contact::whereNotNull('model')
-                                            ->where('status', 'unread')
-                                            ->count();
-                                    @endphp
-
-                                    @if ($bookingUnread > 0)
-                                        <span class="badge badge-danger right">
-                                            {{ $bookingUnread }}
-                                        </span>
-                                    @endif
-                                </p>
-                            </a>
-                        </li> --}}
                         <li class="nav-item">
                             <a href="{{ route('admin.testimonials.index') }}"
                                 class="nav-link {{ request()->is('admin/testimonials*') ? 'active' : '' }}">
@@ -314,142 +338,6 @@
                                 </p>
                             </a>
                         </li>
-
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('admin.events.index') }}"
-                                class="nav-link {{ request()->is('admin/events*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-calendar-alt"></i>
-                                <p>Events & Announcements
-                                    @php $eventCount = \Modules\Common\Entities\Event::where('is_featured', true)->count(); @endphp
-                                    @if ($eventCount > 0)
-                                        <span class="badge badge-info right">{{ $eventCount }}</span>
-                                    @endif
-                                </p>
-                            </a>
-                        </li> --}}
-
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('admin.notices.index') }}"
-                                class="nav-link {{ request()->is('admin/notice*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-calendar-alt"></i>
-                                <p>Notice and News
-                                    @php $noticeCount = \Modules\Common\Entities\Notice::where('is_featured', true)->count(); @endphp
-                                    @if ($noticeCount > 0)
-                                        <span class="badge badge-info right">{{ $noticeCount }}</span>
-                                    @endif
-                                </p>
-                            </a>
-                        </li> --}}
-
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('admin.clients.index') }}"
-                                class="nav-link {{ request()->is('admin/clients*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>
-                                    Clients
-                                    @php $clientCount = \Modules\Common\Entities\Client::where('is_active', true)->count(); @endphp
-                                    @if ($clientCount > 0)
-                                        <span class="badge badge-info right">{{ $clientCount }}</span>
-                                    @endif
-                                </p>
-                            </a>
-                        </li> --}}
-
-                        {{-- <li class="nav-header">BLOG</li>
-
-                        <li class="nav-item {{ request()->is('admin/blogs*') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link {{ request()->is('admin/blogs*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-blog"></i>
-                                <p>
-                                    Blog
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.blogs.index') }}"
-                                        class="nav-link {{ request()->is('admin/blogs') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>All Posts</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.blogs.create') }}"
-                                        class="nav-link {{ request()->is('admin/blogs/create') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add New Post</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.blog-categories.index') }}"
-                                        class="nav-link {{ request()->is('admin/blog-categories*') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Categories</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('admin.blogs.trash') }}"
-                                        class="nav-link {{ request()->is('admin/blogs/trash') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Trash</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> --}}
-
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('admin.faqs.index') }}"
-                                class="nav-link {{ request()->is('admin/faqs*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-question-circle"></i>
-                                <p>FAQs
-                                    @if (\Modules\Common\Entities\Faq::count() > 0)
-                                        <span class="badge badge-info right">
-                                            {{ \Modules\Common\Entities\Faq::count() }}
-                                        </span>
-                                    @endif
-                                </p>
-                            </a>
-                        </li> --}}
-
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('admin.counters.index') }}"
-                                class="nav-link {{ request()->is('admin/counters*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-sort-numeric-up"></i>
-                                <p>Counters
-                                    @if (\Modules\Common\Entities\Counter::count() > 0)
-                                        <span class="badge badge-info right">
-                                            {{ \Modules\Common\Entities\Counter::count() }}
-                                        </span>
-                                    @endif
-                                </p>
-                            </a>
-                        </li> --}}
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('admin.brochures.index') }}"
-                                class="nav-link {{ request()->is('admin/brochures*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-sort-numeric-up"></i>
-                                <p>Brochures
-                                    @if (\Modules\Common\Entities\Brochure::count() > 0)
-                                        <span class="badge badge-info right">
-                                            {{ \Modules\Common\Entities\Brochure::count() }}
-                                        </span>
-                                    @endif
-                                </p>
-                            </a>
-                        </li> --}}
-                        {{-- <li class="nav-item">
-                            <a href="{{ route('admin.pricings.index') }}"
-                                class="nav-link {{ request()->is('admin/pricings*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-sort-numeric-up"></i>
-                                <p>Pricings
-                                    @if (\Modules\Common\Entities\Pricing::count() > 0)
-                                        <span class="badge badge-info right">
-                                            {{ \Modules\Common\Entities\Pricing::count() }}
-                                        </span>
-                                    @endif
-                                </p>
-                            </a>
-                        </li> --}}
 
                         @php
                             $adminUser = \Modules\Common\Entities\User::find(session('admin_id'));
@@ -538,7 +426,7 @@
         <div class="content-wrapper">
             <div class="content-header">
                 <div class="container-fluid">
-                    <div class="row mb-2">
+                    <div class="row mb-2 align-items-center">
                         <div class="col-sm-6">
                             <h1 class="m-0">@yield('page_title', 'Dashboard')</h1>
                         </div>

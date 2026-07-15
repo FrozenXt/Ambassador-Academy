@@ -36,6 +36,12 @@
                             </div>
 
                             <div class="form-group">
+                                <label>Subtitle</label>
+                                <input type="text" name="subtitle" class="form-control"
+                                    value="{{ old('subtitle', $gallery->subtitle) }}">
+                            </div>
+
+                            <div class="form-group">
                                 <label>Description</label>
                                 <textarea name="description" rows="4" class="form-control">{{ old('description', $gallery->description) }}</textarea>
                             </div>

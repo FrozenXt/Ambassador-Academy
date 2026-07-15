@@ -2,9 +2,23 @@
 <html lang="en">
 
 <head>
+    @php
+        $siteSettings = app(\Modules\Common\Services\SiteSettingService::class);
+    @endphp
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Papa's Bar and Grill</title>
+    <title>{{ $pageTitle ?? $siteSettings->getByKey('meta_title', "Papa's Bar and Grill") }}</title>
+
+    <meta name="description" content="{{ $pageDescription ?? $siteSettings->getByKey('meta_description', '') }}">
+    <meta name="keywords" content="{{ $pageKeywords ?? $siteSettings->getByKey('meta_keywords', '') }}">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+        content="{{ $pageTitle ?? $siteSettings->getByKey('meta_title', "Papa's Bar and Grill") }}">
+    <meta property="og:description" content="{{ $pageDescription ?? $siteSettings->getByKey('meta_description', '') }}">
+    <meta property="og:type" content="website">
 
     <!-- Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet" />
@@ -21,6 +35,24 @@
     <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}" />
+
+    <!-- ── Google Analytics (gtag.js) ── -->
+    @if ($siteSettings->getByKey('google_analytics'))
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $siteSettings->getByKey('google_analytics') }}">
+        </script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', '{{ $siteSettings->getByKey('google_analytics') }}');
+        </script>
+    @endif
+
+    <!-- ── Custom Header Scripts (raw HTML/JS from admin) ── -->
+    {!! $siteSettings->getByKey('header_scripts', '') !!}
 </head>
 
 <body>
@@ -117,9 +149,12 @@
                 <p class="hero-eyebrow" id="heroEyebrow">
                     {{ $bannerItem->title ?? 'Premium Grills • Signature Cocktails • Unforgettable Nights' }}
                 </p>
+
                 <h1 class="hero-heading" id="heroHeading">
-                    {{ $bannerItem->description ?? "Kathmandu's Largest" }}<br /><em>Rooftop Bar &amp; Grill</em>
+                    {{ $bannerItem->subtitle ?? "Kathmandu's Largest" }}<br />
+                    <em>{{ $bannerItem->description ?? 'Rooftop Bar & Grill' }}</em>
                 </h1>
+
                 <a href="{{ $bannerItem->youtube_link ?? '#reveal' }}" class="btn-gold" id="heroBtn">
                     <span>Explore Now</span>
                 </a>

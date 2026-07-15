@@ -39,6 +39,16 @@
                                 @enderror
                             </div>
 
+                            <div class="form-group">
+                                <label for="subtitle">Subtitle</label>
+                                <input type="text" class="form-control @error('subtitle') is-invalid @enderror"
+                                    id="subtitle" name="subtitle" value="{{ old('subtitle') }}"
+                                    placeholder="Enter image subtitle">
+                                @error('subtitle')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+
                             {{-- DESCRIPTION --}}
                             <div class="form-group">
                                 <label for="description">Description</label>

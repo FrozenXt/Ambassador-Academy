@@ -33,7 +33,7 @@ class SiteSettingsSeeder extends Seeder
             ['key' => 'meta_title',       'value' => 'My CMS',        'group' => 'seo', 'type' => 'text'],
             ['key' => 'meta_description', 'value' => 'My CMS Website', 'group' => 'seo', 'type' => 'textarea'],
             ['key' => 'meta_keywords',    'value' => 'cms, website',   'group' => 'seo', 'type' => 'text'],
-            ['key' => 'google_analytics', 'value' => null,             'group' => 'seo', 'type' => 'textarea'],
+            ['key' => 'google_analytics', 'value' => null,             'group' => 'seo', 'type' => 'text'],
 
             // Header & Footer
             ['key' => 'header_scripts', 'value' => null, 'group' => 'scripts', 'type' => 'textarea'],

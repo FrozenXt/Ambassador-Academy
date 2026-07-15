@@ -69,17 +69,7 @@
                     </div>
                     <div class="card-body">
 
-                        <div class="form-group">
-                            <label class="font-weight-bold">
-                                Title <span class="text-danger">*</span>
-                            </label>
-                            <input type="text" name="title" id="titleInput" value="{{ old('title', $post->title) }}"
-                                class="form-control form-control-lg @error('title') is-invalid @enderror"
-                                placeholder="Post title..." required />
-                            @error('title')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+
                         <div class="form-group">
                             <label class="font-weight-bold">
                                 Title <span class="text-danger">*</span>

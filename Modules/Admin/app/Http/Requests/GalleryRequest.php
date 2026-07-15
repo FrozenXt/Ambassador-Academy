@@ -27,6 +27,7 @@ class GalleryRequest extends FormRequest
 
             // CONTENT
             'title' => 'nullable|string|max:255',
+            'subtitle' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'image_alt' => 'nullable|string|max:255',
 

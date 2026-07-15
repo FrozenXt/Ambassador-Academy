@@ -43,7 +43,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Site Sub-Name <span class="text-danger">*</span></label>
+                            <label>Site Sub-Name </label>
                             <input type="text" name="site_sub" value="{{ old('site_sub', $s['site_sub']->value ?? '') }}"
                                 class="form-control @error('site_sub') is-invalid @enderror"
                                 placeholder="Enter site sub-name">
