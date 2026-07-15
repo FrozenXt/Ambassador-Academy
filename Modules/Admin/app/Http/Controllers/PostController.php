@@ -86,7 +86,7 @@ class PostController extends Controller
             Storage::disk('public')->delete($post->image);
         }
 
-        $post->forceDelete(); // permanent delete, bypasses soft-delete entirely
+        $post->forceDelete();
 
         return redirect()
             ->route('admin.posts.index')
