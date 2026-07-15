@@ -1,79 +1,101 @@
 @php
     $siteSettings = app(\Modules\Common\Services\SiteSettingService::class);
+    $logoUrl = $siteSettings->getByKey('site_logo')
+        ? Storage::url($siteSettings->getByKey('site_logo'))
+        : asset('image/logo.png');
 @endphp
 
-<!-- ── Footer SECTION ── -->
-<footer>
+
+<footer class="site-footer section-padding pb-0">
     <div class="container">
-        <!-- Main content -->
-        <div class="footer-main text-center">
-
-            <!-- Logo -->
-            <a href="{{ route('home') }}" class="footer-logo">
-                <div class="logo-circle">
-                    <img src="{{ $siteSettings->getByKey('site_logo') ? Storage::url($siteSettings->getByKey('site_logo')) : asset('images/logo.png') }}"
-                        alt="{{ $siteSettings->getByKey('site_name', "Sultan's Arabic Grill") }}">
+        <div class="row row-cols-1 row-cols-md-4 g-0 text-center footer-top">
+            <div class="col info-col">
+                <div class="info-item">
+                    <iconify-icon icon="fluent:call-20-regular"></iconify-icon>
+                    <h3>Contact Us</h3>
+                    <p>{{ $siteSettings->getByKey('site_phone', '014507444, 014509444') }}</p>
+                    <a href="tel:{{ $siteSettings->getByKey('site_phone', '014507444') }}" class="btn-outline-gold">Call
+                        Us Here</a>
                 </div>
-                <div class="text-center text-sm-start">
-                    <div class="logo-title">{{ $siteSettings->getByKey('site_name', "Sultan's Arabic Grill") }}</div>
-                    <div class="logo-sub">{{ $siteSettings->getByKey('site_sub', 'Halal Arabic Dining Destination') }}
-                    </div>
+            </div>
+
+            <div class="col info-col">
+                <div class="info-item">
+                    <iconify-icon icon="weui:location-outlined"></iconify-icon>
+                    <h3>Address</h3>
+                    <p>{{ $siteSettings->getByKey('site_address', 'Lazimpat, Kathmandu, Nepal') }}</p>
+                    <a href="{{ $siteSettings->getByKey('google_map_link', '#') }}" class="btn-outline-gold">Get
+                        Direction</a>
                 </div>
-            </a>
+            </div>
 
-            <!-- Tagline -->
-            <p class="footer-tagline">
-                {{ $siteSettings->getByKey('site_description', "Kathmandu's premier luxury Arabic dining and premium social destination, inspired by Dubai's world-class dining culture.") }}
-            </p>
+            <div class="col info-col">
+                <div class="info-item">
+                    <iconify-icon icon="streamline-cyber:email-2"></iconify-icon>
+                    <h3>Email Address</h3>
+                    <p>{{ $siteSettings->getByKey('site_email', 'info@papabargrill.com') }}</p>
+                    <a href="mailto:{{ $siteSettings->getByKey('site_email', 'info@papabargrill.com') }}"
+                        class="btn-outline-gold">Message Us</a>
+                </div>
+            </div>
 
-            <!-- Social icons -->
-            <div class="social-icons">
-
-                <a class="social-btn" target="_blank"
-                    href="{{ $siteSettings->getByKey('social_facebook', 'https://www.facebook.com/profile.php?id=61590732414617') }}"
-                    aria-label="Facebook">
-                    <iconify-icon icon="mynaui:facebook-solid"></iconify-icon>
-                </a>
-
-                <a class="social-btn" target="_blank"
-                    href="{{ $siteSettings->getByKey('social_instagram', 'https://www.instagram.com/sultansarabicgrill/') }}"
-                    aria-label="Instagram">
-                    <iconify-icon icon="lets-icons:insta-fill"></iconify-icon>
-                </a>
-
-                <a class="social-btn" target="_blank"
-                    href="{{ $siteSettings->getByKey('social_tiktok', 'https://www.tiktok.com/@sultansarabicgrill') }}"
-                    aria-label="TikTok">
-                    <iconify-icon icon="prime:tiktok"></iconify-icon>
-                </a>
-
+            <div class="col info-col">
+                <div class="info-item">
+                    <iconify-icon icon="fe:clock"></iconify-icon>
+                    <h3>Opening Hours</h3>
+                    <p>
+                        {{ $siteSettings->getByKey('opening_hours_weekday', 'Mon &ndash; Sun:') }}<br>
+                        {{ $siteSettings->getByKey('opening_hours_weekend', '9:30 am &ndash; 12:30 am') }}
+                    </p>
+                </div>
             </div>
         </div>
 
-        <!-- Bottom bar -->
-        <div
-            class="footer-bottom d-flex flex-wrap justify-content-center justify-content-md-between align-items-center">
-            <span class="footer-copy">
-                {!! $siteSettings->getByKey(
-                    'footer_text',
-                    '© ' .
-                        date('Y') .
-                        ' <strong>' .
-                        $siteSettings->getByKey('site_name', "Sultan's Arabic Grill") .
-                        '</strong>. All rights reserved.',
-                ) !!}
-            </span>
-            <span class="footer-dev">Developed By: <a href="https://bentraytech.com/" target="_blank">Bent Ray
-                    Technologies</a></span>
+        <div class="row align-items-center middle-row">
+            <div class="col-12 col-md-4">
+                <p class="footer-copy">
+                    &copy; {{ date('Y') }} <span
+                        class="accent">{{ $siteSettings->getByKey('site_name', "Papa's bar and grill") }}</span>.
+                    All rights reserved.
+                </p>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="brand-badge">
+                    <img src="{{ $logoUrl }}" alt="">
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+                <div class="social-row">
+                    <a href="{{ $siteSettings->getByKey('social_instagram', '#') }}"
+                        aria-label="Instagram"><iconify-icon icon="mdi:instagram"></iconify-icon></a>
+                    <a href="{{ $siteSettings->getByKey('social_facebook', '#') }}" aria-label="Facebook"><iconify-icon
+                            icon="ic:outline-facebook"></iconify-icon></a>
+                    <a href="{{ $siteSettings->getByKey('social_whatsapp', '#') }}" aria-label="WhatsApp"><iconify-icon
+                            icon="mingcute:whatsapp-line"></iconify-icon></a>
+                </div>
+            </div>
         </div>
+
+        <p class="footer-credit">Developed By: <a href="https://bentraytech.com/">Bent Ray Technologies</a>
+        </p>
     </div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="{{ asset('js/iconify-icon.min.js') }}"></script>
-    <script src="{{ asset('js/custom.js') }}"></script>
 </footer>
+</div>
+
+<!-- Scripts -->
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
+<script src="{{ asset('js/iconify-icon.min.js') }}"></script>
+<script src="{{ asset('js/gsap.min.js') }}"></script>
+<script src="{{ asset('js/ScrollTrigger.min.js') }}"></script>
+<script src="{{ asset('js/text-split.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<script src="{{ asset('js/custom.js') }}"></script>
+
+<!-- ── Custom Footer Scripts (raw HTML/JS from admin) ── -->
+{!! $siteSettings->getByKey('footer_scripts', '') !!}
 </body>
 
 </html>

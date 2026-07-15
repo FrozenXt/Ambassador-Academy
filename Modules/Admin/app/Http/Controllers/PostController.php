@@ -104,7 +104,12 @@ class PostController extends Controller
                 Rule::unique('posts', 'slug')->ignore($ignoreId),
             ],
             'position'          => 'nullable|string|max:255',
-            'code'              => 'nullable|string|max:255|unique:posts,code',
+            'code'              => [
+                'nullable',
+                'string',
+                'max:255',
+                Rule::unique('posts', 'code')->ignore($ignoreId),
+            ],
             'description'       => 'nullable|string',
             'content'           => 'nullable|string',
             'image'             => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
@@ -116,6 +121,7 @@ class PostController extends Controller
             'meta_description'  => 'nullable|string|max:500',
         ]);
     }
+
     public function toggleFeatured($id)
     {
         $post = Post::findOrFail($id);

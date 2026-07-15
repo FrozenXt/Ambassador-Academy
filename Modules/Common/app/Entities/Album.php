@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 
 class Album extends Model
 {
-    use SoftDeletes;
 
     protected $table = 'albums';
 

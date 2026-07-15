@@ -2,10 +2,22 @@
 <html lang="en">
 
 <head>
+    @php
+        $siteSettings = app(\Modules\Common\Services\SiteSettingService::class);
+        $faviconUrl = $siteSettings->getByKey('site_favicon')
+            ? Storage::url($siteSettings->getByKey('site_favicon'))
+            : asset('image/favicon.ico');
+    @endphp
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Admin Panel | @yield('page_title', 'Dashboard')</title>
+
+    <!-- ── Favicon (dynamic) ── -->
+    <link rel="icon" type="image/x-icon" href="{{ $faviconUrl }}">
+    <link rel="shortcut icon" href="{{ $faviconUrl }}">
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
