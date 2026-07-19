@@ -25,8 +25,10 @@ class ContactController extends Controller
         $settings = SiteSetting::whereIn('key', ['recaptcha_site_key'])
             ->get()
             ->keyBy('key');
+        $contactAlbum = \Modules\Common\Entities\Album::where('code', 'contact')->first();
+        $contactImage = $contactAlbum ? $contactAlbum->gallery->first() : null;
 
-        return view('web::web.contact', compact('settings'));
+        return view('web::web.contact', compact('settings', 'contactAlbum', 'contactImage'));
     }
 
     public function process(Request $request)

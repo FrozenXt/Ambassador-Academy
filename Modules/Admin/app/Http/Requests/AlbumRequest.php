@@ -29,6 +29,7 @@ class AlbumRequest extends FormRequest
                 'max:255',
                 Rule::unique('albums', 'slug')->ignore($albumId),
             ],
+            'is_gallery_category' => 'boolean',
 
             'description' => 'nullable|string|max:5000',
             'status' => 'required|in:active,inactive',

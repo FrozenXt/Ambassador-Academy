@@ -77,6 +77,30 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Second Image</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" name="image_2"
+                                        class="custom-file-input @error('image_2') is-invalid @enderror"
+                                        accept="image/jpeg,image/png,image/gif,image/svg+xml" id="categoryImage2"
+                                        onchange="previewImage(this, 'categoryPreview2')" />
+                                    <label class="custom-file-label" for="categoryImage2">
+                                        Choose image...
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="text-muted">JPG, PNG, GIF or SVG. Max 2MB.</small>
+                            @error('image_2')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
+                            <div class="mt-3">
+                                <img id="categoryPreview2" src="#" class="d-none"
+                                    style="width:120px;height:120px;object-fit:cover;border-radius:8px;" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <hr>
                 <button type="submit" class="btn btn-primary">

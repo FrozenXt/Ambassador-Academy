@@ -367,7 +367,18 @@
                                 </p>
                             </a>
                         </li>
-
+                        <li class="nav-item">
+                            <a href="{{ route('admin.events.index') }}"
+                                class="nav-link {{ request()->is('admin/events*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-quote-left"></i>
+                                <p>Events
+                                    @php $eventCount = \Modules\Common\Entities\Event::where('is_featured', true)->count(); @endphp
+                                    @if ($eventCount > 0)
+                                        <span class="badge badge-info right">{{ $eventCount }}</span>
+                                    @endif
+                                </p>
+                            </a>
+                        </li>
                         @php
                             $adminUser = \Modules\Common\Entities\User::find(session('admin_id'));
                             $isSuperAdmin = $adminUser && $adminUser->hasRole('superadmin');

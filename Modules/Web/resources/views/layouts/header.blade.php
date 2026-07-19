@@ -128,7 +128,6 @@
                 <li><a href="{{ route('about') }}">About</a></li>
                 <li><a href="{{ route('menu') }}">Menu</a></li>
                 <li><a href="{{ route('gallery') }}">Gallery</a></li>
-                <li><a href="{{ route('services') }}">Services</a></li>
                 <li><a href="{{ route('contact') }}">Contacts</a></li>
             </ul>
             <p class="sidebar-footer">Luxury Arabic Dining · Kathmandu</p>

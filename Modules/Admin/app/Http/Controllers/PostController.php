@@ -36,15 +36,16 @@ class PostController extends Controller
             $validated['image'] = $request->file('image')->store('posts', 'public');
         }
 
+        if ($request->hasFile('image_2')) {
+            $validated['image_2'] = $request->file('image_2')->store('posts', 'public');
+        }
+
         $post = Post::create($validated);
 
         return redirect()
             ->route('admin.posts.index')
             ->with('success', 'Post created successfully.');
-
-        // or: return response()->json($post, 201);
     }
-
     public function show(Post $post)
     {
         return view('admin::posts.show', compact('post'));
@@ -71,13 +72,19 @@ class PostController extends Controller
             $validated['image'] = $request->file('image')->store('posts', 'public');
         }
 
+        if ($request->hasFile('image_2')) {
+            if ($post->image_2) {
+                Storage::disk('public')->delete($post->image_2);
+            }
+            $validated['image_2'] = $request->file('image_2')->store('posts', 'public');
+        }
+
         $post->update($validated);
 
         return redirect()
             ->route('admin.posts.index')
             ->with('success', 'Post updated successfully.');
     }
-
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
@@ -104,15 +111,17 @@ class PostController extends Controller
                 Rule::unique('posts', 'slug')->ignore($ignoreId),
             ],
             'position'          => 'nullable|string|max:255',
-            'code'              => [
+            'code' => [
                 'nullable',
-                'string',
-                'max:255',
-                Rule::unique('posts', 'code')->ignore($ignoreId),
+                'in:' . implode(',', array_keys(Post::POST_CODES)),
+                Rule::unique('posts', 'code')
+                    ->ignore($ignoreId)
+                    ->where(fn($q) => $q->whereNotNull('code')->where('code', '!=', '')),
             ],
             'description'       => 'nullable|string',
             'content'           => 'nullable|string',
             'image'             => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'image_2' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
             'status'            => 'required|in:draft,published',
             'is_featured'       => 'boolean',
             'sort_order'        => 'nullable|integer|min:0',
@@ -138,6 +147,17 @@ class PostController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Status updated.');
+    }
+    public function removeImage2($id)
+    {
+        $post = Post::findOrFail($id);
+
+        if ($post->image_2) {
+            Storage::disk('public')->delete($post->image_2);
+            $post->update(['image_2' => null]);
+        }
+
+        return redirect()->back()->with('success', 'Second image removed successfully.');
     }
 
     public function sortOrder(Request $request)

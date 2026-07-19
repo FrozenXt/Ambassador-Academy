@@ -33,14 +33,30 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="code">Code <span class="text-danger">*</span></label>
-
-                                <input type="text" class="form-control" value="{{ $album->code }}"
-                                    placeholder="e.g. banner, mgs6-hero, homepage-slider" readonly>
-
-                                <small class="form-text text-muted">
-                                    Unique identifier used to fetch this album in frontend.
-                                </small>
+                                <label for="code">Page Section (Code)</label>
+                                <select class="form-control @error('code') is-invalid @enderror" id="code"
+                                    name="code" {{ $album->code ? 'disabled' : '' }}>
+                                    @foreach (\Modules\Common\Entities\Album::ALBUM_CODES as $value => $label)
+                                        <option value="{{ $value }}"
+                                            {{ old('code', $album->code) === $value ? 'selected' : '' }}>
+                                            {{ $label }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @if ($album->code)
+                                    <input type="hidden" name="code" value="{{ $album->code }}">
+                                    <small class="form-text text-warning">
+                                        <i class="fas fa-lock mr-1"></i> This album is linked to a live page section and its
+                                        code is locked. Contact your developer if this needs to change.
+                                    </small>
+                                @else
+                                    <small class="form-text text-muted">
+                                        Only choose a section if this album should feed a specific part of the website.
+                                    </small>
+                                @endif
+                                @error('code')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
@@ -90,7 +106,19 @@
                                 </div>
                                 <small class="form-text text-muted">Featured albums will be shown on homepage</small>
                             </div>
-
+                            <div class="form-group">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="is_gallery_category"
+                                        name="is_gallery_category" value="1"
+                                        {{ old('is_gallery_category', $album->is_gallery_category ?? false) ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="is_gallery_category">
+                                        <i class="fas fa-filter text-info"></i> Show as a filter tab on the Gallery page
+                                    </label>
+                                </div>
+                                <small class="form-text text-muted">
+                                    turn this on if you want to show the types in gallery page
+                                </small>
+                            </div>
                             <div class="form-group">
                                 <label for="sort_order">Sort Order</label>
                                 <input type="number" class="form-control @error('sort_order') is-invalid @enderror"

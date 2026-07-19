@@ -12,6 +12,7 @@ window.addEventListener("scroll", () => {
     }
 });
 
+
 /* ===========================================================
    SIDEBAR
 =========================================================== */
@@ -38,27 +39,16 @@ if (hamburgerBtn && sidebar && sidebarClose) {
     hamburgerBtn.addEventListener("click", openSidebar);
     sidebarClose.addEventListener("click", closeSidebar);
 
-    sidebar.querySelectorAll("a").forEach((link) => {
+    sidebar.querySelectorAll("a").forEach(link => {
         link.addEventListener("click", closeSidebar);
     });
 
-    document.addEventListener("keydown", (e) => {
+    document.addEventListener("keydown", e => {
         if (e.key === "Escape") {
             closeSidebar();
         }
     });
 }
-
-/* ===========================================================
-   REVEAL SECTION - CONTENT REVEAL ON SCROLL
-
-   Each .reveal-item (bullet + heading + sub-copy) is hidden, then
-   animates in — bullet pops, heading slides up out of its
-   overflow:hidden clip, sub-copy fades up right behind it — as the
-   item scrolls into view. toggleActions "play reverse play reverse"
-   means scrolling back up un-reveals it again, so it's fully
-   reversible in both directions, item by item.
-=========================================================== */
 
 (function () {
     "use strict";
@@ -103,9 +93,139 @@ if (hamburgerBtn && sidebar && sidebarClose) {
     }
 })();
 
-/* ===========================================================
-   GALLERY FILMSTRIP (pinned scroll gallery)
-=========================================================== */
+(function () {
+    "use strict";
+
+    document.addEventListener("DOMContentLoaded", init);
+
+    function init() {
+        gsap.registerPlugin(ScrollTrigger);
+        initMenuContentReveal();
+        initMenuImageAppear();
+    }
+
+    // ---- Content: section titles + menu items fade/slide in per block ----
+    function initMenuContentReveal() {
+        const blocks = document.querySelectorAll(".menu-wrapper .col-lg-6, .aboutPage, .aboutFeature-strip, .content-wrapper, .gallery-section, .menuStage");
+        if (!blocks.length) return;
+
+        blocks.forEach((block) => {
+            const title = block.querySelector(".section-title");
+            const items = block.querySelectorAll(".menuPage-item, .aboutPage p, .amenity, .content-wrapper .contact-card, .gallery-item img, .content-col");
+            const targets = [title, ...items].filter(Boolean);
+            if (!targets.length) return;
+
+            gsap.set(targets, { opacity: 0, y: 30 });
+
+            gsap.to(targets, {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: "power3.out",
+                stagger: 0.12,
+                scrollTrigger: {
+                    trigger: block,
+                    start: "top 80%",
+                    toggleActions: "play reverse play reverse",
+                },
+            });
+        });
+    }
+
+    // ---- Images: scale down from --qode-apperar-scale to 1 on scroll ----
+    // ---- Images: emerge from center (clip-path circle grows) + scale settle ----
+    function initMenuImageAppear() {
+        const images = document.querySelectorAll(
+            ".menu-wrapper .img-frame img, .circle-shot img, .aboutPage-media img, .plate-wrap img, .photo-arch img"
+        );
+        if (!images.length) return;
+
+        images.forEach((img) => {
+            gsap.set(img, {
+                "--qode-apperar-scale": 1.15,
+                clipPath: "circle(0% at 50% 50%)",
+            });
+
+            gsap.to(img, {
+                "--qode-apperar-scale": 1,
+                clipPath: "circle(75% at 50% 50%)",
+                duration: 5,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: img,
+                    start: "top 85%",
+                    toggleActions: "play reverse play reverse",
+                },
+            });
+        });
+    }
+})();
+
+const eventSwiper = new Swiper(".event-swiper", {
+    loop: true,
+    speed: 900,
+    effect: "fade",
+
+    fadeEffect: {
+        crossFade: true,
+    },
+
+    autoplay: {
+        delay: 4500,
+        disableOnInteraction: false,
+    },
+
+    pagination: {
+        el: ".event-pagination",
+        clickable: true,
+        enabled: false, // desktop
+    },
+
+    navigation: {
+        prevEl: ".event-arrow.prev",
+        nextEl: ".event-arrow.next",
+        enabled: true, // desktop
+    },
+
+    breakpoints: {
+        0: {
+            navigation: {
+                enabled: false,
+            },
+            pagination: {
+                enabled: true,
+            },
+        },
+
+        768: {
+            navigation: {
+                enabled: true,
+            },
+            pagination: {
+                enabled: false,
+            },
+        },
+    },
+
+    on: {
+        slideChangeTransitionStart() {
+            document
+                .querySelectorAll(".event-swiper .swiper-slide")
+                .forEach((slide) => {
+                    slide
+                        .querySelectorAll(
+                            ".event-eyebrow, .event-title, .event-meta"
+                        )
+                        .forEach((el) => {
+                            el.style.animation = "none";
+                            el.offsetHeight;
+                            el.style.animation = "";
+                        });
+                });
+        },
+    },
+});
+
 
 (function () {
     "use strict";
@@ -149,7 +269,7 @@ if (hamburgerBtn && sidebar && sidebarClose) {
         syncFilmstripRect();
         window.addEventListener("load", syncFilmstripRect);
 
-        const SCROLL_LENGTH = "+=350%";
+        const SCROLL_LENGTH = "+=150%";
 
         let tl;
         function buildTimeline() {
@@ -288,11 +408,21 @@ if (hamburgerBtn && sidebar && sidebarClose) {
     } // end init
 })();
 
-/* ===========================================================
-   FEATURE RING CURVE LAYOUT (Responsive)
-=========================================================== */
-
 function positionFeatures() {
+    // Stop curve positioning on tablets & mobiles
+    if (window.innerWidth < 992) {
+
+        document.querySelectorAll(".feature").forEach(feature => {
+
+            gsap.set(feature, {
+                clearProps: "all"
+            });
+
+        });
+
+        return;
+    }
+
     const stage = document.getElementById("curveStage");
     if (!stage) return;
 
@@ -324,7 +454,7 @@ function positionFeatures() {
     // =============================
     if (window.innerWidth >= 1400) {
         rx = w * 0.75;
-        ry = h * 0.9;
+        ry = h * 0.90;
         topOffset = 30;
         start = Math.PI * 0.72;
         end = Math.PI * 0.28;
@@ -356,8 +486,8 @@ function positionFeatures() {
     // Tablet Portrait
     // =============================
     else if (window.innerWidth >= 768) {
-        rx = w * 0.6;
-        ry = h * 0.8;
+        rx = 768 * 0.99;
+        ry = h * 0.80;
         topOffset = 10;
         start = Math.PI * 0.75;
         end = Math.PI * 0.25;
@@ -386,8 +516,10 @@ function positionFeatures() {
     }
 
     features.forEach((feature, i) => {
-        const progress =
-            features.length === 1 ? 0.5 : i / (features.length - 1);
+
+        const progress = features.length === 1
+            ? 0.5
+            : i / (features.length - 1);
 
         const angle = start + (end - start) * progress;
 
@@ -398,8 +530,9 @@ function positionFeatures() {
             left: x,
             top: y + topOffset,
             xPercent: -50,
-            yPercent: -50,
+            yPercent: -50
         });
+
     });
 
     ScrollTrigger.refresh();
@@ -408,29 +541,14 @@ function positionFeatures() {
 window.addEventListener("load", positionFeatures);
 
 window.addEventListener("resize", () => {
+
     clearTimeout(window.featureResize);
 
     window.featureResize = setTimeout(() => {
         positionFeatures();
     }, 150);
+
 });
-
-/* ===========================================================
-   HALF-SHAPE SCROLL ZOOM
-
-   Hero's dome (.half-circle / .half-circlebg) grows 1x -> 5x as
-   the hero section scrolls out of view, then shrinks back to 1x
-   if the user scrolls back up — pure scrub, no manual reverse
-   logic needed.
-
-   The curve section's arc (.half-curve) does the reverse: it
-   starts at 5x and scales down to 1x as the curve section scrolls
-   into view, growing back to 5x if scrolled back up past it.
-
-   Both zoom zones line up with the hero->reveal and reveal->curve
-   bottle legs below (same one-viewport-tall boundary zones), so
-   the zoom and the bottle travel happen together.
-=========================================================== */
 
 (function () {
     "use strict";
@@ -486,17 +604,6 @@ window.addEventListener("resize", () => {
     }
 })();
 
-/* ===========================================================
-   SITE-WIDE CONTENT REVEAL
-
-   Hero content fades/slides in once on load (it's visible from the
-   very first frame, so there's nothing to scroll into). Everything
-   further down the page — curve features, story copy, menu, footer —
-   fades/slides up as it scrolls into view, and reverses back out if
-   scrolled back above it, same reversible pattern as the reveal
-   section above.
-=========================================================== */
-
 (function () {
     "use strict";
 
@@ -513,11 +620,7 @@ window.addEventListener("resize", () => {
 
     // Hide elements, then reveal them (staggered) when `trigger` scrolls
     // to `start`; reverses when scrolled back above it.
-    function revealOnScroll(
-        els,
-        trigger,
-        { start = "top 85%", y = 30, stagger = 0.12 } = {},
-    ) {
+    function revealOnScroll(els, trigger, { start = "top 85%", y = 30, stagger = 0.12 } = {}) {
         const targets = gsap.utils.toArray(els).filter(Boolean);
         if (!targets.length) return;
 
@@ -565,11 +668,7 @@ window.addEventListener("resize", () => {
 
         // Animate the ring + label only, never the .feature wrapper itself —
         // positionFeatures() owns that element's transform for layout.
-        gsap.set(rings, {
-            opacity: 0,
-            scale: 0.5,
-            transformOrigin: "center center",
-        });
+        gsap.set(rings, { opacity: 0, scale: 0.5, transformOrigin: "center center" });
         gsap.set(labels, { opacity: 0, y: 10 });
 
         const tl = gsap.timeline({
@@ -588,13 +687,7 @@ window.addEventListener("resize", () => {
             stagger: 0.08,
         }).to(
             labels,
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.4,
-                ease: "power2.out",
-                stagger: 0.08,
-            },
+            { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", stagger: 0.08 },
             "-=0.35",
         );
     }
@@ -621,25 +714,11 @@ window.addEventListener("resize", () => {
 
         const title = menuSection.querySelector(".menu-title");
         const menuItems = menuSection.querySelectorAll(".menu-item");
-        const galleryImgs = menuSection.querySelectorAll(
-            ".menu-gallery .g-img",
-        );
+        const galleryImgs = menuSection.querySelectorAll(".menu-gallery .g-img");
 
-        revealOnScroll(title, menuSection, {
-            start: "top 75%",
-            y: 24,
-            stagger: 0,
-        });
-        revealOnScroll(menuItems, menuSection, {
-            start: "top 70%",
-            y: 26,
-            stagger: 0.12,
-        });
-        revealOnScroll(galleryImgs, menuSection, {
-            start: "top 65%",
-            y: 40,
-            stagger: 0.15,
-        });
+        revealOnScroll(title, menuSection, { start: "top 75%", y: 24, stagger: 0 });
+        revealOnScroll(menuItems, menuSection, { start: "top 70%", y: 26, stagger: 0.12 });
+        revealOnScroll(galleryImgs, menuSection, { start: "top 65%", y: 40, stagger: 0.15 });
     }
 
     // ---- Footer: info columns + bottom row ----
@@ -650,45 +729,10 @@ window.addEventListener("resize", () => {
         const infoItems = footer.querySelectorAll(".info-item");
         const middleRow = footer.querySelectorAll(".middle-row > div");
 
-        revealOnScroll(infoItems, footer, {
-            start: "top 85%",
-            y: 26,
-            stagger: 0.12,
-        });
-        revealOnScroll(middleRow, footer, {
-            start: "top 60%",
-            y: 20,
-            stagger: 0.1,
-        });
+        revealOnScroll(infoItems, footer, { start: "top 85%", y: 26, stagger: 0.12 });
+        revealOnScroll(middleRow, footer, { start: "top 60%", y: 20, stagger: 0.1 });
     }
 })();
-
-/* ===========================================================
-   TRAVELING BOTTLE (hero -> reveal -> curve)
-   TRAVELING BURGER (curve -> story)
-
-   Each journey is broken into "legs" tied to the actual boundary
-   between two sections (e.g. hero -> reveal). A leg's scroll zone
-   is exactly one viewport tall, positioned right where one section
-   scrolls out and the next scrolls in — regardless of how tall the
-   sections themselves are.
-
-   Outside of an active leg's zone, the real, already-placed marker
-   for that section (.bottle-marker / .burger-marker — kept in each
-   section's own markup/CSS: .circle-stage bottle, .reveal-visual
-   bottle, .curve-stage bottle, .curve burger-wrap, .visual-col
-   burger-wrap) is shown and simply scrolls with the page like any
-   normal element — this is the "stop."
-
-   Inside an active leg's zone, that marker + its neighbour are
-   hidden and a single fixed-position flying duplicate (#bottleFly /
-   #burgerFly) is scrubbed between their measured rects, so it always
-   lands exactly where each section's own code already puts it.
-
-   Because everything is driven by scroll position via GSAP's
-   scrub, scrolling back up reverses each leg automatically — no
-   separate "reverse" logic needed.
-=========================================================== */
 
 (function () {
     "use strict";
@@ -704,10 +748,6 @@ window.addEventListener("resize", () => {
     function lerp(a, b, t) {
         return a + (b - a) * t;
     }
-
-    // getBoundingClientRect() is viewport-relative; adding the current
-    // scroll offset converts it into a stable document-relative rect that
-    // doesn't change as the page is scrolled (only recompute on resize/load).
     function docRect(el) {
         const r = el.getBoundingClientRect();
         return {
@@ -718,8 +758,6 @@ window.addEventListener("resize", () => {
         };
     }
 
-    // Converts an interpolated document-rect back into viewport coordinates
-    // for a position:fixed element, using the *current* scroll position.
     function applyRect(el, a, b, t) {
         if (!a || !b) return;
         gsap.set(el, {
@@ -730,24 +768,7 @@ window.addEventListener("resize", () => {
         });
     }
 
-    /* -----------------------------------------------------------
-       One "leg" of a journey: real markers wrapA / wrapB stay docked
-       (visible, scrolling normally) except during the boundary-crossing
-       zone, where they're hidden and the flying duplicate(s) interpolate
-       between their measured rects. Because the zone is scroll-position
-       driven, scrolling back up reverses it automatically.
-    ----------------------------------------------------------- */
-    function createLeg({
-        triggerEl,
-        start,
-        endTriggerEl,
-        end,
-        wrapA,
-        wrapB,
-        flyContainer,
-        legs,
-        onCapture,
-    }) {
+    function createLeg({ triggerEl, start, endTriggerEl, end, wrapA, wrapB, flyContainer, legs, onCapture }) {
         function showMarker(target) {
             gsap.set(flyContainer, { opacity: 0 });
             gsap.set(wrapA, { visibility: "hidden" });
@@ -759,9 +780,7 @@ window.addEventListener("resize", () => {
             gsap.set(wrapA, { visibility: "hidden" });
             gsap.set(wrapB, { visibility: "hidden" });
             gsap.set(flyContainer, { opacity: 1 });
-            legs.forEach(({ el, getA, getB }) =>
-                applyRect(el, getA(), getB(), t),
-            );
+            legs.forEach(({ el, getA, getB }) => applyRect(el, getA(), getB(), t));
         }
 
         function sync(self) {
@@ -835,16 +854,8 @@ window.addEventListener("resize", () => {
             wrapB: revealWrap,
             flyContainer: fly,
             legs: [
-                {
-                    el: flyBack,
-                    getA: () => rects.heroBack,
-                    getB: () => rects.revealBack,
-                },
-                {
-                    el: flyFront,
-                    getA: () => rects.heroFront,
-                    getB: () => rects.revealFront,
-                },
+                { el: flyBack, getA: () => rects.heroBack, getB: () => rects.revealBack },
+                { el: flyFront, getA: () => rects.heroFront, getB: () => rects.revealFront },
             ],
             onCapture: capture,
         });
@@ -859,16 +870,8 @@ window.addEventListener("resize", () => {
             wrapB: curveWrap,
             flyContainer: fly,
             legs: [
-                {
-                    el: flyBack,
-                    getA: () => rects.revealBack,
-                    getB: () => rects.curveBack,
-                },
-                {
-                    el: flyFront,
-                    getA: () => rects.revealFront,
-                    getB: () => rects.curveFront,
-                },
+                { el: flyBack, getA: () => rects.revealBack, getB: () => rects.curveBack },
+                { el: flyFront, getA: () => rects.revealFront, getB: () => rects.curveFront },
             ],
             onCapture: capture,
         });
@@ -898,41 +901,142 @@ window.addEventListener("resize", () => {
 
         if (!fly || !flyImg || !curveWrap || !storyWrap) return;
 
+        const BREAKPOINT = 768;
         const rects = {};
+        let st = null;
+
         function capture() {
             rects.curve = docRect(curveImg);
             rects.story = docRect(storyImg);
         }
-        capture();
 
-        // Curve -> story (fires as the curve section scrolls out of view)
-        createLeg({
-            triggerEl: curveSection,
-            start: "bottom bottom",
-            endTriggerEl: storySection,
-            end: "top top",
-            wrapA: curveWrap,
-            wrapB: storyWrap,
-            flyContainer: fly,
-            legs: [
-                {
-                    el: flyImg,
-                    getA: () => rects.curve,
-                    getB: () => rects.story,
-                },
-            ],
-            onCapture: capture,
-        });
+        function enable() {
+            if (st) return;
+            capture();
+            st = createLeg({
+                triggerEl: curveSection,
+                start: "bottom bottom",
+                endTriggerEl: storySection,
+                end: "top top",
+                wrapA: curveWrap,
+                wrapB: storyWrap,
+                flyContainer: fly,
+                legs: [
+                    { el: flyImg, getA: () => rects.curve, getB: () => rects.story },
+                ],
+                onCapture: capture,
+            });
+            fly.classList.add("is-ready");
+        }
 
-        fly.classList.add("is-ready");
+        function disable() {
+            if (st) {
+                st.kill();
+                st = null;
+            }
+            fly.classList.remove("is-ready");
+            gsap.set(fly, { opacity: 0 });
+        }
+
+        function refreshForSize() {
+            if (window.innerWidth < BREAKPOINT) {
+                disable();
+            } else {
+                enable();
+            }
+        }
+
+        refreshForSize();
 
         window.addEventListener("load", () => {
-            capture();
-            ScrollTrigger.refresh();
+            if (st) {
+                capture();
+                ScrollTrigger.refresh();
+            }
         });
         window.addEventListener("resize", () => {
-            capture();
-            ScrollTrigger.refresh();
+            clearTimeout(window.burgerResize);
+            window.burgerResize = setTimeout(() => {
+                refreshForSize();
+                ScrollTrigger.refresh();
+            }, 150);
         });
     }
+})();
+
+(function () {
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const items = document.querySelectorAll(".gallery-item");
+
+    const galleryGrid = document.getElementById("galleryGrid");
+
+    filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            filterBtns.forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            const filter = btn.dataset.filter;
+
+            galleryGrid.classList.toggle("mode-all", filter === "all");
+            galleryGrid.classList.toggle("mode-filtered", filter !== "all");
+
+            items.forEach((item) => {
+                const match =
+                    filter === "all" || item.dataset.category === filter;
+                item.classList.toggle("hide", !match);
+            });
+        });
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const closeBtn = document.getElementById("lightboxClose");
+    const prevBtn = document.getElementById("lightboxPrev");
+    const nextBtn = document.getElementById("lightboxNext");
+    let currentIndex = 0;
+
+    function getVisibleItems() {
+        return Array.from(items).filter((i) => !i.classList.contains("hide"));
+    }
+
+    function openLightbox(index) {
+        const visible = getVisibleItems();
+        currentIndex = index;
+        const img = visible[currentIndex].querySelector("img");
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add("show");
+    }
+
+    items.forEach((item) => {
+        item.addEventListener("click", () => {
+            const visible = getVisibleItems();
+            const idx = visible.indexOf(item);
+            openLightbox(idx);
+        });
+    });
+
+    function showDelta(delta) {
+        const visible = getVisibleItems();
+        currentIndex =
+            (currentIndex + delta + visible.length) % visible.length;
+        const img = visible[currentIndex].querySelector("img");
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+    }
+
+    prevBtn.addEventListener("click", () => showDelta(-1));
+    nextBtn.addEventListener("click", () => showDelta(1));
+    closeBtn.addEventListener("click", () =>
+        lightbox.classList.remove("show"),
+    );
+    lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) lightbox.classList.remove("show");
+    });
+    document.addEventListener("keydown", (e) => {
+        if (!lightbox.classList.contains("show")) return;
+        if (e.key === "Escape") lightbox.classList.remove("show");
+        if (e.key === "ArrowRight") showDelta(1);
+        if (e.key === "ArrowLeft") showDelta(-1);
+    });
 })();

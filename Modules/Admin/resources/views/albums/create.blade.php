@@ -33,12 +33,18 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="code">Code <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control @error('code') is-invalid @enderror"
-                                    id="code" name="code" value="{{ old('code') }}"
-                                    placeholder="e.g. banner, mgs6-hero, homepage-slider">
+                                <label for="code">Page Section (Code)</label>
+                                <select class="form-control @error('code') is-invalid @enderror" id="code"
+                                    name="code">
+                                    @foreach (\Modules\Common\Entities\Album::ALBUM_CODES as $value => $label)
+                                        <option value="{{ $value }}" {{ old('code') === $value ? 'selected' : '' }}>
+                                            {{ $label }}
+                                        </option>
+                                    @endforeach
+                                </select>
                                 <small class="form-text text-muted">
-                                    Unique identifier used to fetch this album in frontend.
+                                    Only choose a section if this album should feed a specific part of the website. Leave as
+                                    "— Not linked —" for a regular gallery album with no special page tie-in.
                                 </small>
                                 @error('code')
                                     <span class="invalid-feedback">{{ $message }}</span>
@@ -91,7 +97,19 @@
                                 </div>
                                 <small class="form-text text-muted">Featured albums will be shown on homepage</small>
                             </div>
-
+                            <div class="form-group">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="is_gallery_category"
+                                        name="is_gallery_category" value="1"
+                                        {{ old('is_gallery_category', $album->is_gallery_category ?? false) ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="is_gallery_category">
+                                        <i class="fas fa-filter text-info"></i> Show as a filter tab on the Gallery page
+                                    </label>
+                                </div>
+                                <small class="form-text text-muted">
+                                    turn this on if you want to show the types in gallery page
+                                </small>
+                            </div>
                             <div class="form-group">
                                 <label for="sort_order">Sort Order</label>
                                 <input type="number" class="form-control @error('sort_order') is-invalid @enderror"

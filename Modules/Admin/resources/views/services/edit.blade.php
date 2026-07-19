@@ -364,13 +364,28 @@
 
                         <div class="form-group">
                             <label class="required-field">Service Type</label>
-                            <input type="text" name="type" value="{{ old('type', $service->type) }}"
-                                class="form-control form-control-lg @error('type') is-invalid @enderror" id="serviceType"
-                                placeholder="Enter service type" autofocus>
+                            <select class="form-control form-control-lg @error('type') is-invalid @enderror" name="type"
+                                id="serviceType" {{ !empty($service->type) ? 'disabled' : '' }}>
+                                <option value="">— Select Type —</option>
+                                @foreach (\Modules\Common\Entities\Service::SERVICE_TYPES as $value => $label)
+                                    <option value="{{ $value }}"
+                                        {{ old('type', $service->type) === $value ? 'selected' : '' }}>
+                                        {{ $label }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @if (!empty($service->type))
+                                <input type="hidden" name="type" value="{{ $service->type }}">
+                                <div class="help-text text-warning">
+                                    <i class="fas fa-lock mr-1"></i> This service is linked to a live page section and its
+                                    type is locked.
+                                </div>
+                            @else
+                                <div class="help-text">Determines which page section this service card appears in.</div>
+                            @endif
                             @error('type')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <div class="help-text">This will be displayed as the main heading for the service.</div>
                         </div>
 
                         <div class="form-group">

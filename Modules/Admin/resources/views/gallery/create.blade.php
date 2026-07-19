@@ -102,10 +102,31 @@
                                     @foreach ($albums as $album)
                                         <option value="{{ $album->id }}"
                                             {{ old('album_id', $selectedAlbumId) == $album->id ? 'selected' : '' }}>
-                                            {{ $album->title }} ({{ $album->gallery_count }} images)
+                                            {{ $album->title }}
+                                            @if ($album->code)
+                                                —
+                                                {{ \Modules\Common\Entities\Album::ALBUM_CODES[$album->code] ?? $album->code }}
+                                            @endif
+                                            ({{ $album->gallery_count }} images)
                                         </option>
                                     @endforeach
                                 </select>
+                                @if ($selectedAlbumId)
+                                    @php
+                                        $selectedAlbum = $albums->firstWhere('id', $selectedAlbumId);
+                                    @endphp
+                                    @if ($selectedAlbum && $selectedAlbum->code)
+                                        <small class="form-text text-muted">
+                                            <i class="fas fa-code mr-1"></i>
+                                            This album feeds the
+                                            <strong>{{ \Modules\Common\Entities\Album::ALBUM_CODES[$selectedAlbum->code] ?? $selectedAlbum->code }}</strong>
+                                            section on the live site.
+                                        </small>
+                                    @endif
+                                @endif
+                                @error('album_id')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             {{-- IMAGE TYPE (YOUR EXISTING SYSTEM) --}}

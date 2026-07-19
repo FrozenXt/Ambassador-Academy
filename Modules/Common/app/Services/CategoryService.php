@@ -25,11 +25,16 @@ class CategoryService
         return $this->categoryRepository->findById($id);
     }
 
-    public function createCategory(array $data, $imageFile = null)
+    public function createCategory(array $data, $imageFile = null, $image2File = null)
     {
         // Handle image
         if ($imageFile) {
             $data['image'] = $imageFile->store('categories', 'public');
+        }
+
+        // Handle second image
+        if ($image2File) {
+            $data['image_2'] = $image2File->store('categories', 'public');
         }
 
         // Generate slug from name
@@ -44,7 +49,6 @@ class CategoryService
 
         return $this->categoryRepository->create($data);
     }
-
     public function updateCategory(int $id, array $data, $imageFile = null)
     {
         $category = $this->categoryRepository->findById($id);

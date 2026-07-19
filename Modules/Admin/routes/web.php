@@ -172,6 +172,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::post('posts/{id}/toggle-featured', [PostController::class, 'toggleFeatured'])->name('posts.toggle-featured')->middleware('checkRole:superadmin,admin,manager');
             Route::post('posts/{id}/toggle-status',   [PostController::class, 'toggleStatus'])->name('posts.toggle-status')->middleware('checkRole:superadmin,admin,manager');
             Route::post('posts/sort-order',           [PostController::class, 'sortOrder'])->name('posts.sort-order')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('posts/{id}/remove-image-2', [PostController::class, 'removeImage2'])->name('posts.remove-image-2')->middleware('checkRole:superadmin,admin,manager');
             // ── Notices ──
             // Route::get('notices',                      [NoticeController::class, 'index'])->name('notices.index')->middleware('checkRole:superadmin,admin,manager,staff');
             // Route::get('notices/create',               [NoticeController::class, 'create'])->name('notices.create')->middleware('checkRole:superadmin,admin,manager');
@@ -202,17 +203,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 
             // // ── Events ──
-            // Route::get('events',                      [EventController::class, 'index'])->name('events.index')->middleware('checkRole:superadmin,admin,manager,staff');
-            // Route::get('events/create',               [EventController::class, 'create'])->name('events.create')->middleware('checkRole:superadmin,admin,manager');
-            // Route::post('events',                     [EventController::class, 'store'])->name('events.store')->middleware('checkRole:superadmin,admin,manager');
-            // Route::get('events/{id}/edit',            [EventController::class, 'edit'])->name('events.edit')->middleware('checkRole:superadmin,admin,manager');
-            // Route::put('events/{id}',                 [EventController::class, 'update'])->name('events.update')->middleware('checkRole:superadmin,admin,manager');
-            // Route::delete('events/{id}',              [EventController::class, 'destroy'])->name('events.destroy')->middleware('checkRole:superadmin,admin');
-            // Route::post('events/{id}/toggle-status',  [EventController::class, 'toggleStatus'])->name('events.toggle-status')->middleware('checkRole:superadmin,admin,manager');
-            // Route::post('events/{id}/toggle-featured', [EventController::class, 'toggleFeatured'])->name('events.toggle-featured')->middleware('checkRole:superadmin,admin,manager');
-            // Route::post('events/{id}/remove-image',   [EventController::class, 'removeImage'])->name('events.remove-image')->middleware('checkRole:superadmin,admin,manager');
-            // Route::post('events/reorder',             [EventController::class, 'reorder'])->name('events.reorder')->middleware('checkRole:superadmin,admin,manager');
-            // Route::get('events/check-slug',           [EventController::class, 'checkSlug'])->name('events.checkSlug')->middleware('checkRole:superadmin,admin,manager');
+            Route::get('events',                      [EventController::class, 'index'])->name('events.index')->middleware('checkRole:superadmin,admin,manager,staff');
+            Route::get('events/create',               [EventController::class, 'create'])->name('events.create')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('events',                     [EventController::class, 'store'])->name('events.store')->middleware('checkRole:superadmin,admin,manager');
+            Route::get('events/{id}/edit',            [EventController::class, 'edit'])->name('events.edit')->middleware('checkRole:superadmin,admin,manager');
+            Route::put('events/{id}',                 [EventController::class, 'update'])->name('events.update')->middleware('checkRole:superadmin,admin,manager');
+            Route::delete('events/{id}',              [EventController::class, 'destroy'])->name('events.destroy')->middleware('checkRole:superadmin,admin');
+            Route::post('events/{id}/toggle-status',  [EventController::class, 'toggleStatus'])->name('events.toggle-status')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('events/{id}/toggle-featured', [EventController::class, 'toggleFeatured'])->name('events.toggle-featured')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('events/{id}/remove-image',   [EventController::class, 'removeImage'])->name('events.remove-image')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('events/reorder',             [EventController::class, 'reorder'])->name('events.reorder')->middleware('checkRole:superadmin,admin,manager');
+            Route::get('events/check-slug',           [EventController::class, 'checkSlug'])->name('events.checkSlug')->middleware('checkRole:superadmin,admin,manager');
 
 
             // // ── FAQs ──

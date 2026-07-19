@@ -20,6 +20,7 @@ class CategoryRequest extends FormRequest
             'name'        => 'required|string|max:255|unique:categories,name,' . $categoryId,
             'description' => 'nullable|string',
             'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp,gif,svg|max:2048',
+            'image_2'       => 'nullable|image|mimes:jpg,jpeg,png,webp,gif,svg|max:2048',
             'status'      => 'required|in:active,inactive',
         ];
     }

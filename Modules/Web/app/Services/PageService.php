@@ -24,13 +24,13 @@ class PageService
         $storyPost = \Modules\Common\Entities\Post::where('code', 'story')->first();
 
         $revealFeatures = \Modules\Common\Entities\Service::where('status', 'active')
-            ->where('type', 'hero')
+            ->where('type', 'home-features')
             ->orderBy('order')
             ->get();
 
 
         $papasFeatures = \Modules\Common\Entities\Service::where('status', 'active')
-            ->where('type', 'features')
+            ->where('type', 'home-amenities')
             ->orderBy('order')
             ->get();
         $menuCategory = \Modules\Common\Entities\Category::where('name', 'menu')
@@ -53,23 +53,24 @@ class PageService
      */
     public function getAboutData(): array
     {
-        $aboutAlbum = Album::where('code', 'aboutuus')->first();
-        $aboutImages = $aboutAlbum ? $aboutAlbum->gallery : collect();
+        $aboutPost = \Modules\Common\Entities\Post::where('code', 'about-page')->first();
 
-        $chefAlbum = Album::where('code', 'chef')->first();
-        $chefImages = $chefAlbum ? $chefAlbum->gallery : collect();
+        $amenityMediaAlbum = \Modules\Common\Entities\Album::where('code', 'about-amenity-media')->first();
+        $amenityImages = $amenityMediaAlbum ? $amenityMediaAlbum->gallery : collect();
 
-        $aboutBrandPost = Post::where('code', 'first')->first();
-        $chairmanPost = Post::where('code', 'second')->first();
+        $amenities = \Modules\Common\Entities\Service::where('status', 'active')
+            ->where('type', 'about-amenities')
+            ->orderBy('order')
+            ->get();
 
-        return compact(
-            'aboutAlbum',
-            'aboutImages',
-            'chefAlbum',
-            'chefImages',
-            'aboutBrandPost',
-            'chairmanPost'
-        );
+        $upcomingEvents = \Modules\Common\Entities\Event::where('status', 'published')
+            ->where('type', 'event')
+            ->where('start_date', '>=', now())
+            ->orderBy('start_date')
+            ->orderBy('order')
+            ->get();
+
+        return compact('aboutPost', 'amenityImages', 'amenities', 'upcomingEvents');
     }
 
     /**
@@ -77,7 +78,7 @@ class PageService
      */
     public function getMenuData(): array
     {
-        $categories = Category::where('status', 'active')
+        $categories = \Modules\Common\Entities\Category::where('status', 'active')
             ->with(['products' => function ($q) {
                 $q->where('status', 'active')->orderBy('sort_order');
             }])
@@ -92,29 +93,36 @@ class PageService
      */
     public function getGalleryData(): array
     {
-        $album = Album::where('code', 'gallery')
-            ->with(['galleries' => function ($query) {
-                $query->where('file_type', 'image')
-                    ->whereNotNull('path')
-                    ->where('path', '!=', '')
-                    ->where('status', 'active')
-                    ->orderBy('sort_order');
-            }])
-            ->first();
+        $galleryAlbums = \Modules\Common\Entities\Album::where('is_gallery_category', true)
+            ->where('status', 'active')
+            ->with('gallery')
+            ->orderBy('sort_order')
+            ->get();
 
-        return compact('album');
+        $galleryItems = collect();
+
+        foreach ($galleryAlbums as $album) {
+            foreach ($album->gallery as $img) {
+                $galleryItems->push([
+                    'image'    => $img,
+                    'category' => $album->slug,
+                    'label'    => $album->title,
+                ]);
+            }
+        }
+
+        $filters = $galleryAlbums
+            ->filter(fn($album) => $album->gallery->isNotEmpty())
+            ->map(fn($album) => [
+                'slug'  => $album->slug,
+                'label' => $album->title,
+            ])
+            ->values();
+
+        return compact('galleryItems', 'filters');
     }
 
     /**
      * Data for the Services page.
      */
-    public function getServicesData(): array
-    {
-        $services = Service::where('status', 'active')
-            ->where('type', 'servicepage')
-            ->orderBy('order')
-            ->get();
-
-        return compact('services');
-    }
 }

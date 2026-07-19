@@ -146,13 +146,19 @@
 
                             <div class="form-group">
                                 <label class="required-field">Service Type</label>
-                                <input type="text" name="type" value="{{ old('type') }}"
-                                    class="form-control form-control-lg @error('type') is-invalid @enderror"
-                                    id="serviceType" placeholder="Enter service type" autofocus>
+                                <select class="form-control form-control-lg @error('type') is-invalid @enderror"
+                                    name="type" id="serviceType">
+                                    <option value="">— Select Type —</option>
+                                    @foreach (\Modules\Common\Entities\Service::SERVICE_TYPES as $value => $label)
+                                        <option value="{{ $value }}" {{ old('type') === $value ? 'selected' : '' }}>
+                                            {{ $label }}
+                                        </option>
+                                    @endforeach
+                                </select>
                                 @error('type')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                <div class="help-text">This will be displayed as the main heading for the service.</div>
+                                <div class="help-text">Determines which page section this service card appears in.</div>
                             </div>
 
                             <div class="form-group">

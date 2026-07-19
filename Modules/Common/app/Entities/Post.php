@@ -22,6 +22,7 @@ class Post extends Model
         'description',
         'content',
         'image',
+        'image_2',
         'status',
         'is_featured',
         'sort_order',
@@ -36,6 +37,14 @@ class Post extends Model
         'published_at' => 'datetime',
         'sort_order'   => 'integer',
         'views'        => 'integer',
+    ];
+    const CODE_STORY       = 'story';
+    const CODE_ABOUT_PAGE  = 'about-page';
+
+    const POST_CODES = [
+        ''                     => '— Not linked to a page section —',
+        self::CODE_STORY       => 'Story Section (Home page)',
+        self::CODE_ABOUT_PAGE  => 'About Page Intro',
     ];
 
     protected static function boot()
@@ -89,5 +98,9 @@ class Post extends Model
     public function scopeFeatured($query)
     {
         return $query->where('is_featured', true);
+    }
+    public function getImage2UrlAttribute(): ?string
+    {
+        return $this->image_2 ? Storage::url($this->image_2) : null;
     }
 }
