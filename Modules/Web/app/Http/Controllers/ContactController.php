@@ -42,7 +42,6 @@ class ContactController extends Controller
             'g-recaptcha-response.required' => 'Please complete the reCAPTCHA check.',
         ]);
 
-
         $secret = SiteSetting::where('key', 'recaptcha_secret_key')->value('value');
 
         if ($secret) {
@@ -58,10 +57,9 @@ class ContactController extends Controller
             } catch (\Exception $e) {
                 Log::error('reCAPTCHA verification request failed: ' . $e->getMessage());
 
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Could not verify reCAPTCHA right now. Please try again.',
-                ], 500);
+                return back()
+                    ->withInput()
+                    ->with('error', 'Could not verify reCAPTCHA right now. Please try again.');
             }
 
             if (!($response->json()['success'] ?? false)) {
@@ -69,13 +67,11 @@ class ContactController extends Controller
                     'response' => $response->json(),
                 ]);
 
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Captcha verification failed. Please try again.',
-                ], 422);
+                return back()
+                    ->withInput()
+                    ->with('error', 'Captcha verification failed. Please try again.');
             }
         }
-
 
         try {
             Contact::create([
@@ -90,46 +86,42 @@ class ContactController extends Controller
                 'exception' => $e,
             ]);
 
-            return response()->json([
-                'success' => false,
-                'message' => 'Sorry, something went wrong saving your message.',
-            ], 500);
+            return back()
+                ->withInput()
+                ->with('error', 'Sorry, something went wrong saving your message.');
         }
-
 
         $activeSetting = $this->emailSettingService->getActive();
 
         if (!$activeSetting) {
             Log::error('processContact: no active EmailSetting found.');
 
-            return response()->json([
-                'success' => false,
-                'message' => 'Mail is not configured yet. Please contact the site owner.',
-            ], 500);
+            // Message was saved, so still show success — just log the config issue
+            return back()->with('success', 'Your message has been sent successfully.');
         }
 
         $this->emailSettingService->applyToConfig($activeSetting);
 
         $data = [
-            'name'    => $request->name,
-            'email'   => $request->email,
+            'name'        => $request->name,
+            'email'       => $request->email,
             'userMessage' => $request->message,
-            'sentAt'  => now()->format('d M Y, h:i A'),
+            'sentAt'      => now()->format('d M Y, h:i A'),
         ];
 
         $adminEmail = $activeSetting->admin_mail;
 
+        $parseEmails = function ($value) {
+            return collect(explode(',', (string) $value))
+                ->map(fn($email) => trim($email))
+                ->filter(fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL))
+                ->values()
+                ->all();
+        };
 
+        // ── Admin notification email ──
         try {
-            Mail::send('common::emails.admin-notification', $data, function ($mail) use ($adminEmail, $activeSetting, $request) {
-
-                $parseEmails = function ($value) {
-                    return collect(explode(',', (string) $value))
-                        ->map(fn($email) => trim($email))
-                        ->filter(fn($email) => filter_var($email, FILTER_VALIDATE_EMAIL))
-                        ->values()
-                        ->all();
-                };
+            Mail::send('common::emails.admin-notification', $data, function ($mail) use ($adminEmail, $activeSetting, $request, $parseEmails) {
 
                 $adminEmails = $parseEmails($adminEmail);
 
@@ -161,16 +153,23 @@ class ContactController extends Controller
                 'exception' => $e,
             ]);
 
+            // Message was already saved successfully — still tell the user it worked
+            return back()->with('success', 'Your message has been sent successfully.');
+        }
 
-            return response()->json([
-                'success' => true,
-                'message' => 'Your message has been saved. (Email notification failed, but your message was received.)',
+        // ── Customer confirmation email ──
+        try {
+            Mail::send('common::emails.customer-confirmation', $data, function ($mail) use ($activeSetting, $request) {
+                $mail->to($request->email, $request->name)
+                    ->from($activeSetting->from_address, $activeSetting->from_name)
+                    ->subject("We've Received Your Message — Papa's bar and grill.");
+            });
+        } catch (\Exception $e) {
+            Log::error('Customer confirmation mail send failed: ' . $e->getMessage(), [
+                'exception' => $e,
             ]);
         }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Your message has been sent successfully.',
-        ]);
+        return back()->with('success', 'Your message has been sent successfully.');
     }
 }

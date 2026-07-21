@@ -29,13 +29,18 @@ class PageController extends Controller
         return view('web::web.gallery', $this->pageService->getGalleryData());
     }
 
-    public function services()
-    {
-        return view('web::web.services', $this->pageService->getServicesData());
-    }
+    // public function services()
+    // {
+    //     return view('web::web.services', $this->pageService->getServicesData());
+    // }
 
     public function contact()
     {
         return view('web::web.contact');
+    }
+
+    public function menuDetail($id)
+    {
+        return view('web::web.menu-detail', $this->pageService->getMenuDetailData($id));
     }
 }

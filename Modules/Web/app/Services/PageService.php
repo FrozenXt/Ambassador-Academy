@@ -122,7 +122,14 @@ class PageService
         return compact('galleryItems', 'filters');
     }
 
-    /**
-     * Data for the Services page.
-     */
+    // PageService.php
+    public function getMenuDetailData($id): array
+    {
+        $product = \Modules\Common\Entities\Product::where('id', $id)
+            ->where('status', 'active')
+            // ->with('category')
+            ->firstOrFail();
+
+        return compact('product');
+    }
 }

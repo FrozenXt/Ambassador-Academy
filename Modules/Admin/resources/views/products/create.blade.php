@@ -29,6 +29,19 @@
                             @enderror
                         </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Subtitle</label>
+                            <input type="text" name="subtitle" value="{{ old('subtitle') }}"
+                                class="form-control @error('subtitle') is-invalid @enderror"
+                                placeholder="e.g. Classic gin cocktail" />
+                            @error('subtitle')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="font-weight-bold">
@@ -67,6 +80,7 @@
                             @enderror
                         </div>
                     </div>
+
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Price <span class="text-danger">*</span></label>
@@ -103,6 +117,42 @@
                                 </option>
                             </select>
                             @error('status')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- ── Base / Style / Served ── --}}
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Base</label>
+                            <input type="text" name="base" value="{{ old('base') }}"
+                                class="form-control @error('base') is-invalid @enderror"
+                                placeholder="e.g. Vodka, Gin, Rum" />
+                            <small class="text-muted">The base spirit or main ingredient.</small>
+                            @error('base')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Style</label>
+                            <input type="text" name="style" value="{{ old('style') }}"
+                                class="form-control @error('style') is-invalid @enderror"
+                                placeholder="e.g. Stirred, Smoked, Shaken" />
+                            @error('style')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Served</label>
+                            <input type="text" name="served" value="{{ old('served') }}"
+                                class="form-control @error('served') is-invalid @enderror"
+                                placeholder="e.g. On the Rocks, Neat, Chilled" />
+                            @error('served')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

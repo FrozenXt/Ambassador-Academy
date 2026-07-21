@@ -30,15 +30,9 @@
                             <label class="font-weight-bold">
                                 Mailer <span class="text-danger">*</span>
                             </label>
-                            <select name="mailer" class="form-control @error('mailer') is-invalid @enderror"
-                                onchange="toggleMailerHelp(this.value)">
-                                @foreach (['smtp' => 'SMTP', 'sendmail' => 'Sendmail', 'mailgun' => 'Mailgun', 'ses' => 'Amazon SES', 'postmark' => 'Postmark'] as $val => $label)
-                                    <option value="{{ $val }}"
-                                        {{ old('mailer', $setting->mailer) == $val ? 'selected' : '' }}>
-                                        {{ $label }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <input type="text" name="mailer" class="form-control @error('mailer') is-invalid @enderror"
+                                value="{{ old('mailer', 'smtp') }}" placeholder="Enter mailer (e.g. smtp)">
+
                             @error('mailer')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -235,45 +229,7 @@
         </div>
 
         {{-- Sidebar --}}
-        <div class="col-md-4">
-            {{-- Quick Presets --}}
-            <div class="card card-outline card-info mb-3">
-                <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-magic mr-2"></i> Quick Presets</h3>
-                </div>
-                <div class="card-body">
-                    <p class="small text-muted mb-2">Click to auto-fill SMTP settings:</p>
-                    @foreach ([['name' => 'Gmail', 'host' => 'smtp.gmail.com', 'port' => 587, 'enc' => 'tls', 'color' => 'danger'], ['name' => 'Outlook', 'host' => 'smtp.office365.com', 'port' => 587, 'enc' => 'tls', 'color' => 'primary'], ['name' => 'Yahoo', 'host' => 'smtp.mail.yahoo.com', 'port' => 587, 'enc' => 'tls', 'color' => 'warning'], ['name' => 'Zoho', 'host' => 'smtp.zoho.com', 'port' => 587, 'enc' => 'tls', 'color' => 'success'], ['name' => 'Mailgun', 'host' => 'smtp.mailgun.org', 'port' => 587, 'enc' => 'tls', 'color' => 'secondary'], ['name' => 'SendGrid', 'host' => 'smtp.sendgrid.net', 'port' => 587, 'enc' => 'tls', 'color' => 'info']] as $preset)
-                        <button type="button"
-                            class="btn btn-outline-{{ $preset['color'] }} btn-sm btn-block mb-1 text-left"
-                            onclick="applyPreset('{{ $preset['host'] }}', {{ $preset['port'] }}, '{{ $preset['enc'] }}')">
-                            <i class="fas fa-server mr-2"></i> {{ $preset['name'] }}
-                            <small class="text-muted float-right">{{ $preset['host'] }}</small>
-                        </button>
-                    @endforeach
-                </div>
-            </div>
 
-            {{-- Tips --}}
-            <div class="card card-outline card-warning">
-                <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-lightbulb mr-2"></i> Tips</h3>
-                </div>
-                <div class="card-body">
-                    <ul class="list-unstyled small mb-0">
-                        <li class="mb-2"><i class="fas fa-info-circle text-info mr-2"></i> For Gmail, use an <strong>App
-                                Password</strong> not your regular password</li>
-                        <li class="mb-2"><i class="fas fa-info-circle text-info mr-2"></i> Port <strong>587</strong> =
-                            TLS, Port <strong>465</strong> = SSL</li>
-                        <li class="mb-2"><i class="fas fa-info-circle text-info mr-2"></i> Password is
-                            <strong>encrypted</strong> before saving
-                        </li>
-                        <li class="mb-0"><i class="fas fa-info-circle text-info mr-2"></i> Use <strong>Send Test
-                                Email</strong> to verify settings work</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
 

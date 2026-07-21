@@ -12,7 +12,6 @@ window.addEventListener("scroll", () => {
     }
 });
 
-
 /* ===========================================================
    SIDEBAR
 =========================================================== */
@@ -39,11 +38,11 @@ if (hamburgerBtn && sidebar && sidebarClose) {
     hamburgerBtn.addEventListener("click", openSidebar);
     sidebarClose.addEventListener("click", closeSidebar);
 
-    sidebar.querySelectorAll("a").forEach(link => {
+    sidebar.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", closeSidebar);
     });
 
-    document.addEventListener("keydown", e => {
+    document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
             closeSidebar();
         }
@@ -106,12 +105,16 @@ if (hamburgerBtn && sidebar && sidebarClose) {
 
     // ---- Content: section titles + menu items fade/slide in per block ----
     function initMenuContentReveal() {
-        const blocks = document.querySelectorAll(".menu-wrapper .col-lg-6, .aboutPage, .aboutFeature-strip, .content-wrapper, .gallery-section, .menuStage");
+        const blocks = document.querySelectorAll(
+            ".menu-wrapper .col-lg-6, .aboutPage, .aboutFeature-strip, .content-wrapper, .gallery-section, .menuStage",
+        );
         if (!blocks.length) return;
 
         blocks.forEach((block) => {
             const title = block.querySelector(".section-title");
-            const items = block.querySelectorAll(".menuPage-item, .aboutPage p, .amenity, .content-wrapper .contact-card, .gallery-item img, .content-col");
+            const items = block.querySelectorAll(
+                ".menuPage-item, .aboutPage p, .amenity, .content-wrapper .contact-card, .gallery-item img, .content-col",
+            );
             const targets = [title, ...items].filter(Boolean);
             if (!targets.length) return;
 
@@ -136,7 +139,7 @@ if (hamburgerBtn && sidebar && sidebarClose) {
     // ---- Images: emerge from center (clip-path circle grows) + scale settle ----
     function initMenuImageAppear() {
         const images = document.querySelectorAll(
-            ".menu-wrapper .img-frame img, .circle-shot img, .aboutPage-media img, .plate-wrap img, .photo-arch img"
+            ".menu-wrapper .img-frame img, .circle-shot img, .aboutPage-media img, .plate-wrap img, .photo-arch img",
         );
         if (!images.length) return;
 
@@ -214,7 +217,7 @@ const eventSwiper = new Swiper(".event-swiper", {
                 .forEach((slide) => {
                     slide
                         .querySelectorAll(
-                            ".event-eyebrow, .event-title, .event-meta"
+                            ".event-eyebrow, .event-title, .event-meta",
                         )
                         .forEach((el) => {
                             el.style.animation = "none";
@@ -225,7 +228,6 @@ const eventSwiper = new Swiper(".event-swiper", {
         },
     },
 });
-
 
 (function () {
     "use strict";
@@ -411,13 +413,10 @@ const eventSwiper = new Swiper(".event-swiper", {
 function positionFeatures() {
     // Stop curve positioning on tablets & mobiles
     if (window.innerWidth < 992) {
-
-        document.querySelectorAll(".feature").forEach(feature => {
-
+        document.querySelectorAll(".feature").forEach((feature) => {
             gsap.set(feature, {
-                clearProps: "all"
+                clearProps: "all",
             });
-
         });
 
         return;
@@ -454,7 +453,7 @@ function positionFeatures() {
     // =============================
     if (window.innerWidth >= 1400) {
         rx = w * 0.75;
-        ry = h * 0.90;
+        ry = h * 0.9;
         topOffset = 30;
         start = Math.PI * 0.72;
         end = Math.PI * 0.28;
@@ -487,7 +486,7 @@ function positionFeatures() {
     // =============================
     else if (window.innerWidth >= 768) {
         rx = 768 * 0.99;
-        ry = h * 0.80;
+        ry = h * 0.8;
         topOffset = 10;
         start = Math.PI * 0.75;
         end = Math.PI * 0.25;
@@ -516,10 +515,8 @@ function positionFeatures() {
     }
 
     features.forEach((feature, i) => {
-
-        const progress = features.length === 1
-            ? 0.5
-            : i / (features.length - 1);
+        const progress =
+            features.length === 1 ? 0.5 : i / (features.length - 1);
 
         const angle = start + (end - start) * progress;
 
@@ -530,9 +527,8 @@ function positionFeatures() {
             left: x,
             top: y + topOffset,
             xPercent: -50,
-            yPercent: -50
+            yPercent: -50,
         });
-
     });
 
     ScrollTrigger.refresh();
@@ -541,13 +537,11 @@ function positionFeatures() {
 window.addEventListener("load", positionFeatures);
 
 window.addEventListener("resize", () => {
-
     clearTimeout(window.featureResize);
 
     window.featureResize = setTimeout(() => {
         positionFeatures();
     }, 150);
-
 });
 
 (function () {
@@ -620,7 +614,11 @@ window.addEventListener("resize", () => {
 
     // Hide elements, then reveal them (staggered) when `trigger` scrolls
     // to `start`; reverses when scrolled back above it.
-    function revealOnScroll(els, trigger, { start = "top 85%", y = 30, stagger = 0.12 } = {}) {
+    function revealOnScroll(
+        els,
+        trigger,
+        { start = "top 85%", y = 30, stagger = 0.12 } = {},
+    ) {
         const targets = gsap.utils.toArray(els).filter(Boolean);
         if (!targets.length) return;
 
@@ -668,7 +666,11 @@ window.addEventListener("resize", () => {
 
         // Animate the ring + label only, never the .feature wrapper itself —
         // positionFeatures() owns that element's transform for layout.
-        gsap.set(rings, { opacity: 0, scale: 0.5, transformOrigin: "center center" });
+        gsap.set(rings, {
+            opacity: 0,
+            scale: 0.5,
+            transformOrigin: "center center",
+        });
         gsap.set(labels, { opacity: 0, y: 10 });
 
         const tl = gsap.timeline({
@@ -687,7 +689,13 @@ window.addEventListener("resize", () => {
             stagger: 0.08,
         }).to(
             labels,
-            { opacity: 1, y: 0, duration: 0.4, ease: "power2.out", stagger: 0.08 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.4,
+                ease: "power2.out",
+                stagger: 0.08,
+            },
             "-=0.35",
         );
     }
@@ -714,11 +722,25 @@ window.addEventListener("resize", () => {
 
         const title = menuSection.querySelector(".menu-title");
         const menuItems = menuSection.querySelectorAll(".menu-item");
-        const galleryImgs = menuSection.querySelectorAll(".menu-gallery .g-img");
+        const galleryImgs = menuSection.querySelectorAll(
+            ".menu-gallery .g-img",
+        );
 
-        revealOnScroll(title, menuSection, { start: "top 75%", y: 24, stagger: 0 });
-        revealOnScroll(menuItems, menuSection, { start: "top 70%", y: 26, stagger: 0.12 });
-        revealOnScroll(galleryImgs, menuSection, { start: "top 65%", y: 40, stagger: 0.15 });
+        revealOnScroll(title, menuSection, {
+            start: "top 75%",
+            y: 24,
+            stagger: 0,
+        });
+        revealOnScroll(menuItems, menuSection, {
+            start: "top 70%",
+            y: 26,
+            stagger: 0.12,
+        });
+        revealOnScroll(galleryImgs, menuSection, {
+            start: "top 65%",
+            y: 40,
+            stagger: 0.15,
+        });
     }
 
     // ---- Footer: info columns + bottom row ----
@@ -729,8 +751,16 @@ window.addEventListener("resize", () => {
         const infoItems = footer.querySelectorAll(".info-item");
         const middleRow = footer.querySelectorAll(".middle-row > div");
 
-        revealOnScroll(infoItems, footer, { start: "top 85%", y: 26, stagger: 0.12 });
-        revealOnScroll(middleRow, footer, { start: "top 60%", y: 20, stagger: 0.1 });
+        revealOnScroll(infoItems, footer, {
+            start: "top 85%",
+            y: 26,
+            stagger: 0.12,
+        });
+        revealOnScroll(middleRow, footer, {
+            start: "top 60%",
+            y: 20,
+            stagger: 0.1,
+        });
     }
 })();
 
@@ -768,7 +798,17 @@ window.addEventListener("resize", () => {
         });
     }
 
-    function createLeg({ triggerEl, start, endTriggerEl, end, wrapA, wrapB, flyContainer, legs, onCapture }) {
+    function createLeg({
+        triggerEl,
+        start,
+        endTriggerEl,
+        end,
+        wrapA,
+        wrapB,
+        flyContainer,
+        legs,
+        onCapture,
+    }) {
         function showMarker(target) {
             gsap.set(flyContainer, { opacity: 0 });
             gsap.set(wrapA, { visibility: "hidden" });
@@ -780,7 +820,9 @@ window.addEventListener("resize", () => {
             gsap.set(wrapA, { visibility: "hidden" });
             gsap.set(wrapB, { visibility: "hidden" });
             gsap.set(flyContainer, { opacity: 1 });
-            legs.forEach(({ el, getA, getB }) => applyRect(el, getA(), getB(), t));
+            legs.forEach(({ el, getA, getB }) =>
+                applyRect(el, getA(), getB(), t),
+            );
         }
 
         function sync(self) {
@@ -854,8 +896,16 @@ window.addEventListener("resize", () => {
             wrapB: revealWrap,
             flyContainer: fly,
             legs: [
-                { el: flyBack, getA: () => rects.heroBack, getB: () => rects.revealBack },
-                { el: flyFront, getA: () => rects.heroFront, getB: () => rects.revealFront },
+                {
+                    el: flyBack,
+                    getA: () => rects.heroBack,
+                    getB: () => rects.revealBack,
+                },
+                {
+                    el: flyFront,
+                    getA: () => rects.heroFront,
+                    getB: () => rects.revealFront,
+                },
             ],
             onCapture: capture,
         });
@@ -870,8 +920,16 @@ window.addEventListener("resize", () => {
             wrapB: curveWrap,
             flyContainer: fly,
             legs: [
-                { el: flyBack, getA: () => rects.revealBack, getB: () => rects.curveBack },
-                { el: flyFront, getA: () => rects.revealFront, getB: () => rects.curveFront },
+                {
+                    el: flyBack,
+                    getA: () => rects.revealBack,
+                    getB: () => rects.curveBack,
+                },
+                {
+                    el: flyFront,
+                    getA: () => rects.revealFront,
+                    getB: () => rects.curveFront,
+                },
             ],
             onCapture: capture,
         });
@@ -922,7 +980,11 @@ window.addEventListener("resize", () => {
                 wrapB: storyWrap,
                 flyContainer: fly,
                 legs: [
-                    { el: flyImg, getA: () => rects.curve, getB: () => rects.story },
+                    {
+                        el: flyImg,
+                        getA: () => rects.curve,
+                        getB: () => rects.story,
+                    },
                 ],
                 onCapture: capture,
             });
@@ -1018,8 +1080,7 @@ window.addEventListener("resize", () => {
 
     function showDelta(delta) {
         const visible = getVisibleItems();
-        currentIndex =
-            (currentIndex + delta + visible.length) % visible.length;
+        currentIndex = (currentIndex + delta + visible.length) % visible.length;
         const img = visible[currentIndex].querySelector("img");
         lightboxImg.src = img.src;
         lightboxImg.alt = img.alt;
@@ -1027,9 +1088,7 @@ window.addEventListener("resize", () => {
 
     prevBtn.addEventListener("click", () => showDelta(-1));
     nextBtn.addEventListener("click", () => showDelta(1));
-    closeBtn.addEventListener("click", () =>
-        lightbox.classList.remove("show"),
-    );
+    closeBtn.addEventListener("click", () => lightbox.classList.remove("show"));
     lightbox.addEventListener("click", (e) => {
         if (e.target === lightbox) lightbox.classList.remove("show");
     });

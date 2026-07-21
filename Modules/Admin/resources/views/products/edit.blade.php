@@ -32,7 +32,17 @@
                             @enderror
                         </div>
                     </div>
-
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Subtitle</label>
+                            <input type="text" name="subtitle" value="{{ old('subtitle', $product->subtitle) }}"
+                                class="form-control @error('subtitle') is-invalid @enderror"
+                                placeholder="e.g. Classic gin cocktail" />
+                            @error('subtitle')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                     {{-- Price --}}
                     <div class="col-md-3">
                         <div class="form-group">
@@ -121,7 +131,41 @@
                             @enderror
                         </div>
                     </div>
-
+                    {{-- Base / Style / Served --}}
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Base</label>
+                            <input type="text" name="base" value="{{ old('base', $product->base) }}"
+                                class="form-control @error('base') is-invalid @enderror"
+                                placeholder="e.g. Vodka, Gin, Rum" />
+                            <small class="text-muted">The base spirit or main ingredient.</small>
+                            @error('base')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Style</label>
+                            <input type="text" name="style" value="{{ old('style', $product->style) }}"
+                                class="form-control @error('style') is-invalid @enderror"
+                                placeholder="e.g. Stirred, Smoked, Shaken" />
+                            @error('style')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Served</label>
+                            <input type="text" name="served" value="{{ old('served', $product->served) }}"
+                                class="form-control @error('served') is-invalid @enderror"
+                                placeholder="e.g. On the Rocks, Neat, Chilled" />
+                            @error('served')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
                     {{-- Description --}}
                     <div class="col-md-12">
                         <div class="form-group">

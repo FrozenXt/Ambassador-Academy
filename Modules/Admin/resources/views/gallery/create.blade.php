@@ -66,13 +66,13 @@
                                     id="image_alt" name="image_alt" value="{{ old('image_alt') }}">
                             </div>
 
-                            {{-- 🔥 NEW: FILE TYPE --}}
+                            {{-- FILE TYPE --}}
                             <div class="form-group">
                                 <label for="file_type">Media Type</label>
                                 <select class="form-control" id="file_type" name="file_type">
-                                    <o <option value="image" selected>Image</option>
-                                        <option value="video">Video</option>
-                                        <option value="youtube">YouTube</option>
+                                    <option value="image" selected>Image</option>
+                                    <option value="video">Video</option>
+                                    <option value="youtube">YouTube</option>
                                 </select>
                             </div>
 
@@ -83,10 +83,17 @@
                             </div>
 
                             {{-- YOUTUBE INPUT --}}
+                            {{-- YOUTUBE INPUT --}}
                             <div class="form-group" id="youtubeBox" style="display:none;">
-                                <label>YouTube URL</label>
-                                <input type="url" name="youtube_url" class="form-control"
-                                    placeholder="https://youtube.com/watch?v=...">
+                                <label>YouTube Link</label>
+                                <input type="url" name="youtube_url" value="{{ old('youtube_url') }}"
+                                    class="form-control @error('youtube_url') is-invalid @enderror"
+                                    placeholder="https://www.youtube.com/watch?v=..." />
+                                <small class="text-muted">If set, this plays automatically in place of the uploaded
+                                    image/video for hero banners.</small>
+                                @error('youtube_url')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
@@ -207,9 +214,6 @@
 
 @section('extra_js')
     <script>
-        // =====================
-        // FILE TYPE SWITCH
-        // =====================
         const fileType = document.getElementById('file_type');
         const uploadBox = document.getElementById('fileUploadBox');
         const youtubeBox = document.getElementById('youtubeBox');
@@ -220,7 +224,6 @@
                 uploadBox.style.display = 'none';
                 youtubeBox.style.display = 'block';
 
-                // CLEAR FILE INPUT (IMPORTANT)
                 document.querySelector('input[name="media"]').value = '';
             } else {
                 uploadBox.style.display = 'block';
@@ -231,9 +234,7 @@
         });
 
 
-        // =====================
-        // YOUR EXISTING LOGIC
-        // =====================
+
         const imageTypeSelect = document.getElementById('image_type');
         const positionGroup = document.getElementById('positionGroup');
         const bannerSettings = document.getElementById('bannerSettings');

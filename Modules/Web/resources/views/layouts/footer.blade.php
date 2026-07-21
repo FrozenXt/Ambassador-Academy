@@ -102,7 +102,25 @@
 <script src="{{ asset('js/text-split.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
 <script src="{{ asset('js/custom.js') }}"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+    function onYouTubeIframeAPIReady() {
+        var heroVideoEl = document.getElementById('heroVideo');
+        if (!heroVideoEl || heroVideoEl.tagName !== 'IFRAME') return;
 
+        new YT.Player('heroVideo', {
+            events: {
+                'onStateChange': function(event) {
+                    // 1 = playing
+                    if (event.data === YT.PlayerState.PLAYING) {
+                        var poster = document.getElementById('heroYtPoster');
+                        if (poster) poster.classList.add('is-hidden');
+                    }
+                }
+            }
+        });
+    }
+</script>
 <!-- ── Custom Footer Scripts (raw HTML/JS from admin) ── -->
 {!! $siteSettings->getByKey('footer_scripts', '') !!}
 </body>

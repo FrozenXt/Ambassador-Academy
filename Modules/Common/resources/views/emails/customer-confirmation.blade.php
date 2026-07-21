@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>New Contact Message</title>
+    <title>We've Received Your Message</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style type="text/css">
         @import url('https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;600;700;800&display=swap');
@@ -32,7 +32,7 @@
     text-align: center;
     margin:15px 0 5px 0; color:#0d5c3f;
 ">
-                                New Contact Message
+                                Thank You For Reaching Out
                             </h1>
 
                             <p
@@ -46,12 +46,12 @@
     margin: 0;
     color: #b8860b;
 ">
-                                Website Enquiry
+                                We've Received Your Message
                             </p>
                         </td>
                     </tr>
 
-                    <!-- Intro -->
+                    <!-- Greeting -->
                     <tr>
                         <td style="padding:20px 40px;">
                             <p
@@ -63,71 +63,26 @@
     margin:0;
     color:#374151;
 ">
-                                You've received a new message from the contact form on <strong>Papa's bar and
-                                    grill.</strong>.
+                                Dear {{ $name }},
+                            </p>
+                            <p
+                                style="
+    font-family: 'Albert Sans', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    letter-spacing: 0;
+    margin:12px 0 0 0;
+    color:#374151;
+">
+                                Thank you for contacting <strong>Papa's bar and grill.</strong>. We've received your
+                                message and one of our team members will get back to you shortly.
                             </p>
                         </td>
                     </tr>
 
-                    <!-- Sender Info -->
+                    <!-- Their message, for their records -->
                     <tr>
-                        <td style="padding:0 40px 0 40px;">
-                            <p
-                                style="
-    font-family: 'Albert Sans', Arial, Helvetica, sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: 0;
-    margin:0;
-    color: #0d5c3f;
-">
-                                Sender Details
-                            </p>
-                            <p
-                                style="
-    font-family: 'Albert Sans', Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.5;
-    letter-spacing: 0;
-    margin:0;
-    color: #666666;
-">
-                                <strong>Name:</strong> {{ $name }}
-                            </p>
-                            <p
-                                style="
-    font-family: 'Albert Sans', Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.5;
-    letter-spacing: 0;
-    margin:0;
-    color: #666666;
-">
-                                <strong>Email:</strong>
-                                <a href="mailto:{{ $email }}"
-                                    style="color:#0d5c3f; text-decoration:none;">{{ $email }}</a>
-                            </p>
-                            <p
-                                style="
-    font-family: 'Albert Sans', Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.5;
-    letter-spacing: 0;
-    margin:0;
-    color: #666666;
-">
-                                <strong>Sent:</strong> {{ $sentAt }}
-                            </p>
-                        </td>
-                    </tr>
-
-                    <!-- Message -->
-                    <tr>
-                        <td style="padding:20px 40px 0 40px">
+                        <td style="padding:0 40px 0 40px">
                             <p
                                 style="
     font-family: 'Albert Sans', Arial, Helvetica, sans-serif;
@@ -138,7 +93,7 @@
     margin:0 0 10px 0;
     color: #666666;
 ">
-                                Message
+                                Your Message
                             </p>
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
@@ -161,7 +116,7 @@
                         </td>
                     </tr>
 
-                    <!-- Callout / Footer note -->
+                    <!-- Footer note -->
                     <tr>
                         <td style="padding:20px 40px 20px 40px">
                             <hr style="border:none; border-top:1px solid #e5e5e5; margin:10px 0 20px 0;">
@@ -176,11 +131,8 @@
     margin:0;
     color: #666666;
 ">
-                                Reply directly to this email to respond to
-                                <a href="mailto:{{ $email }}" style="color:#0d5c3f; text-decoration:none;"
-                                    target="_blank">
-                                    {{ $name }}
-                                </a>.
+                                This is an automated confirmation. Please do not reply to this email &mdash; our team
+                                will contact you directly at <strong>{{ $email }}</strong>.
                             </p>
                         </td>
                     </tr>
@@ -189,9 +141,7 @@
                     <tr>
                         <td bgcolor="#0d5c3f" style="padding:25px 20px; text-align:center; color:#ffffff;">
                             <p style="margin:0; font-size:12px; opacity:0.8; padding:0;">
-                                &copy; {{ date('Y') }} Papa's bar and grill. &middot; Automated notification
-                                &middot;
-                                Do not reply-all
+                                &copy; {{ date('Y') }} Papa's bar and grill.
                             </p>
                         </td>
                     </tr>

@@ -46,7 +46,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $this->productService->createProduct(
-            $request->only(['name', 'description', 'price', 'stock', 'status', 'url', 'features']),
+            $request->only(['name', 'description', 'subtitle', 'base', 'style', 'served', 'price', 'stock', 'status', 'url', 'features']),
             $request->file('image'),
             $request->input('category_ids', [])
         );
@@ -70,7 +70,7 @@ class ProductController extends Controller
     {
         $this->productService->updateProduct(
             $product->id,
-            $request->only(['name', 'description', 'price', 'stock', 'status', 'url', 'features']),
+            $request->only(['name', 'description', 'subtitle', 'base', 'style', 'served', 'price', 'stock', 'status', 'url', 'features']),
             $request->file('image'),
             $request->input('category_ids', [])
         );

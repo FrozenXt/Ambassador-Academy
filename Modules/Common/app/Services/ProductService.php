@@ -92,8 +92,7 @@ class ProductService
             Storage::disk('public')->delete($product->image);
         }
 
-        // Not strictly required if you added cascadeOnDelete() in the pivot migration,
-        // but explicit detach is safer and clearer
+
         $product->categories()->detach();
 
         return $this->productRepository->delete($id);
@@ -113,7 +112,7 @@ class ProductService
     {
         return Product::where('stock', '<=', $threshold)
             ->where('status', 'active')
-            ->with('categories')   // changed from 'category' to 'categories'
+            ->with('categories')
             ->get();
     }
 }

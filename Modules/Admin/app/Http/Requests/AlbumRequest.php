@@ -19,9 +19,12 @@ class AlbumRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
 
-            'code' => $albumId
-                ? 'nullable' // 👉 on update: don't require
-                : 'required|string|max:255|unique:albums,code', // 👉 on create
+            'code' => [
+                'nullable',
+                'string',
+                'max:255',
+                Rule::unique('albums', 'code')->ignore($albumId),
+            ],
 
             'slug' => [
                 'nullable',
@@ -44,9 +47,8 @@ class AlbumRequest extends FormRequest
         return [
             'title.required' => 'The album title is required.',
             'title.max' => 'The album title must not exceed 255 characters.',
-            // 'code.required' => 'The album code is required.',
-            // 'code.max' => 'The album code must not exceed 255 characters.',
-            // 'code.unique' => 'This album code is already taken.',
+            'code.max' => 'The album code must not exceed 255 characters.',
+            'code.unique' => 'This album code is already taken.',
             'slug.unique' => 'This slug is already taken.',
             'status.required' => 'Please select a status.',
             'cover_image.image' => 'The cover image must be an image file.',
@@ -65,7 +67,8 @@ class AlbumRequest extends FormRequest
 
         $this->merge([
             'is_featured' => $this->has('is_featured'),
-            'sort_order' => $this->sort_order ?? 0
+            'sort_order'  => $this->sort_order ?? 0,
+            'code'        => $this->code !== null && trim($this->code) !== '' ? $this->code : null,
         ]);
     }
 }
