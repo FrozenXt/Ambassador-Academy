@@ -237,8 +237,8 @@
                                 <div class="custom-file">
                                     <input type="file" name="image"
                                         class="custom-file-input @error('image') is-invalid @enderror"
-                                        accept="image/jpeg,image/png,image/gif,image/svg+xml" id="productImage"
-                                        onchange="previewImage(this, 'productPreview')" />
+                                        accept="image/jpeg,image/png,image/gif,image/svg+xml,image/webp,image/avif"
+                                        id="productImage" onchange="previewImage(this, 'productPreview')" />
                                     <label class="custom-file-label" for="productImage">
                                         Choose image...
                                     </label>

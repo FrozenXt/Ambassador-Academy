@@ -82,7 +82,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'images' => 'required|array|min:1',
-            'images.*' => 'required|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'images.*' => 'required|image|mimes:jpg,jpeg,png,webp,gif,svg|max:4096',
         ]);
 
         $uploaded = $this->productService->uploadImportImages($request->file('images'));

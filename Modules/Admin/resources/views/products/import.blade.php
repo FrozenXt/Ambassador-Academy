@@ -40,10 +40,10 @@
                 <div class="form-group">
 
                     <input type="file" id="bulkImageInput" name="images[]" class="form-control-file" multiple
-                        accept="image/jpeg,image/png,image/webp">
+                        accept="image/jpeg,image/png,image/webp,image/gif,image/svg,image/jpg">
 
                     <small class="text-muted">
-                        JPG, PNG, WEBP • Max 4MB
+                        JPG, PNG, WEBP, GIF, SVG • Max 4MB
                     </small>
 
                 </div>

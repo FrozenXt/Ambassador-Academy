@@ -25,7 +25,7 @@ class ProductRequest extends FormRequest
             'status'          => 'required',
             'url'             => 'nullable|string',
             'features'        => 'nullable|array',
-            'image'           => 'nullable|image|max:2048',
+            'image' => 'nullable|mimes:jpeg,jpg,png,gif,webp,svg,avif|max:2048',
             'category_ids'    => 'required|array|min:1',
             'category_ids.*'  => 'exists:categories,id',
         ];
