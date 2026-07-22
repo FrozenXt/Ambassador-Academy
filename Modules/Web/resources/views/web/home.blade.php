@@ -43,7 +43,7 @@
         </p>
 
         <h1 class="hero-heading" id="heroHeading">
-            {{ isset($bannerItem) ? $bannerItem->subtitle : "Kathmandu's Largest" }}<br />
+            {{ isset($bannerItem) ? $bannerItem->subtitle : "Kathmandu's Largest" }}
             <em>{{ isset($bannerItem) ? $bannerItem->description : 'Rooftop Bar & Grill' }}</em>
         </h1>
 

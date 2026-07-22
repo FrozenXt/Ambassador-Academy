@@ -72,12 +72,18 @@
 
                     <div class="col-6 col-md-3 mb-2 mb-md-0">
                         <label class="small text-muted mb-1">Album</label>
+
                         <select name="album_id" class="form-control form-control-sm">
                             <option value="">All Albums</option>
+
                             @foreach ($albums as $album)
                                 <option value="{{ $album->id }}"
                                     {{ request('album_id') == $album->id ? 'selected' : '' }}>
-                                    {{ $album->title }} ({{ $album->gallery_count ?? 0 }})
+                                    {{ $album->title }}
+                                    @if ($album->code)
+                                        — {{ \Modules\Common\Entities\Album::ALBUM_CODES[$album->code] ?? $album->code }}
+                                    @endif
+                                    ({{ $album->gallery_count ?? 0 }} images)
                                 </option>
                             @endforeach
                         </select>
