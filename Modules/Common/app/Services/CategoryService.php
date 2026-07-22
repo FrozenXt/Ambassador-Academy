@@ -49,19 +49,24 @@ class CategoryService
 
         return $this->categoryRepository->create($data);
     }
-    public function updateCategory(int $id, array $data, $imageFile = null)
+    public function updateCategory(int $id, array $data, $imageFile = null, $image2File = null)
     {
         $category = $this->categoryRepository->findById($id);
 
         if ($imageFile) {
-            // Delete old image
             if ($category->image) {
                 Storage::disk('public')->delete($category->image);
             }
             $data['image'] = $imageFile->store('categories', 'public');
         }
 
-        // Update slug if name changed
+        if ($image2File) {
+            if ($category->image_2) {
+                Storage::disk('public')->delete($category->image_2);
+            }
+            $data['image_2'] = $image2File->store('categories', 'public');
+        }
+
         if (isset($data['name']) && $data['name'] !== $category->name) {
             $slug = Str::slug($data['name']);
             $count = $this->categoryRepository->countBySlugLikeExceptId($slug, $id);
@@ -79,9 +84,12 @@ class CategoryService
             Storage::disk('public')->delete($category->image);
         }
 
+        if ($category->image_2) {
+            Storage::disk('public')->delete($category->image_2);
+        }
+
         return $this->categoryRepository->delete($id);
     }
-
     public function getAllActive()
     {
         return \Modules\Common\Entities\Category::where('status', 'active')

@@ -72,7 +72,8 @@
                             <th style="width: 50px">Order</th>
                             <th style="width: 80px">Image</th>
                             <th>Title</th>
-                            <th>Icon</th>
+                            <th> Type </th>
+                            {{-- <th>Icon</th> --}}
                             <th>Status</th>
                             <th>Created</th>
                             <th>Actions</th>
@@ -102,8 +103,11 @@
                                     <small class="text-muted">{{ Str::limit($service->description, 50) }}</small>
                                 </td>
                                 <td>
-                                    @if ($service->icon)
-                                        <i class="{{ $service->icon }} fa-2x"></i>
+                                    @if ($service->type)
+                                        <i class="{{ $service->type }} mr-2"></i>
+                                        <small class="text-muted">
+                                            {{ ucwords(str_replace(['fas fa-', 'far fa-', 'fab fa-', '-'], ['', '', '', ' '], $service->type)) }}
+                                        </small>
                                     @else
                                         <span class="text-muted">—</span>
                                     @endif

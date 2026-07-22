@@ -241,7 +241,7 @@
     </div>
 
     {{-- Role Permissions Overview --}}
-    <div class="card card-outline card-secondary mt-4">
+    {{-- <div class="card card-outline card-secondary mt-4">
         <div class="card-header">
             <h3 class="card-title">
                 <i class="fas fa-shield-alt mr-2"></i> Role Permissions Overview
@@ -269,6 +269,6 @@
                 @endforeach
             </div>
         </div>
-    </div>
+    </div> --}}
 
 @endsection

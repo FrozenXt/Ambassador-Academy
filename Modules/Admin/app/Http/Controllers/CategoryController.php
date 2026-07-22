@@ -36,8 +36,8 @@ class CategoryController extends Controller
     {
         $this->categoryService->createCategory(
             $request->only(['name', 'description', 'status']),
-            $request->file('image', 'image_2')
-
+            $request->file('image'),
+            $request->file('image_2')
         );
 
         return redirect()->route('admin.categories.index')
@@ -54,7 +54,8 @@ class CategoryController extends Controller
         $this->categoryService->updateCategory(
             $category->id,
             $request->only(['name', 'description', 'status']),
-            $request->file('image', 'image_2')
+            $request->file('image'),
+            $request->file('image_2')
         );
 
         return redirect()->route('admin.categories.index')

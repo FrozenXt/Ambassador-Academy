@@ -105,7 +105,8 @@
                                 <span class="reveal-bullet"></span>
                                 <div>
                                     <h3 class="reveal-heading split-target">Fine <em class="gold">Wine</em> Signature
-                                        <em class="gold">Cocktails</em></h3>
+                                        <em class="gold">Cocktails</em>
+                                    </h3>
                                     <p class="reveal-sub">From Exceptional Whiskies to Fine Wines</p>
                                 </div>
                             </li>
@@ -311,7 +312,7 @@
 
                 @if (isset($menuCategory) && isset($menuCategory->products) && count($menuCategory->products) > 0)
                     @foreach ($menuCategory->products as $item)
-                        <div class="menu-item">
+                        <a href="{{ route('menu.detail', $item->id) }}" class="menu-item">
                             <div>
                                 <div class="row-top">
                                     <h3>{{ $item->name }}</h3>
@@ -319,7 +320,7 @@
                                 </div>
                                 <p>{{ $item->description }}</p>
                             </div>
-                        </div>
+                        </a>
                     @endforeach
                 @else
                     <!-- Default fallback menu items -->

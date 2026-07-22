@@ -41,6 +41,6 @@ class PageController extends Controller
 
     public function menuDetail($id)
     {
-        return view('web::web.menu-detail', $this->pageService->getMenuDetailData($id));
+        return view('web::web.Menu-detail', $this->pageService->getMenuDetailData($id));
     }
 }

@@ -11,7 +11,7 @@
     <div class="card card-outline card-warning">
         <div class="card-header">
             <h3 class="card-title">
-                <i class="fas fa-edit mr-2"></i> Edit — {{ $category->name }}
+                <i class="fas fa-edit mr-2"></i> Edit Category
             </h3>
         </div>
         <div class="card-body">
@@ -24,7 +24,7 @@
                         <div class="form-group">
                             <label>Name <span class="text-danger">*</span></label>
                             <input type="text" name="name" value="{{ old('name', $category->name) }}"
-                                class="form-control @error('name') is-invalid @enderror" />
+                                class="form-control @error('name') is-invalid @enderror" placeholder="e.g. Electronics" />
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -33,64 +33,105 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Status <span class="text-danger">*</span></label>
-                            <select name="status" class="form-control">
+                            <select name="status" class="form-control @error('status') is-invalid @enderror">
                                 <option value="active" {{ old('status', $category->status) == 'active' ? 'selected' : '' }}>
                                     Active
                                 </option>
                                 <option value="inactive"
-                                    {{ old('status', $category->status) == 'inactive' ? 'selected' : '' }}>
-                                    Inactive
+                                    {{ old('status', $category->status) == 'inactive' ? 'selected' : '' }}>Inactive
                                 </option>
                             </select>
+                            @error('status')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea name="description" rows="3" class="form-control" placeholder="Category description...">{{ old('description', $category->description) }}</textarea>
+                            <textarea name="description" rows="3" class="form-control @error('description') is-invalid @enderror"
+                                placeholder="Category description...">{{ old('description', $category->description) }}</textarea>
+                            @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Image</label>
+
                             @if ($category->image)
                                 <div class="mb-2 d-flex align-items-center">
                                     <img src="{{ asset('storage/' . $category->image) }}"
-                                        style="width:60px;height:60px;object-fit:cover;border-radius:6px;" />
+                                        style="width:70px;height:70px;object-fit:cover;border-radius:8px;" />
                                     <small class="text-muted ml-2">Current image</small>
                                 </div>
                             @endif
+
                             <div class="input-group">
                                 <div class="custom-file">
                                     <input type="file" name="image"
                                         class="custom-file-input @error('image') is-invalid @enderror"
-                                        accept="image/jpeg,image/png,image/gif,image/svg+xml" id="editCategoryImage"
-                                        onchange="previewImage(this, 'editCategoryPreview')" />
-                                    <label class="custom-file-label" for="editCategoryImage">
+                                        accept="image/jpeg,image/png,image/gif,image/svg+xml" id="categoryImage"
+                                        onchange="previewImage(this, 'categoryPreview')" />
+                                    <label class="custom-file-label" for="categoryImage">
                                         Choose new image...
                                     </label>
                                 </div>
                             </div>
-                            <small class="text-muted">Leave empty to keep current image.</small>
+                            <small class="text-muted">Leave empty to keep current image. JPG, PNG, GIF or SVG. Max
+                                2MB.</small>
                             @error('image')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
                             <div class="mt-3">
-                                <img id="editCategoryPreview" src="#" class="d-none"
+                                <img id="categoryPreview" src="#" class="d-none"
+                                    style="width:120px;height:120px;object-fit:cover;border-radius:8px;" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Second Image</label>
+
+                            @if ($category->image_2)
+                                <div class="mb-2 d-flex align-items-center">
+                                    <img src="{{ asset('storage/' . $category->image_2) }}"
+                                        style="width:70px;height:70px;object-fit:cover;border-radius:8px;" />
+                                    <small class="text-muted ml-2">Current image</small>
+                                </div>
+                            @endif
+
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" name="image_2"
+                                        class="custom-file-input @error('image_2') is-invalid @enderror"
+                                        accept="image/jpeg,image/png,image/gif,image/svg+xml" id="categoryImage2"
+                                        onchange="previewImage(this, 'categoryPreview2')" />
+                                    <label class="custom-file-label" for="categoryImage2">
+                                        Choose new image...
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="text-muted">Leave empty to keep current image. JPG, PNG, GIF or SVG. Max
+                                2MB.</small>
+                            @error('image_2')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
+                            <div class="mt-3">
+                                <img id="categoryPreview2" src="#" class="d-none"
                                     style="width:120px;height:120px;object-fit:cover;border-radius:8px;" />
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr>
-
                 <button type="submit" class="btn btn-warning">
                     <i class="fas fa-save mr-1"></i> Update Category
                 </button>
-                @canEdit
                 <a href="{{ route('admin.categories.index') }}" class="btn btn-default ml-2">Cancel</a>
-                @endcanEdit
             </form>
+
         </div>
     </div>
 @endsection
