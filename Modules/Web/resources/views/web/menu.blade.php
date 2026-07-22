@@ -75,7 +75,7 @@
                                 <div class="section-title">{{ $category->name }}</div>
 
                                 @forelse ($category->products as $item)
-                                    <a href="{{ route('menu.detail', $item->id) }}" class="menuPage-item">
+                                    <a href="{{ route('menu.detail', $item->slug) }}" class="menuPage-item">
                                         <div class="row-top">
                                             <span class="name">{{ $item->name }}</span>
                                             <span class="price">Rs. {{ number_format($item->price, 0) }}</span>
