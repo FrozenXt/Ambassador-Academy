@@ -5,6 +5,8 @@ namespace Modules\Common\Services;
 use Modules\Common\Repositories\ProductRepositoryInterface;
 use Modules\Common\Entities\Product;
 use Illuminate\Support\Facades\Storage;
+use App\Imports\ProductsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductService
 {
@@ -114,5 +116,45 @@ class ProductService
             ->where('status', 'active')
             ->with('categories')
             ->get();
+    }
+    public function importProducts($file): array
+    {
+        $import = new ProductsImport();
+        Excel::import($import, $file);
+
+        return [
+            'imported'       => $import->getRowCount(),
+            'failures'       => $import->failures()->count(),
+            'missing_images' => $import->getMissingImages(),
+        ];
+    }
+    public function getPendingImportImages()
+    {
+        return collect(Storage::disk('public')->files('imports/temp'))
+            ->map(fn($path) => basename($path));
+    }
+
+    public function uploadImportImages(array $files): int
+    {
+        foreach ($files as $file) {
+            $filename = $file->getClientOriginalName();
+            $file->storeAs('imports/temp', $filename, 'public');
+        }
+
+        return count($files);
+    }
+
+    public function deleteImportImage(string $filename): bool
+    {
+        return Storage::disk('public')->delete('imports/temp/' . $filename);
+    }
+    public function deleteMultipleProducts(array $ids): int
+    {
+        $count = 0;
+        foreach ($ids as $id) {
+            $this->deleteProduct($id);
+            $count++;
+        }
+        return $count;
     }
 }

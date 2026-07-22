@@ -72,7 +72,7 @@ Route::view('/menu', 'web.pages.menu')->name('menu');
 Route::get('/', [PageController::class, 'home'])->name('home');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/menu', [PageController::class, 'menu'])->name('menu');
-Route::get('menu/{url}', [PageController::class, 'menuDetail'])->name('menu.detail');
+Route::get('menu/{slug}', [PageController::class, 'menuDetail'])->name('menu.detail');
 Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
 Route::get('/services', [PageController::class, 'services'])->name('services');
 // Route::get('/contact', [PageController::class, 'contact'])->name('contact');

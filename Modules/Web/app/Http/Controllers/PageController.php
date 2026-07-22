@@ -39,8 +39,8 @@ class PageController extends Controller
         return view('web::web.contact');
     }
 
-    public function menuDetail($id)
+    public function menuDetail($slug)
     {
-        return view('web::web.Menu-detail', $this->pageService->getMenuDetailData($id));
+        return view('web::web.Menu-detail', $this->pageService->getMenuDetailData($slug));
     }
 }

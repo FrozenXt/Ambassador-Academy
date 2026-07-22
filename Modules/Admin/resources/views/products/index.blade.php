@@ -6,6 +6,9 @@
     <a href="{{ route('admin.products.create') }}" class="btn btn-primary btn-sm">
         <i class="fas fa-plus mr-1"></i> Add Food Item
     </a>
+    <a href="{{ route('admin.products.import') }}" class="btn btn-success btn-sm">
+        <i class="fas fa-file-excel mr-1"></i> Bulk Menu Upload
+    </a>
     @endcanCreate
 @endsection
 
@@ -61,23 +64,16 @@
                                 Inactive</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <input type="number" name="min_price" value="{{ $filters['min_price'] ?? '' }}"
-                            class="form-control" placeholder="Min price" />
-                    </div>
-                    <div class="col-md-2">
-                        <input type="number" name="max_price" value="{{ $filters['max_price'] ?? '' }}"
-                            class="form-control" placeholder="Max price" />
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary mr-2">
+                            <i class="fas fa-search mr-1"></i> Search
+                        </button>
+                        <a href="{{ route('admin.products.index') }}" class="btn btn-default">
+                            <i class="fas fa-times mr-1"></i> Reset
+                        </a>
                     </div>
                 </div>
-                <div class="mt-2">
-                    <button type="submit" class="btn btn-primary btn-sm">
-                        <i class="fas fa-search mr-1"></i> Search
-                    </button>
-                    <a href="{{ route('admin.products.index') }}" class="btn btn-default btn-sm">
-                        <i class="fas fa-times mr-1"></i> Reset
-                    </a>
-                </div>
+
             </form>
         </div>
     </div>
@@ -93,17 +89,33 @@
             </div>
         </div>
 
+        {{-- Bulk actions bar (hidden until something is checked) --}}
+        @canDelete
+        <div class="card-body border-bottom py-2 d-none" id="bulkActionsBar">
+            <div class="d-flex align-items-center justify-content-between">
+                <span id="selectedCount" class="font-weight-bold text-muted">0 selected</span>
+                <button type="button" class="btn btn-sm btn-danger" id="bulkDeleteBtn">
+                    <i class="fas fa-trash mr-1"></i> Delete Selected
+                </button>
+            </div>
+        </div>
+        @endcanDelete
+
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover table-striped text-center">
                     <thead class="thead-dark">
                         <tr>
+                            @canDelete
+                            <th style="width:36px">
+                                <input type="checkbox" id="selectAllCheckbox">
+                            </th>
+                            @endcanDelete
                             <th style="width:60px">Order</th>
                             <th>Image</th>
                             <th>Name</th>
                             <th style="width:200px">Category</th>
                             <th>Price</th>
-                            {{-- <th>Stock</th> --}}
                             <th>Status</th>
                             <th>Created</th>
                             <th>Actions</th>
@@ -113,6 +125,12 @@
                     <tbody id="sortable-products">
                         @forelse($products as $i => $product)
                             <tr class="sortable-row" data-id="{{ $product->id }}">
+                                @canDelete
+                                <td>
+                                    <input type="checkbox" class="row-checkbox" value="{{ $product->id }}">
+                                </td>
+                                @endcanDelete
+
                                 <td>
                                     <span class="drag-handle">
                                         <i class="fas fa-grip-vertical"></i>
@@ -151,13 +169,6 @@
                                 <td class="font-weight-bold text-success">
                                     Rs. {{ number_format($product->price, 2) }}
                                 </td>
-
-                                {{-- <td>
-                                    <span
-                                        class="badge badge-{{ $product->stock > 5 ? 'primary' : ($product->stock > 0 ? 'warning' : 'danger') }}">
-                                        {{ $product->stock }}
-                                    </span>
-                                </td> --}}
 
                                 <td>
                                     <span class="badge badge-{{ $product->status == 'active' ? 'success' : 'danger' }}">
@@ -218,7 +229,14 @@
         </div>
     </div>
 
-    {{ $products->links() }}
+    {{ $products->links('pagination::bootstrap-4') }}
+
+    {{-- Hidden form used for bulk delete submission --}}
+    <form id="bulkDeleteForm" action="{{ route('admin.products.bulk-destroy') }}" method="POST" class="d-none">
+        @csrf
+        @method('DELETE')
+        <div id="bulkDeleteIdsContainer"></div>
+    </form>
 
 @endsection
 
@@ -242,7 +260,6 @@
             function updateOrderNumbers() {
                 document.querySelectorAll('#sortable-products .sortable-row').forEach((row, index) => {
                     const badge = row.querySelector('.order-badge');
-                    // If row.dataset.sort exists, use it, else use index+1
                     badge.textContent = index + 1;
                 });
             }
@@ -272,6 +289,60 @@
                             toastr.error('Failed to update');
                     })
                     .catch(() => toastr.error('Error occurred'));
+            });
+
+            // ===== BULK DELETE =====
+            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+            const rowCheckboxes = document.querySelectorAll('.row-checkbox');
+            const bulkActionsBar = document.getElementById('bulkActionsBar');
+            const selectedCountEl = document.getElementById('selectedCount');
+            const bulkDeleteBtn = document.getElementById('bulkDeleteBtn');
+
+            function updateBulkBar() {
+                const checked = document.querySelectorAll('.row-checkbox:checked');
+                if (!bulkActionsBar) return;
+
+                if (checked.length > 0) {
+                    bulkActionsBar.classList.remove('d-none');
+                    selectedCountEl.textContent = checked.length + ' selected';
+                } else {
+                    bulkActionsBar.classList.add('d-none');
+                }
+            }
+
+            selectAllCheckbox?.addEventListener('change', function() {
+                rowCheckboxes.forEach(cb => cb.checked = selectAllCheckbox.checked);
+                updateBulkBar();
+            });
+
+            rowCheckboxes.forEach(cb => {
+                cb.addEventListener('change', function() {
+                    if (!cb.checked) selectAllCheckbox.checked = false;
+                    updateBulkBar();
+                });
+            });
+
+            bulkDeleteBtn?.addEventListener('click', function() {
+                const checked = Array.from(document.querySelectorAll('.row-checkbox:checked'))
+                    .map(cb => cb.value);
+
+                if (checked.length === 0) return;
+
+                if (!confirm('Delete ' + checked.length + ' selected item(s)? This cannot be undone.')) {
+                    return;
+                }
+
+                const container = document.getElementById('bulkDeleteIdsContainer');
+                container.innerHTML = '';
+                checked.forEach(id => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'ids[]';
+                    input.value = id;
+                    container.appendChild(input);
+                });
+
+                document.getElementById('bulkDeleteForm').submit();
             });
 
         });

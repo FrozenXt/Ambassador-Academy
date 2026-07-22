@@ -312,7 +312,7 @@
 
                 @if (isset($menuCategory) && isset($menuCategory->products) && count($menuCategory->products) > 0)
                     @foreach ($menuCategory->products as $item)
-                        <a href="{{ route('menu.detail', $item->id) }}" class="menu-item">
+                        <a href="{{ route('menu.detail', $item->slug) }}" class="menu-item">
                             <div>
                                 <div class="row-top">
                                     <h3>{{ $item->name }}</h3>

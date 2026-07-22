@@ -79,12 +79,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('products',           [ProductController::class, 'index'])->name('products.index')->middleware('checkRole:superadmin,admin,manager,staff');
             Route::get('products/create',    [ProductController::class, 'create'])->name('products.create')->middleware('checkRole:superadmin,admin,manager');
             Route::post('products',          [ProductController::class, 'store'])->name('products.store')->middleware('checkRole:superadmin,admin,manager');
+
+            Route::get('products/import', [ProductController::class, 'importForm'])->name('products.import')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('products/import', [ProductController::class, 'import'])->name('products.import.store')->middleware('checkRole:superadmin,admin,manager');
+
+            Route::get('products/bulk-images', [ProductController::class, 'bulkImagesForm'])->name('products.bulk-images')->middleware('checkRole:superadmin,admin,manager');
+            Route::post('products/bulk-images', [ProductController::class, 'bulkImagesUpload'])->name('products.bulk-images.store')->middleware('checkRole:superadmin,admin,manager');
+            Route::delete('products/bulk-images', [ProductController::class, 'bulkImageDelete'])->name('products.bulk-images.delete')->middleware('checkRole:superadmin,admin,manager');
+            Route::delete('products/bulk-destroy', [ProductController::class, 'bulkDestroy'])->name('products.bulk-destroy')->middleware('checkRole:superadmin,admin');
+
             Route::get('products/{product}', [ProductController::class, 'show'])->name('products.show')->middleware('checkRole:superadmin,admin,manager,staff');
             Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit')->middleware('checkRole:superadmin,admin,manager');
             Route::put('products/{product}',      [ProductController::class, 'update'])->name('products.update')->middleware('checkRole:superadmin,admin,manager');
             Route::delete('products/{product}',   [ProductController::class, 'destroy'])->name('products.destroy')->middleware('checkRole:superadmin,admin');
             Route::post('products/update-order', [ProductController::class, 'updateOrder'])->name('products.update-order')->middleware('checkRole:superadmin,admin,manager');
-
 
 
             // ── Banners ──

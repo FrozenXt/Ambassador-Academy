@@ -11,6 +11,7 @@ class Product extends Model
         'name',
         'description',
         'subtitle',
+        'slug',
         'base',
         'served',
         'style',
@@ -42,5 +43,24 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class);
+    }
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($product) {
+            if (empty($product->slug)) {
+                $baseSlug = \Illuminate\Support\Str::slug($product->name);
+                $slug = $baseSlug;
+                $counter = 1;
+
+                while (static::where('slug', $slug)->exists()) {
+                    $slug = $baseSlug . '-' . $counter;
+                    $counter++;
+                }
+
+                $product->slug = $slug;
+            }
+        });
     }
 }

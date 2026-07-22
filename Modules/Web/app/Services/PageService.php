@@ -122,10 +122,10 @@ class PageService
         return compact('galleryItems', 'filters');
     }
 
-    // PageService.php
-    public function getMenuDetailData($id): array
+
+    public function getMenuDetailData($slug): array
     {
-        $product = \Modules\Common\Entities\Product::where('id', $id)
+        $product = \Modules\Common\Entities\Product::where('slug', $slug)
             ->where('status', 'active')
             // ->with('category')
             ->firstOrFail();
