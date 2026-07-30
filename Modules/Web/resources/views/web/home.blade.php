@@ -47,7 +47,7 @@
             <em>{{ isset($bannerItem) ? $bannerItem->description : 'Rooftop Bar & Grill' }}</em>
         </h1>
 
-        <a href="{{ isset($bannerItem) && !empty($bannerItem->youtube_link) ? $bannerItem->youtube_link : '#reveal' }}"
+        <a href="{{ isset($bannerItem) && !empty($bannerItem->youtube_link) ? $bannerItem->youtube_link : route('menu') }}"
             class="btn-gold" id="heroBtn">
             <span>Explore Now</span>
         </a>
