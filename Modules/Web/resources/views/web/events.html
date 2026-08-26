@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events | Ambassador School</title>
+<meta name="description" content="Discover, participate and celebrate! Stay updated with all the upcoming events and activities at Ambassador School.">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- AOS Animation -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css">
+
+<!-- Swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<!-- Site CSS (shared with every page) -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ PRELOADER ============ -->
+<div class="preloader" id="preloader">
+  <div class="preloader-shield">
+    <i class="fa-solid fa-shield-halved"></i>
+  </div>
+</div>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <p class="topbar-msg"><i class="fa-solid fa-bullhorn"></i> Welcome to Ambassador School</p>
+    <div class="topbar-right">
+      <ul class="topbar-links">
+        <li><a href="tel:+97711234567"><i class="fa-solid fa-phone"></i> +977 1 1234567</a></li>
+        <li><a href="mailto:info@ambassadorschool.edu.np"><i class="fa-solid fa-envelope"></i> info@ambassadorschool.edu.np</a></li>
+      </ul>
+      <div class="topbar-socials">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HEADER (identical across the site) ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-badge"><i class="fa-solid fa-shield-halved"></i></div>
+      <div class="logo-text">
+        <span class="logo-title">Ambassador <span>School</span></span>
+        <span class="logo-tagline">INSPIRE · INNOVATE · ACHIEVE</span>
+      </div>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="apply.html" class="btn btn-primary btn-sm">Apply Now</a>
+      <button class="icon-btn" id="searchToggle" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="search-box" id="searchBox">
+    <div class="container">
+      <input type="text" placeholder="Search the site...">
+      <button aria-label="Close search" id="searchClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PAGE BANNER ============ -->
+<section class="page-banner">
+  <div class="container" data-aos="fade-up" data-aos-duration="800">
+    <h1>Events</h1>
+    <div class="heading-underline"></div>
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span class="current">Events</span>
+    </div>
+    <p class="banner-lead">Discover, participate and celebrate! Stay updated with all the upcoming events and activities.</p>
+  </div>
+  <svg class="page-banner-wave" viewBox="0 0 1440 80" preserveAspectRatio="none"><path fill="currentColor" d="M0,80 C480,0 960,80 1440,10 L1440,80 L0,80 Z"></path></svg>
+</section>
+
+<!-- ============ FEATURED EVENTS ============ -->
+<section class="featured-events-section">
+  <div class="container">
+    <div class="featured-events-head" data-aos="fade-up">
+      <div>
+        <h2>Featured Events</h2>
+        <div class="heading-bar"></div>
+      </div>
+      <div class="featured-nav">
+        <button id="featPrev" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+        <button id="featNext" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+
+    <div class="swiper featured-swiper" data-aos="fade-up" data-aos-delay="100">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="event-feature-card">
+            <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=700&q=80" alt="Cultural Fest 2025">
+            <div class="event-feature-body">
+              <h4>Cultural Fest 2025</h4>
+              <div class="event-feature-meta">
+                <span><i class="fa-regular fa-calendar"></i> 18 May 2025</span>
+                <span><i class="fa-solid fa-location-dot"></i> School Auditorium</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="event-feature-card is-featured">
+            <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=900&q=80" alt="Annual Sports Day 2025">
+            <span class="badge-upcoming">Upcoming</span>
+            <div class="event-feature-body">
+              <h4>Annual Sports Day 2025</h4>
+              <div class="event-feature-meta">
+                <span><i class="fa-regular fa-calendar"></i> 25 May 2025</span>
+                <span><i class="fa-regular fa-clock"></i> 8:00 AM - 2:00 PM</span>
+                <span><i class="fa-solid fa-location-dot"></i> School Ground</span>
+              </div>
+              <a href="#" class="btn btn-dark-green">View Details</a>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="event-feature-card">
+            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=700&q=80" alt="Science Exhibition">
+            <div class="event-feature-body">
+              <h4>Science Exhibition</h4>
+              <div class="event-feature-meta">
+                <span><i class="fa-regular fa-calendar"></i> 10 June 2025</span>
+                <span><i class="fa-solid fa-location-dot"></i> Science Block</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="event-feature-card">
+            <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=700&q=80" alt="International Yoga Day">
+            <div class="event-feature-body">
+              <h4>International Yoga Day</h4>
+              <div class="event-feature-meta">
+                <span><i class="fa-regular fa-calendar"></i> 21 June 2025</span>
+                <span><i class="fa-solid fa-location-dot"></i> School Ground</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-pagination featured-pagination"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ UPCOMING EVENTS + CALENDAR ============ -->
+<section class="events-main-section">
+  <div class="container events-main-grid">
+
+    <div class="events-upcoming-col" data-aos="fade-up">
+      <div class="panel-head">
+        <div>
+          <h3>Upcoming Events</h3>
+          <div class="heading-bar"></div>
+        </div>
+        <a href="#" class="view-all">View All Events <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="upcoming-list">
+        <div class="upcoming-row">
+          <div class="upcoming-date"><span class="day">25</span><span class="mon">MAY 2025</span></div>
+          <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=200&q=80" alt="Annual Sports Day">
+          <div class="upcoming-body">
+            <h5>Annual Sports Day 2025</h5>
+            <p>A day full of energy, teamwork and celebration of sportsmanship.</p>
+            <div class="upcoming-meta">
+              <span><i class="fa-regular fa-clock"></i> 8:00 AM - 2:00 PM</span>
+              <span><i class="fa-solid fa-location-dot"></i> School Ground</span>
+            </div>
+          </div>
+          <span class="upcoming-tag bg-maroon">Sports</span>
+        </div>
+
+        <div class="upcoming-row">
+          <div class="upcoming-date"><span class="day">10</span><span class="mon">JUN 2025</span></div>
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=200&q=80" alt="Science Exhibition">
+          <div class="upcoming-body">
+            <h5>Science Exhibition</h5>
+            <p>Innovative projects by our young scientists.</p>
+            <div class="upcoming-meta">
+              <span><i class="fa-regular fa-clock"></i> 9:00 AM - 1:00 PM</span>
+              <span><i class="fa-solid fa-location-dot"></i> Science Block</span>
+            </div>
+          </div>
+          <span class="upcoming-tag bg-gold">Academic</span>
+        </div>
+
+        <div class="upcoming-row">
+          <div class="upcoming-date"><span class="day">18</span><span class="mon">JUN 2025</span></div>
+          <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=200&q=80" alt="Cultural Fest">
+          <div class="upcoming-body">
+            <h5>Cultural Fest 2025</h5>
+            <p>Celebrating talent, diversity and tradition.</p>
+            <div class="upcoming-meta">
+              <span><i class="fa-regular fa-clock"></i> 5:00 PM - 8:00 PM</span>
+              <span><i class="fa-solid fa-location-dot"></i> School Auditorium</span>
+            </div>
+          </div>
+          <span class="upcoming-tag bg-maroon2">Cultural</span>
+        </div>
+
+        <div class="upcoming-row">
+          <div class="upcoming-date"><span class="day">21</span><span class="mon">JUN 2025</span></div>
+          <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=200&q=80" alt="International Yoga Day">
+          <div class="upcoming-body">
+            <h5>International Yoga Day</h5>
+            <p>Let's come together for a healthier and happier future.</p>
+            <div class="upcoming-meta">
+              <span><i class="fa-regular fa-clock"></i> 7:00 AM - 9:00 AM</span>
+              <span><i class="fa-solid fa-location-dot"></i> School Ground</span>
+            </div>
+          </div>
+          <span class="upcoming-tag bg-green">Wellness</span>
+        </div>
+
+        <div class="upcoming-row">
+          <div class="upcoming-date"><span class="day">30</span><span class="mon">JUN 2025</span></div>
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=200&q=80" alt="Investiture Ceremony">
+          <div class="upcoming-body">
+            <h5>Investiture Ceremony</h5>
+            <p>Empowering student leaders for the journey ahead.</p>
+            <div class="upcoming-meta">
+              <span><i class="fa-regular fa-clock"></i> 11:00 AM - 1:00 PM</span>
+              <span><i class="fa-solid fa-location-dot"></i> School Auditorium</span>
+            </div>
+          </div>
+          <span class="upcoming-tag bg-gold">Ceremony</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="events-sidebar" data-aos="fade-up" data-aos-delay="100">
+      <div class="calendar-card">
+        <div class="calendar-head">
+          <button aria-label="Previous month"><i class="fa-solid fa-chevron-left"></i></button>
+          <h4>May 2025</h4>
+          <button aria-label="Next month"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <div class="calendar-grid">
+          <span class="cal-dow">SUN</span><span class="cal-dow">MON</span><span class="cal-dow">TUE</span>
+          <span class="cal-dow">WED</span><span class="cal-dow">THU</span><span class="cal-dow">FRI</span><span class="cal-dow">SAT</span>
+          <span class="cal-day muted">27</span><span class="cal-day muted">28</span><span class="cal-day muted">29</span>
+          <span class="cal-day muted">30</span><span class="cal-day">1</span><span class="cal-day">2</span><span class="cal-day">3</span>
+          <span class="cal-day">4</span><span class="cal-day">5</span><span class="cal-day">6</span><span class="cal-day">7</span>
+          <span class="cal-day">8</span><span class="cal-day">9</span><span class="cal-day">10</span>
+          <span class="cal-day">11</span><span class="cal-day">12</span><span class="cal-day">13</span><span class="cal-day">14</span>
+          <span class="cal-day">15</span><span class="cal-day">16</span><span class="cal-day">17</span>
+          <span class="cal-day has-event ev-maroon">18</span><span class="cal-day">19</span><span class="cal-day">20</span>
+          <span class="cal-day has-event ev-green">21</span><span class="cal-day">22</span><span class="cal-day">23</span>
+          <span class="cal-day has-event ev-gold">24</span>
+          <span class="cal-day has-event ev-maroon">25</span><span class="cal-day">26</span><span class="cal-day">27</span>
+          <span class="cal-day">28</span><span class="cal-day">29</span><span class="cal-day">30</span><span class="cal-day">31</span>
+        </div>
+      </div>
+
+      <div class="calendar-promo">
+        <i class="fa-solid fa-calendar-check"></i>
+        <h5>Never Miss an Event!</h5>
+        <p>Subscribe to our calendar and get notified about all school events.</p>
+        <a href="#" class="btn btn-dark-green btn-sm">Subscribe Now</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ INFO STRIP ============ -->
+<section class="info-strip" data-aos="fade-up">
+  <div class="container info-strip-grid">
+    <div class="info-strip-item">
+      <div class="info-strip-icon"><i class="fa-regular fa-calendar-days"></i></div>
+      <div>
+        <h4>Diverse Events</h4>
+        <p>From academics to arts, sports to wellness.</p>
+      </div>
+    </div>
+    <div class="info-strip-item">
+      <div class="info-strip-icon"><i class="fa-solid fa-people-group"></i></div>
+      <div>
+        <h4>Student Participation</h4>
+        <p>Encouraging leadership, teamwork and creativity.</p>
+      </div>
+    </div>
+    <div class="info-strip-item">
+      <div class="info-strip-icon"><i class="fa-solid fa-trophy"></i></div>
+      <div>
+        <h4>Memorable Moments</h4>
+        <p>Building memories that last a lifetime.</p>
+      </div>
+    </div>
+    <div class="info-strip-item">
+      <div class="info-strip-icon"><i class="fa-regular fa-bell"></i></div>
+      <div>
+        <h4>Stay Updated</h4>
+        <p>Regular updates so you never miss a moment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="newsletter-section variant-green" data-aos="fade-up">
+  <div class="container newsletter-inner">
+    <div class="newsletter-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+    <div class="newsletter-text">
+      <h4>Stay Updated with Our Events</h4>
+      <p>Subscribe to our newsletter and never miss an update.</p>
+    </div>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" placeholder="Enter your email address" required>
+      <button type="submit" class="btn btn-dark-green">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER (identical across the site) ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a href="index.html" class="logo footer-logo">
+        <div class="logo-badge"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="logo-text">
+          <span class="logo-title">Ambassador <span>School</span></span>
+          <span class="logo-tagline">INSPIRE · INNOVATE · ACHIEVE</span>
+        </div>
+      </a>
+      <p>Nurturing young minds with quality education, strong values, and holistic development.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h5>Contact Us</h5>
+      <ul>
+        <li><i class="fa-solid fa-location-dot"></i> 123 Education Street, Kathmandu, Nepal</li>
+        <li><i class="fa-solid fa-phone"></i> +977 1 1234567</li>
+        <li><i class="fa-solid fa-envelope"></i> info@ambassadorschool.edu.np</li>
+        <li><i class="fa-solid fa-clock"></i> Mon - Fri: 8:00 AM - 4:00 PM<br><span class="indent">Saturday: 9:00 AM - 1:00 PM</span></li>
+      </ul>
+    </div>
+
+    <div class="footer-map">
+      <h5>Location</h5>
+      <div class="map-embed">
+        <iframe title="Ambassador School Location" src="https://maps.google.com/maps?q=Kathmandu&t=&z=13&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>© 2026 Ambassador School. All Rights Reserved.</p>
+      <p>Designed with <i class="fa-solid fa-heart"></i> for Education</p>
+    </div>
+  </div>
+</footer>
+
+<a href="#" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
+
+<!-- Scripts (shared across the site) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

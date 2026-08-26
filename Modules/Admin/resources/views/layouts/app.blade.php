@@ -318,6 +318,17 @@
                         </li>
 
                         <li class="nav-item">
+                            <a href="{{ route('admin.counters.index') }}"
+                                class="nav-link {{ request()->is('admin/counters*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-images"></i>
+                                <p>Counters</p>
+                                <span class="badge badge-info right">
+                                    {{ \Modules\Common\Entities\Counter::count() }}
+                                </span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{{ route('admin.services.index') }}"
                                 class="nav-link {{ request()->routeIs('admin.services.*') ? 'active' : '' }}">
 
@@ -375,6 +386,30 @@
                                     @php $eventCount = \Modules\Common\Entities\Event::where('is_featured', true)->count(); @endphp
                                     @if ($eventCount > 0)
                                         <span class="badge badge-info right">{{ $eventCount }}</span>
+                                    @endif
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.blog-categories.index') }}"
+                                class="nav-link {{ request()->is('admin/blog-categories*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-quote-left"></i>
+                                <p>Blog Categories
+                                    @php $blogCategoryCount = \Modules\Common\Entities\BlogCategory::where('status', true)->count(); @endphp
+                                    @if ($blogCategoryCount > 0)
+                                        <span class="badge badge-info right">{{ $blogCategoryCount }}</span>
+                                    @endif
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.blogs.index') }}"
+                                class="nav-link {{ request()->is('admin/blogs*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-quote-left"></i>
+                                <p>Blogs
+                                    @php $blogCount = \Modules\Common\Entities\Blog::where('is_featured', true)->count(); @endphp
+                                    @if ($blogCount > 0)
+                                        <span class="badge badge-info right">{{ $blogCount }}</span>
                                     @endif
                                 </p>
                             </a>

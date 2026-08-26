@@ -75,6 +75,12 @@ Route::get('/menu', [PageController::class, 'menu'])->name('menu');
 Route::get('menu/{slug}', [PageController::class, 'menuDetail'])->name('menu.detail');
 Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
 Route::get('/services', [PageController::class, 'services'])->name('services');
+Route::get('/events', [PageController::class, 'events'])->name('events');
+Route::get('/blog', [PageController::class, 'blog'])->name('blog');
+Route::get('/testimonials', [PageController::class, 'testimonials'])->name('testimonials');
+Route::get('/newsletter', [PageController::class, 'newsletter'])->name('newsletter.subscribe');
+Route::get('/applynow', [PageController::class, 'apply'])->name('apply');
+Route::get('/services{service}', [PageController::class, 'service-detail'])->name('service.detail');
 // Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 // Route::post('/contact', [PageController::class, 'processContact'])->name('contact.process');
 

@@ -1,0 +1,98 @@
+@include('web::layouts.header')
+
+<!-- ============ PAGE BANNER ============ -->
+<section class="page-banner">
+    <div class="container" data-aos="fade-up" data-aos-duration="800">
+        <h1>Latest News &amp; Blogs</h1>
+        <div class="heading-underline"></div>
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span class="current">Blogs</span>
+        </div>
+        <p class="banner-lead">Insights from Ambassador School. Discover stories of student success, educational
+            excellence, and community events.</p>
+    </div>
+    <svg class="page-banner-wave" viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path fill="currentColor" d="M0,80 C480,0 960,80 1440,10 L1440,80 L0,80 Z"></path>
+    </svg>
+</section>
+
+<!-- ============ BLOG CARDS ============ -->
+<section class="blog-section">
+    <div class="container">
+        <div class="blog-grid">
+            <article class="blog-card" data-aos="fade-up">
+                <div class="blog-card-img">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80"
+                        alt="Innovations in Learning">
+                </div>
+                <div class="blog-card-body">
+                    <h4>Innovations in Learning</h4>
+                    <p>Insights from Ambassador School. Discover stories of student success, educational excellence,
+                        and community events.</p>
+                    <a href="#" class="btn btn-dark-green btn-sm">Read More</a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="blog-card-img">
+                    <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&q=80"
+                        alt="Our Student Athletes Excel">
+                </div>
+                <div class="blog-card-body">
+                    <h4>Our Student Athletes Excel</h4>
+                    <p>Our student athletes excel to become student sensei innovators and athletes uplifting our
+                        student success.</p>
+                    <a href="#" class="btn btn-dark-green btn-sm">Read More</a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="blog-card-img">
+                    <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=600&q=80"
+                        alt="Meet the New Faculty">
+                </div>
+                <div class="blog-card-body">
+                    <h4>Meet the New Faculty</h4>
+                    <p>Meet the new faculty with top profession recover stories of student success, educational
+                        excellence and new faculty.</p>
+                    <a href="#" class="btn btn-dark-green btn-sm">Read More</a>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- ============ BLOG PHOTO GALLERY ============ -->
+<section class="blog-gallery-section">
+    <div class="container blog-gallery-grid">
+        <a href="#" data-aos="zoom-in">
+            <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=600&q=80" alt="Classroom learning">
+        </a>
+        <a href="#" data-aos="zoom-in" data-aos-delay="100">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=80" alt="Group study">
+        </a>
+        <a href="#" data-aos="zoom-in" data-aos-delay="200">
+            <img src="https://images.unsplash.com/photo-1526676037777-05a232554f77?w=600&q=80" alt="Sports team">
+        </a>
+    </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="newsletter-section variant-gray" data-aos="fade-up">
+    <div class="container newsletter-inner">
+        <div class="newsletter-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+        <div class="newsletter-text">
+            <h4>Stay Connected</h4>
+            <p>Subscribe to our newsletter for the latest updates, events and inspiring stories.</p>
+        </div>
+        <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit" class="btn btn-dark-green">Subscribe</button>
+        </form>
+    </div>
+</section>
+
+<!-- ============ FOOTER (identical across the site) ============ -->
+@include('web::layouts.footer')

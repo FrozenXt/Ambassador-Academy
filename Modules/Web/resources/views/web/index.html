@@ -1,638 +1,450 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Papa's Bar and Grill</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ambassador School | Inspire · Innovate · Achieve</title>
+<meta name="description" content="Ambassador School - Nurturing young minds, building bright futures.">
 
-    <!-- Bootstrap -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <!-- AOS - Animate on Scroll -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css"
-      rel="stylesheet"
-    />
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="./public/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="./public/css/swiper-bundle.min.css" />
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="./public/css/custom.css" />
-  </head>
-  <body>
-    <div id="main">
-      <nav class="site-nav" aria-label="Main navigation">
-        <div class="container">
-          <div class="d-flex align-items-center">
-            <div class="nav-inner">
-              <div class="nav-logo">
-                <svg
-                  class="logo-shape"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  width="317"
-                  height="179"
-                  viewBox="0 0 317 179"
-                  fill="none"
-                >
-                  <rect
-                    y="-4"
-                    width="178"
-                    height="183"
-                    fill="url(#pattern0_1_30)"
-                  />
-                  <rect
-                    width="178"
-                    height="183"
-                    transform="matrix(-1 0 0 1 317 -4)"
-                    fill="url(#pattern1_1_30)"
-                  />
-                  <defs>
-                    <pattern
-                      id="pattern0_1_30"
-                      patternContentUnits="objectBoundingBox"
-                      width="1"
-                      height="1"
-                    >
-                      <use
-                        xlink:href="#image0_1_30"
-                        transform="scale(0.00689655 0.01)"
-                      />
-                    </pattern>
-                    <pattern
-                      id="pattern1_1_30"
-                      patternContentUnits="objectBoundingBox"
-                      width="1"
-                      height="1"
-                    >
-                      <use
-                        xlink:href="#image0_1_30"
-                        transform="scale(0.00689655 0.01)"
-                      />
-                    </pattern>
-                    <image
-                      id="image0_1_30"
-                      width="146"
-                      height="80"
-                      preserveAspectRatio="none"
-                      xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJIAAABQCAYAAADyWywxAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAANxSURBVHgB7d3vVRNBFAXwGyuwA5cKwAqMFQgViBWIFRgrUCtQK5AOpAPoQDqQDuK77htcYxISsjM7f+7vnD0LBz7ec99kMpvMYJbL5VO7dXbxfmzXqV0n/rvIg2bb/mgBO7fba7vmENlitss/WaA6uy3Qh0rkPzsFKbBAcdx9Rz8GRe492eefZ7PZjV1H9uMHiAzs1UhD1k4XdnsPLcgFBwSJfNT9gMLUvIOCRAqT0MFBIoVJ9lpsb8JFOLQAb9oojRRYM32y21tIc8YOEkfbNbTP1JxRRltgI+7Obm8gzRk1SGRhurLbN0hTRh1tgb839xPSjNEbiayVbqFWakqURiLfW7qGNCFKI5HvLV1BmhAtSE6blI2INtoCG3G/oLdOqhe7kegzpHopGoltxK0AtVLFojeS73arlSoXvZFIrVS/FGsktVIDkjQSqZXqlqSRSK1Ut2SNRGqleiVrJFIr1StpI5FOUdYpaSORt9I7SFWSN1JgzcTHl+aQKkwZpA79iNPCuwLJR1vgpyi18K7EZI0UWDOxlU4gRZuskQb0+FIFJg+SHveuw+SjLdCIK1sOoy04s+sOUqRsguSv4jTiCpXNaAv0iSZlyjFI3KDkrrfWSwXJLkikXe/y5LTYvufrpTNIMbIMEvnH4+iUQCGyDRJZmLjw1iu5AmS5Rlpla6av0PegZK2IIJHOL+Ut69G2govvG0iWimkk0h5TvooKEunhgTyVNNr+8IcHnkNjLivFNVKgMZeX4hop8GZ6adclZHLFBokYJrv4ak4PEUys6CAFFqYLaAd8UsWukdbxr0f9CEmuqiCRvgl8GtUFifw8E8OkV3SJVLFGWsXzTHZxr0nrpkSqbKQha6dz9F8r30GiqT5I5KPuC3R6IJoqR9sqH3XcvNSoi6SJRhryduJbKx1kNE000pC30xH68+B6snckzTXSkLfTAjrGe7CmgxRYoE7R74h3kEdpbrStY6Pu0scdP6vpFrI3NdIa1lAL9OOug+xEQdrA10/nUKB2oiA9wAM1h3bHt1KQ9qC3WzZTkB7BAjXH37EnUJAOMhh7/GCwpo+sKEgj8VDxhOYrNDj6FKQI/JTmC/Tjr4mmUpAiG4w/XgxXhwopSIkNghVaq4rGUpAy4K8C+eQw78f+c1EBU5Ay5u3FaxisZ/h3PHbIwG9l9/F38bO06AAAAABJRU5ErkJggg=="
-                    />
-                  </defs>
-                </svg>
-                <a href="index.php" class="logo-badge">
-                  <img
-                    src="public/image/logo.png"
-                    alt="Sultan Arabic"
-                    title="Sultan Arabic"
-                  />
-                </a>
-              </div>
-            </div>
-            <!-- ░░░ HAMBURGER (mobile) ░░░ -->
-            <button
-              class="hamburger"
-              id="hamburgerBtn"
-              aria-label="Open menu"
-              aria-expanded="false"
-            >
-              <span></span><span></span><span></span>
-            </button>
-          </div>
-        </div>
-      </nav>
-      <!-- ░░░ SIDEBAR ░░░ -->
-      <aside class="sidebar" id="sidebar" aria-hidden="true">
-        <div class="sidebar-head">
-          <div class="sidebar-logo">
-            <img
-              src="public/image/logo.png"
-              alt="Sultan Arabic"
-              title="Sultan Arabic"
-            />
-          </div>
-          <button
-            class="sidebar-close"
-            id="sidebarClose"
-            aria-label="Close menu"
-          >
-            <iconify-icon icon="mingcute:close-fill"></iconify-icon>
-          </button>
-        </div>
-        <ul class="sidebar-nav">
-          <li><a href="index.php">Home</a></li>
-          <li><a href="about.php">About</a></li>
-          <li><a href="menu.php">Menu</a></li>
-          <li><a href="gallery.php">Gallery</a></li>
-          <li><a href="service.php">Services</a></li>
-          <li><a href="contact.php">Contacts</a></li>
-        </ul>
-        <p class="sidebar-footer">Luxury Arabic Dining · Kathmandu</p>
-      </aside>
-      <div class="hero" id="stage">
-        <!-- Fullscreen looping background video with dark overlay -->
-        <div class="hero-media">
-          <video
-            class="hero-video"
-            id="heroVideo"
-            autoplay
-            muted
-            loop
-            playsinline
-          >
-            <source src="public/image/video.mp4" type="video/mp4" />
-          </video>
-          <div class="hero-overlay" id="heroOverlay"></div>
-        </div>
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-        <!-- Center content -->
-        <div class="hero-content" id="heroContent">
-          <p class="hero-eyebrow" id="heroEyebrow">
-            Premium Grills • Signature Cocktails • Unforgettable Nights
-          </p>
-          <h1 class="hero-heading" id="heroHeading">
-            Kathmandu's Largest<br /><em>Rooftop Bar &amp; Grill</em>
-          </h1>
-          <a href="#reveal" class="btn-gold" id="heroBtn">
-            <span>Explore Now</span>
-          </a>
-        </div>
+<!-- AOS Animation -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css">
 
-        <!-- Half circle + bottles emerging from it -->
-        <div class="circle-stage" id="circleStage">
-          <div class="half-circle" id="halfCircle"></div>
-          <div class="half-circlebg" id="halfCirclebg"></div>
-          <!-- Position marker only: stays in normal layout (so its real,
-               already-coded rect can be measured) but is visually hidden.
-               The single traveling duplicate #bottleFly is what's actually
-               shown — see initTravelingElements() in custom.js. -->
-          <div class="bottle-wrap bottle-marker" id="bottleWrapHero">
-            <img
-              src="public/image/b1.png"
-              alt=""
-              class="bottle bottle-back"
-              id="bottleBackHero"
-            />
-            <img
-              src="public/image/b2.png"
-              alt=""
-              class="bottle bottle-front"
-              id="bottleFrontHero"
-            />
-          </div>
-          <div class="bottle-glow" id="bottleGlow"></div>
-        </div>
+<!-- Swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<!-- Site CSS -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ PRELOADER ============ -->
+<div class="preloader" id="preloader">
+  <div class="preloader-shield">
+    <i class="fa-solid fa-shield-halved"></i>
+  </div>
+</div>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <p class="topbar-msg"><i class="fa-solid fa-bullhorn"></i> Welcome to Ambassador School</p>
+    <div class="topbar-right">
+      <ul class="topbar-links">
+        <li><a href="tel:+97711234567"><i class="fa-solid fa-phone"></i> +977 1 1234567</a></li>
+        <li><a href="mailto:info@ambassadorschool.edu.np"><i class="fa-solid fa-envelope"></i> info@ambassadorschool.edu.np</a></li>
+      </ul>
+      <div class="topbar-socials">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
       </div>
-      <div class="reveal" id="stage1">
-        <div class="container">
-          <div class="row reveal-inner">
-            <div class="col-md-6">
-              <div class="reveal-copy">
-            <ul class="reveal-list">
-              <li class="reveal-item">
-                <span class="reveal-bullet"></span>
-                <div>
-                  <h3 class="reveal-heading split-target">
-                    Rooftop Bar & Grill
-                  </h3>
-                  <p class="reveal-sub">
-                    Kathmandu's Ultimate Social Destination
-                  </p>
-                </div>
-              </li>
-              <li class="reveal-item">
-                <span class="reveal-bullet"></span>
-                <div>
-                  <h3 class="reveal-heading split-target">
-                    Premium <em class="gold">Whisky</em>
-                  </h3>
-                  <p class="reveal-sub">Raise a Glass Above the City</p>
-                </div>
-              </li>
-              <li class="reveal-item">
-                <span class="reveal-bullet"></span>
-                <div>
-                  <h3 class="reveal-heading split-target">
-                    Fine <em class="gold">Wine</em> Signature
-                    <em class="gold">Cocktails</em>
-                  </h3>
-                  <p class="reveal-sub">
-                    From Exceptional Whiskies to Fine Wines
-                  </p>
-                </div>
-              </li>
-            </ul>
-          </div>
-            </div>
-            <div class="col-md-6">
-              <div class="reveal-visual" aria-hidden="true">
-            <div class="bottle-wrap bottle-marker" id="bottleWrapReveal">
-              <img
-                src="public/image/b1.png"
-                alt=""
-                class="bottle bottle-back"
-                id="bottleBackReveal"
-              />
-              <img
-                src="public/image/b2.png"
-                alt=""
-                class="bottle bottle-front"
-                id="bottleFrontReveal"
-              />
-            </div>
-          </div>
-            </div>
-          
-          </div>
-        </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HEADER (reused across pages) ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-badge"><i class="fa-solid fa-shield-halved"></i></div>
+      <div class="logo-text">
+        <span class="logo-title">Ambassador <span>School</span></span>
+        <span class="logo-tagline">INSPIRE · INNOVATE · ACHIEVE</span>
       </div>
-      <div class="curve" id="stage2">
-        <div class="container">
-          <div class="curve-stage" id="curveStage">
-            <div class="half-curve" id="halfCurve"></div>
-            <div class="bottle-wrap bottle-marker" id="bottleWrapCurve">
-              <img
-                src="public/image/b1.png"
-                alt=""
-                class="bottle bottle-back"
-                id="bottleBackCurve"
-              />
-              <img
-                src="public/image/b2.png"
-                alt=""
-                class="bottle bottle-front"
-                id="bottleFrontCurve"
-              />
-            </div>
-          </div>
-          <div class="features">
-            <div class="feature-row" id="featureRow">
-              <div class="feature">
-                <div class="ring">
-                  <iconify-icon
-                    icon="roentgen:apartments-2-story-skillion-roof"
-                  ></iconify-icon>
-                </div>
-                <span>RoofTop Experience</span>
-              </div>
+    </a>
 
-              <div class="feature">
-                <div class="ring">
-                  <iconify-icon icon="boxicons:wine-alt-filled"></iconify-icon>
-                </div>
-                <span>Premium Bar</span>
-              </div>
+    <nav class="main-nav" id="mainNav">
+      <ul>
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
 
-              <div class="feature">
-                <div class="ring">
-                  <iconify-icon
-                    icon="material-symbols:outdoor-grill-rounded"
-                  ></iconify-icon>
-                </div>
-                <span>Signature Grill</span>
-              </div>
+    <div class="header-actions">
+      <a href="#" class="btn btn-primary btn-sm">Apply Now</a>
+      <button class="icon-btn" id="searchToggle" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="search-box" id="searchBox">
+    <div class="container">
+      <input type="text" placeholder="Search the site...">
+      <button aria-label="Close search" id="searchClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+</header>
 
-              <div class="feature">
-                <div class="ring">
-                  <iconify-icon icon="mdi:wine"></iconify-icon>
-                </div>
-                <span>Fine Wines</span>
-              </div>
-
-              <div class="feature">
-                <div class="ring">
-                  <iconify-icon icon="mdi:dance-ballroom"></iconify-icon>
-                </div>
-                <span>Private Events</span>
-              </div>
-
-              <div class="feature spaced">
-                <div class="ring">
-                  <iconify-icon icon="majesticons:music"></iconify-icon>
-                </div>
-                <span>Live Entertainment</span>
-              </div>
-            </div>
-          </div>
-          <!-- Burger marker for this stage — the traveling #burgerFly duplicate
-               is what's visible; this defines where it starts. -->
-        </div>
-        <div class="burger-wrap burger-marker" id="burgerWrapCurve">
-            <img
-              src="public/image/b3.png"
-              alt=""
-              class="burger"
-              id="burgerCurve"
-            />
-          </div>
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-text" data-aos="fade-right" data-aos-duration="900">
+      <h1>Nurturing <span class="text-accent">Young Minds,</span><br>Building Bright Futures</h1>
+      <p>A place where academic excellence meets character development and every student is empowered to shine.</p>
+      <div class="hero-btns">
+        <a href="#academics" class="btn btn-primary">Discover More <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#" class="btn btn-outline">Admissions Open</a>
       </div>
-      <div class="story" id="stage3">
-        <div class="container">
-          <div class="row row-story align-items-center g-4">
-            <div class="col-lg-6">
-              <h2 class="story-title">The Story</h2>
-              <p class="story-text">
-                <strong>PAPA&rsquo;s Bar &amp; Grill</strong> was born at the
-                crossroads of Middle Eastern tradition and Nepali warmth.
-                Complementing the experience is Papas Bar &amp; Grill, home to
-                Kathmandu&rsquo;s largest rooftop bar, offering handcrafted
-                cocktails, grilled specialties, live entertainment, breathtaking
-                city views, and unforgettable nights.
-              </p>
-              <p class="story-text">
-                From authentic Arabic flavors and live belly dancing
-                performances to luxury dining and vibrant rooftop nightlife,
-                Sultan Arabic Fine Dine and Papas Bar &amp; Grill are set to
-                redefine dining and entertainment in Kathmandu.
-              </p>
-            </div>
-
-            <div class="col-lg-6 visual-col">
-              <!-- Burger marker: where the traveling burger lands at this stage -->
-              <div class="burger-wrap burger-marker" id="burgerWrapStory">
-                <img
-                  src="public/image/b3.png"
-                  alt=""
-                  class="burger"
-                  id="burgerStory"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <section class="gallery-pin" id="galleryPin">
-        <div class="gallery-intro" id="galleryIntro">
-          <h2 class="gallery-title">Gallery</h2>
-          <div class="thumb-row" id="thumbRow">
-            <div class="thumb" id="thumb1">
-              <img
-                src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80"
-                alt=""
-              />
-            </div>
-            <div class="thumb" id="thumb2">
-              <img
-                src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1200&q=80"
-                alt=""
-              />
-            </div>
-            <div class="thumb" id="thumb3">
-              <img
-                src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1600&q=80"
-                alt=""
-              />
-            </div>
-          </div>
-
-        <div class="filmstrip" id="filmstrip">
-          <div class="film-track" id="filmTrack">
-            <div class="film-slide" data-title="Rooftop Bar &amp; Grill">
-              <img
-                src="https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=1600&q=80"
-                alt=""
-              />
-            </div>
-            <div class="film-slide" data-title="Crafted Cocktails">
-              <img
-                src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1600&q=80"
-                alt=""
-              />
-            </div>
-            <div class="film-slide" data-title="Late Night Crowd">
-              <img
-                src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1600&q=80"
-                alt=""
-              />
-            </div>
-            <div class="film-slide" data-title="City Skyline Views">
-              <img
-                src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=1600&q=80"
-                alt=""
-              />
-            </div>
-          </div>
-
-          <div class="film-overlay" id="filmOverlay">
-            <h3 class="film-title" id="filmTitle">Rooftop Bar &amp; Grill</h3>
-          </div>
-
-          <div class="film-nav" id="filmNav">
-            <button class="nav-btn" id="prevBtn" aria-label="Previous">
-              &larr;
-            </button>
-            <button class="nav-btn" id="nextBtn" aria-label="Next">
-              &rarr;
-            </button>
-          </div>
-
-          <div class="film-progress" id="filmProgress"></div>
-        </div>
-      </section>
-      <section class="menu-section section-padding">
-      <div class="container">
-        <div class="row align-items-center g-5">
-          <div class="col-lg-6">
-            <h2 class="menu-title">Our Special Menu</h2>
-
-            <div class="menu-item">
-              <div>
-                <h3>Moscow Mule</h3>
-                <p>
-                  Lemongrass infused Russian standard platinum vodka, lime,
-                  jasmine green tea &amp; matcha soda
-                </p>
-              </div>
-              <div class="price">Rs. 2000</div>
-            </div>
-
-            <div class="menu-item">
-              <div>
-                <h3>Mango Dusk</h3>
-                <p>
-                  Lemongrass infused Russian standard platinum vodka, lime,
-                  jasmine green tea &amp; matcha soda
-                </p>
-              </div>
-              <div class="price">Rs. 1500</div>
-            </div>
-
-            <div class="menu-item">
-              <div>
-                <h3>Pineapple Sunrise</h3>
-                <p>
-                  Lemongrass infused Russian standard platinum vodka, lime,
-                  jasmine green tea &amp; matcha soda
-                </p>
-              </div>
-              <div class="price">Rs. 1200</div>
-            </div>
-
-            <div class="menu-item">
-              <div>
-                <h3>Bloody Orange</h3>
-                <p>
-                  Lemongrass infused Russian standard platinum vodka, lime,
-                  jasmine green tea &amp; matcha soda
-                </p>
-              </div>
-              <div class="price">Rs. 1000</div>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="menu-gallery">
-              <div class="g-img wide">
-                <img
-                  src="public/image/g4.jpg"
-                  alt="Cocktail on a table"
-                />
-              </div>
-              <div class="g-img narrow">
-                <img
-                  src="public/image/g5.jpg"
-                  alt="Guest enjoying the night"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <footer class="site-footer section-padding pb-0">
-      <div class="container">
-        <div class="row row-cols-1 row-cols-md-4 g-0 text-center footer-top">
-          <div class="col info-col">
-            <div class="info-item">
-              <iconify-icon
-                    icon="fluent:call-20-regular"
-                  ></iconify-icon>
-              <h3>Contact Us</h3>
-              <p>014507444, 014509444</p>
-              <a href="tel:014507444" class="btn-outline-gold">Call Us Here</a>
-            </div>
-          </div>
-
-          <div class="col info-col">
-            <div class="info-item">
-              <iconify-icon
-                    icon="weui:location-outlined"
-                  ></iconify-icon>
-              <h3>Address</h3>
-              <p>Lazimpat, Kathmandu , Nepal</p>
-              <a href="#" class="btn-outline-gold">Get Direction</a>
-            </div>
-          </div>
-
-          <div class="col info-col">
-            <div class="info-item">
-              <iconify-icon
-                    icon="streamline-cyber:email-2"
-                  ></iconify-icon>
-              <h3>Email Address</h3>
-              <p>info@papabargrill.com</p>
-              <a href="mailto:info@papabargrill.com" class="btn-outline-gold"
-                >Message Us</a
-              >
-            </div>
-          </div>
-
-          <div class="col info-col">
-            <div class="info-item">
-              <iconify-icon
-                    icon="fe:clock"
-                  ></iconify-icon>
-              <h3>Opening Hours</h3>
-              <p>Mon &ndash; Sun:<br />9:30 am &ndash; 12:30 am</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="row align-items-center middle-row">
-          <div class="col-12 col-md-4">
-            <p class="footer-copy">
-              &copy; 2025 <span class="accent">Papa's bar and grill</span>. All
-              rights reserved.
-            </p>
-          </div>
-
-          <div class="col-12 col-md-4">
-            <div class="brand-badge">
-              <img src="public/image/logo.png" alt="">
-            </div>
-          </div>
-
-          <div class="col-12 col-md-4">
-            <div class="social-row">
-              <a href="#" aria-label="Instagram"
-                ><iconify-icon
-                    icon="mdi:instagram"
-                  ></iconify-icon></a>
-              <a href="#" aria-label="Facebook"
-                ><iconify-icon
-                    icon="ic:outline-facebook"
-                  ></iconify-icon></a>
-              <a href="#" aria-label="WhatsApp"
-                ><iconify-icon
-                    icon="mingcute:whatsapp-line"
-                  ></iconify-icon></a>
-            </div>
-          </div>
-        </div>
-
-        <p class="footer-credit">Developed By: <a href="http://">Bent Ray Technologies</a></p>
-      </div>
-    </footer>
-
-    <!-- Traveling bottle: hero -> reveal -> curve, driven purely by scroll
-         progress (see initBottleJourney in custom.js). Its start/mid/end
-         geometry is measured live from the hidden .bottle-marker instances
-         above, so it always lands exactly where each section already
-         places it in the markup/CSS. -->
-    <div class="bottle-fly" id="bottleFly" aria-hidden="true">
-      <img
-        src="public/image/b1.png"
-        alt=""
-        class="bottle-fly-img"
-        id="bottleFlyBack"
-      />
-      <img
-        src="public/image/b2.png"
-        alt=""
-        class="bottle-fly-img"
-        id="bottleFlyFront"
-      />
     </div>
 
-    <!-- Traveling burger: curve -> story, same approach as the bottle above. -->
-    <div class="burger-fly" id="burgerFly" aria-hidden="true">
-      <img
-        src="public/image/b3.png"
-        alt=""
-        class="burger-fly-img"
-        id="burgerFlyImg"
-      />
+    <div class="hero-media" data-aos="fade-left" data-aos-duration="900">
+      <div class="hero-shape"></div>
+      <div class="swiper hero-swiper">
+        <div class="swiper-wrapper">
+          <!-- To add a banner: copy one .swiper-slide block and change the image -->
+          <div class="swiper-slide">
+            <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=900&q=80" alt="Ambassador School students in uniform">
+          </div>
+          <div class="swiper-slide">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900&q=80" alt="Students smiling together">
+          </div>
+          <div class="swiper-slide">
+            <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=900&q=80" alt="School friends outdoors">
+          </div>
+        </div>
+        <div class="swiper-pagination hero-pagination"></div>
+      </div>
+      <button class="hero-arrow hero-prev" id="heroPrev" aria-label="Previous banner"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="hero-arrow hero-next" id="heroNext" aria-label="Next banner"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
+  </div>
+
+  <!-- Feature strip -->
+  <div class="container">
+    <div class="feature-strip" data-aos="fade-up" data-aos-duration="800">
+      <div class="feature-item">
+        <div class="feature-icon bg-maroon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div>
+          <h4>Academic Excellence</h4>
+          <p>World-class curriculum and innovative teaching methods.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon bg-gold"><i class="fa-solid fa-people-group"></i></div>
+        <div>
+          <h4>Holistic Development</h4>
+          <p>Nurturing the mind, body and character.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon bg-green"><i class="fa-solid fa-heart"></i></div>
+        <div>
+          <h4>Caring Environment</h4>
+          <p>A safe, inclusive and supportive community.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon bg-maroon2"><i class="fa-solid fa-earth-asia"></i></div>
+        <div>
+          <h4>Global Perspective</h4>
+          <p>Preparing students to thrive in a global world.</p>
+        </div>
+      </div>
     </div>
-    <!-- Scripts -->
-    <script src="public/js/bootstrap.bundle.min.js"></script>
-    <script src="public/js/swiper-bundle.min.js"></script>
-    <script src="public/js/iconify-icon.min.js"></script>
-    <script src="public/js/gsap.min.js"></script>
-    <script src="public/js/ScrollTrigger.min.js"></script>
-    <script src="public/js/text-split.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-    <script src="public/js/custom.js"></script>
-  </body>
+  </div>
+</section>
+
+<!-- ============ WELCOME ============ -->
+<section class="welcome-section">
+  <div class="container welcome-inner">
+    <div class="welcome-text" data-aos="fade-right">
+      <span class="eyebrow eyebrow-green">Welcome to</span>
+      <h2>Ambassador School</h2>
+      <p>At Ambassador School, we believe every child is unique and has the potential to achieve greatness. Our mission is to provide quality education that inspires curiosity, creativity and compassion.</p>
+      <ul class="check-list">
+        <li><i class="fa-solid fa-circle-check"></i> Student-Centered Learning</li>
+        <li><i class="fa-solid fa-circle-check"></i> Values-Based Education</li>
+        <li><i class="fa-solid fa-circle-check"></i> Modern Infrastructure</li>
+        <li><i class="fa-solid fa-circle-check"></i> Strong Community Partnerships</li>
+      </ul>
+      <a href="about.html" class="btn btn-primary">About Us <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <div class="welcome-media" data-aos="fade-left">
+      <img src="https://images.unsplash.com/photo-1580582932707-8f0e5a9c1c2a?w=900&q=80" alt="Ambassador School campus" onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=900&q=80'">
+      <div class="badge-card">
+        <i class="fa-solid fa-school"></i>
+        <h3>25+</h3>
+        <p>Years of<br>Excellence</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ACADEMICS ============ -->
+<section class="academics-section" id="academics">
+  <div class="container">
+    <div class="section-heading" data-aos="fade-up">
+      <span class="eyebrow eyebrow-maroon">Academics</span>
+      <h2>Learning Without Limits</h2>
+      <div class="heading-divider"><span></span><i class="fa-solid fa-shield-halved"></i><span></span></div>
+      <p>Our comprehensive academic programs are designed to challenge, inspire and prepare students for the future.</p>
+    </div>
+
+    <div class="academics-grid">
+      <div class="academic-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="academic-img"><img src="https://images.unsplash.com/photo-1587616211892-b26c8e6dcd3f?w=500&q=80" alt="Early Years"></div>
+        <h4>Early Years</h4>
+        <span class="grade">Pre-KG - KG</span>
+        <p>Learn, play and grow together.</p>
+        <div class="academic-icon bg-maroon"><i class="fa-solid fa-shapes"></i></div>
+      </div>
+      <div class="academic-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="academic-img"><img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=500&q=80" alt="Primary School"></div>
+        <h4>Primary School</h4>
+        <span class="grade">Grade 1 - 5</span>
+        <p>Building strong foundations.</p>
+        <div class="academic-icon bg-gold"><i class="fa-solid fa-pencil"></i></div>
+      </div>
+      <div class="academic-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="academic-img"><img src="https://images.unsplash.com/photo-1544717305-2782549b5136?w=500&q=80" alt="Middle School"></div>
+        <h4>Middle School</h4>
+        <span class="grade">Grade 6 - 8</span>
+        <p>Encouraging curiosity and critical thinking.</p>
+        <div class="academic-icon bg-green"><i class="fa-solid fa-book-open"></i></div>
+      </div>
+      <div class="academic-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="academic-img"><img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=500&q=80" alt="High School"></div>
+        <h4>High School</h4>
+        <span class="grade">Grade 9 - 12</span>
+        <p>Preparing for a successful future.</p>
+        <div class="academic-icon bg-maroon"><i class="fa-solid fa-graduation-cap"></i></div>
+      </div>
+      <div class="academic-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="academic-img"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&q=80" alt="Beyond Academics"></div>
+        <h4>Beyond Academics</h4>
+        <span class="grade">Life Skills</span>
+        <p>Building confidence for life.</p>
+        <div class="academic-icon bg-gold"><i class="fa-solid fa-star"></i></div>
+      </div>
+    </div>
+
+    <div class="center-btn" data-aos="fade-up">
+      <a href="#" class="btn btn-dark-green">Explore Curriculum <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STUDENT LIFE ============ -->
+<section class="student-life-section">
+  <div class="student-life-text" data-aos="fade-right">
+    <span class="eyebrow eyebrow-light">Student Life</span>
+    <h2>Beyond Classrooms,<br>Beyond Boundaries</h2>
+    <p>From sports to arts, clubs to community service – our students explore their passions and create unforgettable memories.</p>
+    <a href="#" class="btn btn-light-outline">Explore ECA <i class="fa-solid fa-arrow-right"></i></a>
+  </div>
+
+  <div class="student-life-gallery" data-aos="fade-left">
+    <div class="gallery-item large">
+      <img src="https://images.unsplash.com/photo-1526676037777-05a232554f77?w=700&q=80" alt="Football">
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=500&q=80" alt="Music & Performing Arts">
+      <div class="gallery-caption">Music & Performing Arts</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=500&q=80" alt="Clubs & Societies">
+      <div class="gallery-caption">Clubs & Societies</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&q=80" alt="Community Service">
+      <div class="gallery-caption">Community Service</div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=500&q=80" alt="Leadership Programs">
+      <div class="gallery-caption">Leadership Programs</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVENTS & BLOG ============ -->
+<section class="events-blog-section">
+  <div class="container events-blog-grid">
+    <div class="events-col" data-aos="fade-up">
+      <div class="col-heading">
+        <h3><span class="bar bar-maroon"></span> Upcoming Events</h3>
+        <a href="#" class="view-all">View all events <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <ul class="event-list">
+        <li>
+          <div class="date-badge bg-maroon"><span>25</span>MAY</div>
+          <div>
+            <h5>Annual Sports Day 2025</h5>
+            <span class="event-date">Sunday, 25 May 2025</span>
+            <p>A day full of energy, teamwork and celebration.</p>
+          </div>
+        </li>
+        <li>
+          <div class="date-badge bg-gold"><span>10</span>JUN</div>
+          <div>
+            <h5>Science Exhibition</h5>
+            <span class="event-date">Tuesday, 10 June 2025</span>
+            <p>Innovative projects by our young scientists.</p>
+          </div>
+        </li>
+        <li>
+          <div class="date-badge bg-green"><span>21</span>JUN</div>
+          <div>
+            <h5>International Yoga Day</h5>
+            <span class="event-date">Saturday, 21 June 2025</span>
+            <p>Celebrate wellness and mindfulness.</p>
+          </div>
+        </li>
+      </ul>
+      <a href="#" class="btn btn-outline-maroon">View All Events</a>
+    </div>
+
+    <div class="blog-col" data-aos="fade-up" data-aos-delay="150">
+      <div class="col-heading">
+        <h3><span class="bar bar-maroon"></span> Latest From Our Blog</h3>
+        <a href="#" class="view-all">View all blogs <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <ul class="blog-list">
+        <li>
+          <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=200&q=80" alt="Reading habits">
+          <div>
+            <h5>How to Encourage Reading Habits in Children</h5>
+            <span class="event-date">May 12, 2025</span>
+          </div>
+        </li>
+        <li>
+          <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=200&q=80" alt="Extracurricular activities">
+          <div>
+            <h5>The Importance of Extracurricular Activities</h5>
+            <span class="event-date">April 28, 2025</span>
+          </div>
+        </li>
+        <li>
+          <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=200&q=80" alt="Digital future">
+          <div>
+            <h5>Preparing Students for a Digital Future</h5>
+            <span class="event-date">April 15, 2025</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIAL ============ -->
+<section class="testimonial-section">
+  <div class="container testimonial-inner">
+    <div class="swiper testimonial-swiper" data-aos="fade-up">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+          <p>Ambassador School has been a second home for our child. The teachers truly care and inspire.</p>
+          <span class="quote-author">— Parent of Grade 6 Student</span>
+        </div>
+        <div class="swiper-slide">
+          <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+          <p>The community here feels like family. My daughter has grown so much in confidence and curiosity.</p>
+          <span class="quote-author">— Parent of Grade 3 Student</span>
+        </div>
+        <div class="swiper-slide">
+          <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+          <p>An incredible balance of academics and character building. We couldn't have chosen better.</p>
+          <span class="quote-author">— Parent of Grade 9 Student</span>
+        </div>
+      </div>
+      <div class="swiper-pagination testimonial-pagination"></div>
+    </div>
+    <div class="testimonial-media" data-aos="fade-left">
+      <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80" alt="Ambassador School students">
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="newsletter-section" data-aos="fade-up">
+  <div class="container newsletter-inner">
+    <div class="newsletter-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+    <div class="newsletter-text">
+      <h4>Stay Connected</h4>
+      <p>Subscribe to our newsletter for the latest updates, events and news.</p>
+    </div>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" placeholder="Enter your email address" required>
+      <button type="submit" class="btn btn-dark-green">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER (reused across pages) ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a href="index.html" class="logo footer-logo">
+        <div class="logo-badge"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="logo-text">
+          <span class="logo-title">Ambassador <span>School</span></span>
+          <span class="logo-tagline">INSPIRE · INNOVATE · ACHIEVE</span>
+        </div>
+      </a>
+      <p>Inspiring young minds, building strong values and preparing future leaders to make a difference.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h5>Contact Us</h5>
+      <ul>
+        <li><i class="fa-solid fa-location-dot"></i> 123 Education Street, Kathmandu, Nepal</li>
+        <li><i class="fa-solid fa-phone"></i> +977 1 1234567</li>
+        <li><i class="fa-solid fa-envelope"></i> info@ambassadorschool.edu.np</li>
+        <li><i class="fa-solid fa-clock"></i> Mon - Fri: 8:00 AM - 4:00 PM<br><span class="indent">Saturday: 9:00 AM - 1:00 PM</span></li>
+      </ul>
+    </div>
+
+    <div class="footer-map">
+      <h5>Location</h5>
+      <div class="map-embed">
+        <iframe title="Ambassador School Location" src="https://maps.google.com/maps?q=Kathmandu&t=&z=13&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>© 2026 Ambassador School. All Rights Reserved.</p>
+      <p>Designed with <i class="fa-solid fa-heart"></i> for Education</p>
+    </div>
+  </div>
+</footer>
+
+<a href="#" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/script.js"></script>
+</body>
 </html>

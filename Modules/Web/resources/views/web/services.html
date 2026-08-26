@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | Ambassador School</title>
+<meta name="description" content="Explore Ambassador School's services — smart classrooms, hostel, ECA, health, transport, counseling and more.">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- AOS Animation -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css">
+
+<!-- Swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<!-- Site CSS (shared with home & about pages) -->
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ PRELOADER ============ -->
+<div class="preloader" id="preloader">
+  <div class="preloader-shield">
+    <i class="fa-solid fa-shield-halved"></i>
+  </div>
+</div>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <p class="topbar-msg"><i class="fa-solid fa-bullhorn"></i> Welcome to Ambassador School</p>
+    <div class="topbar-right">
+      <ul class="topbar-links">
+        <li><a href="tel:+97711234567"><i class="fa-solid fa-phone"></i> +977 1 1234567</a></li>
+        <li><a href="mailto:info@ambassadorschool.edu.np"><i class="fa-solid fa-envelope"></i> info@ambassadorschool.edu.np</a></li>
+      </ul>
+      <div class="topbar-socials">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HEADER (identical to home & about pages) ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-badge"><i class="fa-solid fa-shield-halved"></i></div>
+      <div class="logo-text">
+        <span class="logo-title">Ambassador <span>School</span></span>
+        <span class="logo-tagline">INSPIRE · INNOVATE · ACHIEVE</span>
+      </div>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html" class="active">Services</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <a href="#" class="btn btn-primary btn-sm">Apply Now</a>
+      <button class="icon-btn" id="searchToggle" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="search-box" id="searchBox">
+    <div class="container">
+      <input type="text" placeholder="Search the site...">
+      <button aria-label="Close search" id="searchClose"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PAGE BANNER ============ -->
+<section class="page-banner">
+  <div class="container" data-aos="fade-up" data-aos-duration="800">
+    <h1>Services</h1>
+    <div class="heading-underline"></div>
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fa-solid fa-chevron-right"></i>
+      <span class="current">Services</span>
+    </div>
+    <p class="banner-lead">At Ambassador School, we go beyond academics to offer a holistic environment that nurtures every child's potential.</p>
+  </div>
+  <svg class="page-banner-wave" viewBox="0 0 1440 80" preserveAspectRatio="none"><path fill="currentColor" d="M0,80 C480,0 960,80 1440,10 L1440,80 L0,80 Z"></path></svg>
+</section>
+
+<!-- ============ QUICK SERVICES STRIP ============ -->
+<div class="container">
+  <div class="quick-services-strip" data-aos="fade-up">
+    <div class="quick-service-item">
+      <div class="quick-service-icon bg-maroon"><i class="fa-solid fa-display"></i></div>
+      <h4>Smart Classrooms</h4>
+      <p>Modern learning with smart technology.</p>
+    </div>
+    <div class="quick-service-item">
+      <div class="quick-service-icon bg-gold"><i class="fa-solid fa-building"></i></div>
+      <h4>Hostel Facility</h4>
+      <p>Safe, comfortable and home-like stay.</p>
+    </div>
+    <div class="quick-service-item">
+      <div class="quick-service-icon bg-green"><i class="fa-solid fa-person-running"></i></div>
+      <h4>ECA & Clubs</h4>
+      <p>Explore talents beyond the classroom.</p>
+    </div>
+    <div class="quick-service-item">
+      <div class="quick-service-icon bg-maroon"><i class="fa-solid fa-trophy"></i></div>
+      <h4>Health & Insurance</h4>
+      <p>Health and safety are our priority.</p>
+    </div>
+    <div class="quick-service-item">
+      <div class="quick-service-icon bg-gold"><i class="fa-solid fa-bus"></i></div>
+      <h4>Transport Facility</h4>
+      <p>Safe, reliable and convenient transport.</p>
+    </div>
+    <div class="quick-service-item">
+      <div class="quick-service-icon bg-green"><i class="fa-solid fa-comments"></i></div>
+      <h4>Counseling & Support</h4>
+      <p>Emotional well-being and guidance.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ WHAT WE OFFER ============ -->
+<section class="services-section">
+  <div class="container">
+    <div class="section-heading" data-aos="fade-up">
+      <span class="eyebrow eyebrow-green">What We Offer</span>
+      <h2>Services That Support<br>Every Step of <span class="text-accent">Growth</span></h2>
+      <div class="heading-divider"><span></span><i class="fa-solid fa-shield-halved"></i><span></span></div>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&q=80" alt="Smart Classrooms">
+          <div class="service-card-icon bg-maroon"><i class="fa-solid fa-display"></i></div>
+        </div>
+        <div class="service-card-body">
+          <h4>Smart Classrooms</h4>
+          <p>Our smart boards and digital tools make learning interactive, engaging, and effective for all students.</p>
+          <ul class="service-checklist">
+            <li><i class="fa-solid fa-circle-check"></i> Interactive Smart Boards</li>
+            <li><i class="fa-solid fa-circle-check"></i> Digital Learning Resources</li>
+            <li><i class="fa-solid fa-circle-check"></i> Audio Visual Learning</li>
+            <li><i class="fa-solid fa-circle-check"></i> Online Assessments</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500&q=80" alt="Hostel Facility">
+          <div class="service-card-icon bg-gold"><i class="fa-solid fa-bed"></i></div>
+        </div>
+        <div class="service-card-body">
+          <h4>Hostel Facility</h4>
+          <p>We provide a safe, secure and comfortable hostel environment that feels like a second home.</p>
+          <ul class="service-checklist">
+            <li><i class="fa-solid fa-circle-check"></i> Separate Hostels for Boys & Girls</li>
+            <li><i class="fa-solid fa-circle-check"></i> 24/7 Warden & Security</li>
+            <li><i class="fa-solid fa-circle-check"></i> Nutritious Meals</li>
+            <li><i class="fa-solid fa-circle-check"></i> Study & Recreation Areas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=500&q=80" alt="ECA & Clubs">
+          <div class="service-card-icon bg-green"><i class="fa-solid fa-person-running"></i></div>
+        </div>
+        <div class="service-card-body">
+          <h4>ECA & Clubs</h4>
+          <p>A wide range of clubs and activities to help students discover, explore and excel in their passions.</p>
+          <ul class="service-checklist two-col">
+            <li><i class="fa-solid fa-circle-check"></i> Taekwondo</li>
+            <li><i class="fa-solid fa-circle-check"></i> Art & Craft</li>
+            <li><i class="fa-solid fa-circle-check"></i> Music</li>
+            <li><i class="fa-solid fa-circle-check"></i> Drama & Theatre</li>
+            <li><i class="fa-solid fa-circle-check"></i> Dance</li>
+            <li><i class="fa-solid fa-circle-check"></i> Robotics & Coding</li>
+            <li><i class="fa-solid fa-circle-check"></i> Debate & Public Speaking</li>
+            <li><i class="fa-solid fa-circle-check"></i> Photography Club</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1550831107-1553da8c8464?w=500&q=80" alt="Health & Insurance">
+          <div class="service-card-icon bg-maroon"><i class="fa-solid fa-shield-heart"></i></div>
+        </div>
+        <div class="service-card-body">
+          <h4>Health & Insurance</h4>
+          <p>We prioritize the health and well-being of our students with complete care and protection.</p>
+          <ul class="service-checklist">
+            <li><i class="fa-solid fa-circle-check"></i> On-Campus Medical Room</li>
+            <li><i class="fa-solid fa-circle-check"></i> Regular Health Check-ups</li>
+            <li><i class="fa-solid fa-circle-check"></i> Emergency Care</li>
+            <li><i class="fa-solid fa-circle-check"></i> Student Insurance Coverage</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="0">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=500&q=80" alt="Transport Facility">
+          <div class="service-card-icon bg-green"><i class="fa-solid fa-bus"></i></div>
+        </div>
+        <div class="service-card-body">
+          <h4>Transport Facility</h4>
+          <p>Our GPS-enabled transport ensures the safety and punctuality of our students.</p>
+          <ul class="service-checklist">
+            <li><i class="fa-solid fa-circle-check"></i> GPS Tracked Buses</li>
+            <li><i class="fa-solid fa-circle-check"></i> Trained Drivers & Attendants</li>
+            <li><i class="fa-solid fa-circle-check"></i> Multiple Routes</li>
+            <li><i class="fa-solid fa-circle-check"></i> Safety First</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?w=500&q=80" alt="Counseling & Support">
+          <div class="service-card-icon bg-gold"><i class="fa-solid fa-comments"></i></div>
+        </div>
+        <div class="service-card-body">
+          <h4>Counseling & Support</h4>
+          <p>Emotional well-being is as important as academics. We provide guidance and support at every step.</p>
+          <ul class="service-checklist">
+            <li><i class="fa-solid fa-circle-check"></i> Career Counseling</li>
+            <li><i class="fa-solid fa-circle-check"></i> Personal Guidance</li>
+            <li><i class="fa-solid fa-circle-check"></i> Mental Well-being Support</li>
+            <li><i class="fa-solid fa-circle-check"></i> Parent-Teacher Collaboration</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=500&q=80" alt="Library & Resources">
+          <div class="service-card-icon bg-maroon"><i class="fa-solid fa-book-open"></i></div>
+        </div>
+        <div class="service-card-body">
+          <h4>Library & Resources</h4>
+          <p>A rich collection of books and digital resources to inspire curiosity and independent learning.</p>
+          <ul class="service-checklist">
+            <li><i class="fa-solid fa-circle-check"></i> Wide Range of Books</li>
+            <li><i class="fa-solid fa-circle-check"></i> Digital Library Access</li>
+            <li><i class="fa-solid fa-circle-check"></i> Quiet Reading Areas</li>
+            <li><i class="fa-solid fa-circle-check"></i> Research Support</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1526676037777-05a232554f77?w=500&q=80" alt="Sports & Fitness">
+          <div class="service-card-icon bg-green"><i class="fa-solid fa-futbol"></i></div>
+        </div>
+        <div class="service-card-body">
+          <h4>Sports & Fitness</h4>
+          <p>We encourage a healthy lifestyle through sports, fitness and outdoor activities.</p>
+          <ul class="service-checklist">
+            <li><i class="fa-solid fa-circle-check"></i> Football, Basketball, Cricket</li>
+            <li><i class="fa-solid fa-circle-check"></i> Indoor & Outdoor Games</li>
+            <li><i class="fa-solid fa-circle-check"></i> Fitness Training</li>
+            <li><i class="fa-solid fa-circle-check"></i> Annual Sports Events</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ HIGHLIGHT STRIP ============ -->
+<section class="highlight-strip">
+  <div class="highlight-block hl-green" data-aos="fade-up">
+    <div class="highlight-icon"><i class="fa-solid fa-award"></i></div>
+    <div>
+      <h4>Holistic Development</h4>
+      <p>We focus on academic, physical, emotional and social growth.</p>
+    </div>
+  </div>
+  <div class="highlight-block hl-gold" data-aos="fade-up" data-aos-delay="100">
+    <div class="highlight-icon"><i class="fa-solid fa-people-group"></i></div>
+    <div>
+      <h4>Safe & Inclusive Environment</h4>
+      <p>A place where every child feels safe, respected and valued.</p>
+    </div>
+  </div>
+  <div class="highlight-block hl-maroon" data-aos="fade-up" data-aos-delay="200">
+    <div class="highlight-icon"><i class="fa-solid fa-bullseye"></i></div>
+    <div>
+      <h4>Excellence in Every Step</h4>
+      <p>Our services are designed to bring out the best in every learner.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="newsletter-section variant-gray" data-aos="fade-up">
+  <div class="container newsletter-inner">
+    <div class="newsletter-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+    <div class="newsletter-text">
+      <h4>Stay Connected</h4>
+      <p>Subscribe to our newsletter for the latest updates, events and news.</p>
+    </div>
+    <form class="newsletter-form" id="newsletterForm">
+      <input type="email" placeholder="Enter your email address" required>
+      <button type="submit" class="btn btn-dark-green">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER (identical to home & about pages) ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <a href="index.html" class="logo footer-logo">
+        <div class="logo-badge"><i class="fa-solid fa-shield-halved"></i></div>
+        <div class="logo-text">
+          <span class="logo-title">Ambassador <span>School</span></span>
+          <span class="logo-tagline">INSPIRE · INNOVATE · ACHIEVE</span>
+        </div>
+      </a>
+      <p>Nurturing young minds with quality education, strong values, and holistic development.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h5>Contact Us</h5>
+      <ul>
+        <li><i class="fa-solid fa-location-dot"></i> 123 Education Street, Kathmandu, Nepal</li>
+        <li><i class="fa-solid fa-phone"></i> +977 1 1234567</li>
+        <li><i class="fa-solid fa-envelope"></i> info@ambassadorschool.edu.np</li>
+        <li><i class="fa-solid fa-clock"></i> Mon - Fri: 8:00 AM - 4:00 PM<br><span class="indent">Saturday: 9:00 AM - 1:00 PM</span></li>
+      </ul>
+    </div>
+
+    <div class="footer-map">
+      <h5>Location</h5>
+      <div class="map-embed">
+        <iframe title="Ambassador School Location" src="https://maps.google.com/maps?q=Kathmandu&t=&z=13&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>© 2026 Ambassador School. All Rights Reserved.</p>
+      <p>Designed with <i class="fa-solid fa-heart"></i> for Education</p>
+    </div>
+  </div>
+</footer>
+
+<a href="#" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
+
+<!-- Scripts (shared with home & about pages) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

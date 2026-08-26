@@ -32,16 +32,16 @@ class Service extends Model
         'deleted_at' => 'datetime',
         'type' => 'string',
     ];
-    const TYPE_ABOUT_AMENITIES = 'about-amenities';
+    const TYPE_SERVICE_PAGE_ICON = 'service-page-icon';
     const TYPE_HOME_AMENITIES = 'home-amenities';
-    const TYPE_HOME_FEATURES = 'home-features';
+    const TYPE_SERVICE_FEATURES = 'service-features';
 
     const SERVICE_TYPES = [
 
 
-        self::TYPE_ABOUT_AMENITIES => 'About Page — Amenities icons',
+        self::TYPE_SERVICE_PAGE_ICON  => 'Service Page — icons',
         self::TYPE_HOME_AMENITIES => 'Home Page - Amenities icons',
-        self::TYPE_HOME_FEATURES => 'Home Page - Features List'
+        self::TYPE_SERVICE_FEATURES => 'Service Page - Features List'
     ];
     /**
      * Generate unique slug

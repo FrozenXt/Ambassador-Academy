@@ -30,18 +30,21 @@ class Album extends Model
     const CODE_BANNER             = 'banner';
     const CODE_HERO               = 'hero';
     const CODE_GALLERY            = 'gallery';
-    const CODE_MENU               = 'menu';
-    const CODE_ABOUT_AMENITY_MEDIA = 'about-amenity-media';
+    const CODE_SERVICES               = 'services';
+    // const CODE_ABOUT_AMENITY_MEDIA = 'about-amenity-media';
     const CODE_CONTACT            = 'contact';
+    const CODE_ABOUT           = 'about';
+
 
     const ALBUM_CODES = [
         ''                             => '— Not linked to a page section —',
         self::CODE_BANNER              => 'Home Page — Hero Banner Video/Image',
         self::CODE_HERO                => 'Home Page — Hero Bottle Images',
         self::CODE_GALLERY             => 'Home Page — Gallery Preview',
-        self::CODE_MENU                => 'Home Page — Menu Section Images',
-        self::CODE_ABOUT_AMENITY_MEDIA => 'About Page — Amenity Circle Images',
+        self::CODE_SERVICES                => 'Service-Page - Banner Image',
+        // self::CODE_ABOUT_AMENITY_MEDIA => 'About Page — Amenity Circle Images',
         self::CODE_CONTACT             => 'Contact Page — Image',
+        self::CODE_ABOUT            => 'About Page — Banner Image',
     ];
     protected $appends = ['cover_image_url'];
 

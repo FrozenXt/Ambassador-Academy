@@ -1,110 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
+@include('web::layouts.header')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services — Coming Soon</title>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Jost:wght@300;400;500&display=swap"
-        rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Jost', sans-serif;
-            background: linear-gradient(135deg, #1c1410 0%, #2b1c12 100%);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .wrap {
-            max-width: 560px;
-        }
-
-        .icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 24px;
-            border-radius: 50%;
-            background: rgba(217, 119, 6, .15);
-            border: 1px solid rgba(217, 119, 6, .35);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            color: #d97706;
-        }
-
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.6rem;
-            font-weight: 700;
-            margin-bottom: 14px;
-        }
-
-        p {
-            color: rgba(255, 255, 255, .6);
-            font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 28px;
-        }
-
-        .divider {
-            width: 60px;
-            height: 2px;
-            background: #d97706;
-            margin: 0 auto 28px;
-        }
-
-        .btn-home {
-            display: inline-block;
-            padding: 12px 32px;
-            border: 1.5px solid #d97706;
-            border-radius: 8px;
-            color: #d97706;
-            text-decoration: none;
-            font-size: .85rem;
-            font-weight: 500;
-            letter-spacing: .5px;
-            transition: all .2s;
-        }
-
-        .btn-home:hover {
-            background: #d97706;
-            color: #fff;
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <div class="wrap">
-        <div class="icon">
-            <i class="fas fa-camera-retro"></i>
+<!-- ============ PAGE BANNER ============ -->
+<section class="page-banner">
+    <div class="container" data-aos="fade-up" data-aos-duration="800">
+        <h1>Services</h1>
+        <div class="heading-underline"></div>
+        <div class="breadcrumb">
+            <a href="index.html">Home</a>
+            <i class="fa-solid fa-chevron-right"></i>
+            <span class="current">Services</span>
         </div>
-        <h1>Services Coming Soon</h1>
-        <div class="divider"></div>
-        <p>
-            We're on our best services to share with you.
-            Our services are on their way — stay tuned.
-        </p>
-        <a href="{{ route('home') }}" class="btn-home">Back to Home</a>
+        <p class="banner-lead">At Ambassador School, we go beyond academics to offer a holistic environment that
+            nurtures every child's potential.</p>
     </div>
-</body>
+    <svg class="page-banner-wave" viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path fill="currentColor" d="M0,80 C480,0 960,80 1440,10 L1440,80 L0,80 Z"></path>
+    </svg>
+</section>
 
-</html>
+<!-- ============ QUICK SERVICES STRIP ============ -->
+@php
+    $stripColors = ['bg-maroon', 'bg-gold', 'bg-green'];
+@endphp
+
+<div class="container">
+    <div class="quick-services-strip" data-aos="fade-up">
+        @foreach ($quickServices as $service)
+            <div class="quick-service-item">
+                <div class="quick-service-icon {{ $stripColors[$loop->index % count($stripColors)] }}">
+                    <i class="{{ $service->icon ?? 'fa-solid fa-star' }}"></i>
+                </div>
+                <h4>{{ $service->title }}</h4>
+                <p>{{ $service->description }}</p>
+            </div>
+        @endforeach
+    </div>
+</div>
+
+<!-- ============ WHAT WE OFFER ============ -->
+@php
+    $cardColors = ['bg-maroon', 'bg-gold', 'bg-green'];
+@endphp
+
+<!-- ============ WHAT WE OFFER ============ -->
+<section class="services-section">
+    <div class="container">
+        <div class="section-heading" data-aos="fade-up">
+            <span class="eyebrow eyebrow-green">What We Offer</span>
+            <h2>Services That Support<br>Every Step of <span class="text-accent">Growth</span></h2>
+            <div class="heading-divider"><span></span><i class="fa-solid fa-shield-halved"></i><span></span></div>
+        </div>
+
+        <div class="services-grid">
+
+            @foreach ($serviceFeatures as $service)
+                @php
+                    $checklist = json_decode($service->content, true) ?? [];
+                @endphp
+                <div class="service-card" data-aos="fade-up" data-aos-delay="{{ ($loop->index % 4) * 100 }}">
+                    <div class="service-card-img">
+                        <img src="{{ $service->image ? Storage::url($service->image) : asset('images/placeholder.jpg') }}"
+                            alt="{{ $service->title }}">
+                        <div class="service-card-icon {{ $cardColors[$loop->index % count($cardColors)] }}">
+                            <i class="{{ $service->icon ?? 'fa-solid fa-star' }}"></i>
+                        </div>
+                    </div>
+                    <div class="service-card-body">
+                        <h4><a href="{{ route('service.detail', $service->slug) }}">{{ $service->title }}</a></h4>
+                        <p>{{ $service->description }}</p>
+
+                        @if (count($checklist))
+                            <ul class="service-checklist {{ count($checklist) > 4 ? 'two-col' : '' }}">
+                                @foreach ($checklist as $point)
+                                    <li><i class="fa-solid fa-circle-check"></i> {{ $point }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+
+        </div>
+    </div>
+</section>
+<!-- ============ HIGHLIGHT STRIP ============ -->
+<section class="highlight-strip">
+    <div class="highlight-block hl-green" data-aos="fade-up">
+        <div class="highlight-icon"><i class="fa-solid fa-award"></i></div>
+        <div>
+            <h4>Holistic Development</h4>
+            <p>We focus on academic, physical, emotional and social growth.</p>
+        </div>
+    </div>
+    <div class="highlight-block hl-gold" data-aos="fade-up" data-aos-delay="100">
+        <div class="highlight-icon"><i class="fa-solid fa-people-group"></i></div>
+        <div>
+            <h4>Safe & Inclusive Environment</h4>
+            <p>A place where every child feels safe, respected and valued.</p>
+        </div>
+    </div>
+    <div class="highlight-block hl-maroon" data-aos="fade-up" data-aos-delay="200">
+        <div class="highlight-icon"><i class="fa-solid fa-bullseye"></i></div>
+        <div>
+            <h4>Excellence in Every Step</h4>
+            <p>Our services are designed to bring out the best in every learner.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="newsletter-section variant-gray" data-aos="fade-up">
+    <div class="container newsletter-inner">
+        <div class="newsletter-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+        <div class="newsletter-text">
+            <h4>Stay Connected</h4>
+            <p>Subscribe to our newsletter for the latest updates, events and news.</p>
+        </div>
+        <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit" class="btn btn-dark-green">Subscribe</button>
+        </form>
+    </div>
+</section>
+
+<!-- ============ FOOTER (identical to home & about pages) ============ -->
+@include('web::layouts.footer')

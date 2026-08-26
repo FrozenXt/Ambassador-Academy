@@ -1,127 +1,112 @@
 @php
     $siteSettings = app(\Modules\Common\Services\SiteSettingService::class);
-    $logoUrl = $siteSettings->getByKey('site_logo')
-        ? Storage::url($siteSettings->getByKey('site_logo'))
-        : asset('image/logo.png');
+    $logoUrl = $siteSettings->getByKey('site_logo') ? Storage::url($siteSettings->getByKey('site_logo')) : null;
+    $siteName = $siteSettings->getByKey('site_name', 'Ambassador School');
+    $siteTagline = $siteSettings->getByKey('site_tagline', 'INSPIRE · INNOVATE · ACHIEVE');
 @endphp
 
-
-<footer class="site-footer section-padding pb-0">
-    <div class="container">
-        <div class="row row-cols-1 row-cols-md-4 g-0 text-center footer-top">
-            <div class="col info-col">
-                <div class="info-item">
-                    <iconify-icon icon="fluent:call-20-regular"></iconify-icon>
-                    <h3>Contact Us</h3>
-                    <p>{{ $siteSettings->getByKey('site_phone', '014507444, 014509444') }}</p>
-                    <a href="tel:{{ $siteSettings->getByKey('site_phone', '014507444') }}" class="btn-outline-gold">Call
-                        Us Here</a>
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div class="footer-about">
+            <a href="{{ route('home') }}" class="logo footer-logo">
+                @if ($logoUrl)
+                    <img src="{{ $logoUrl }}" alt="{{ $siteName }}" class="logo-img">
+                @else
+                    <div class="logo-badge"><i class="fa-solid fa-shield-halved"></i></div>
+                @endif
+                <div class="logo-text">
+                    <span class="logo-title">{{ $siteName }}</span>
+                    <span class="logo-tagline">{{ $siteTagline }}</span>
                 </div>
-            </div>
+            </a>
+            <p>{{ $siteSettings->getByKey('footer_about_text', 'Inspiring young minds, building strong values and preparing future leaders to make a difference.') }}
+            </p>
 
-            <div class="col info-col">
-                <div class="info-item">
-                    <iconify-icon icon="weui:location-outlined"></iconify-icon>
-                    <h3>Address</h3>
-                    <p>{{ $siteSettings->getByKey('site_address', 'Lazimpat, Kathmandu, Nepal') }}</p>
-                    <a href="{{ $siteSettings->getByKey('google_map_link', '#') }}" class="btn-outline-gold">Get
-                        Direction</a>
-                </div>
-            </div>
+            <div class="footer-socials">
+                @php
+                    $activeSocialLinks = $siteSettings
+                        ->getByGroup('social')
+                        ->filter(fn($link) => $link->is_active && !empty($link->value));
+                @endphp
 
-            <div class="col info-col">
-                <div class="info-item">
-                    <iconify-icon icon="streamline-cyber:email-2"></iconify-icon>
-                    <h3>Email Address</h3>
-                    <p>{{ $siteSettings->getByKey('site_email', 'info@papabargrill.com') }}</p>
-                    <a href="mailto:{{ $siteSettings->getByKey('site_email', 'info@papabargrill.com') }}"
-                        class="btn-outline-gold">Message Us</a>
-                </div>
-            </div>
-
-            <div class="col info-col">
-                <div class="info-item">
-                    <iconify-icon icon="fe:clock"></iconify-icon>
-                    <h3>Opening Hours</h3>
-                    <p>
-                        {{ $siteSettings->getByKey('opening_hours_weekday', 'Mon &ndash; Sun:') }}<br>
-                        {{ $siteSettings->getByKey('opening_hours_weekend', '9:30 am &ndash; 12:30 am') }}
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row align-items-center middle-row">
-            <div class="col-12 col-md-4">
-                <p class="footer-copy">
-                    &copy; {{ date('Y') }} <span
-                        class="accent">{{ $siteSettings->getByKey('site_name', "Papa's bar and grill") }}</span>.
-                    All rights reserved.
-                </p>
-            </div>
-
-            <div class="col-12 col-md-4">
-                <div class="brand-badge">
-                    <img src="{{ $logoUrl }}" alt="">
-                </div>
-            </div>
-
-            <div class="col-12 col-md-4">
-                <div class="social-row">
+                @foreach ($activeSocialLinks as $link)
                     @php
-                        $activeSocialLinks = $siteSettings
-                            ->getByGroup('social')
-                            ->filter(fn($link) => $link->is_active && !empty($link->value));
+                        $label = ucwords(str_replace(['_url', '_'], ['', ' '], $link->key));
+                        $faIconMap = [
+                            'facebook' => 'fa-brands fa-facebook-f',
+                            'twitter' => 'fa-brands fa-twitter',
+                            'instagram' => 'fa-brands fa-instagram',
+                            'youtube' => 'fa-brands fa-youtube',
+                            'linkedin' => 'fa-brands fa-linkedin-in',
+                            'tiktok' => 'fa-brands fa-tiktok',
+                        ];
+                        $iconClass =
+                            collect($faIconMap)->first(fn($v, $k) => str_contains($link->key, $k)) ??
+                            'fa-solid fa-link';
                     @endphp
-
-                    @foreach ($activeSocialLinks as $link)
-                        @php
-                            $label = ucwords(str_replace(['_url', '_'], ['', ' '], $link->key));
-                            $iconName = $link->icon ?: 'mdi:link-variant';
-                        @endphp
-                        <a href="{{ $link->value }}" aria-label="{{ $label }}" target="_blank" rel="noopener">
-                            <iconify-icon icon="{{ $iconName }}"></iconify-icon>
-                        </a>
-                    @endforeach
-                </div>
+                    <a href="{{ $link->value }}" aria-label="{{ $label }}" target="_blank" rel="noopener">
+                        <i class="{{ $iconClass }}"></i>
+                    </a>
+                @endforeach
             </div>
         </div>
 
-        <p class="footer-credit">Developed By: <a href="https://bentraytech.com/">Bent Ray Technologies</a>
-        </p>
+        <div class="footer-links">
+            <h5>Quick Links</h5>
+            <ul>
+                <li><a href="{{ route('home') }}">Home</a></li>
+                <li><a href="{{ route('about') }}">About Us</a></li>
+                <li><a href="{{ route('services') }}">Services</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="{{ route('contact') }}">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-contact">
+            <h5>Contact Us</h5>
+            <ul>
+                <li><i class="fa-solid fa-location-dot"></i>
+                    {{ $siteSettings->getByKey('site_address', '123 Education Street, Kathmandu, Nepal') }}</li>
+                <li><i class="fa-solid fa-phone"></i> {{ $siteSettings->getByKey('site_phone', '+977 1 1234567') }}
+                </li>
+                <li><i class="fa-solid fa-envelope"></i>
+                    {{ $siteSettings->getByKey('site_email', 'info@ambassadorschool.edu.np') }}</li>
+                <li>
+                    <i class="fa-solid fa-clock"></i>
+                    {{ $siteSettings->getByKey('opening_hours_weekday', 'Mon - Fri: 8:00 AM - 4:00 PM') }}<br>
+                    <span
+                        class="indent">{{ $siteSettings->getByKey('opening_hours_weekend', 'Saturday: 9:00 AM - 1:00 PM') }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer-map">
+            <h5>Location</h5>
+            <div class="map-embed">
+                <iframe title="{{ $siteName }} Location"
+                    src="{{ $siteSettings->getByKey('google_map_embed', 'https://maps.google.com/maps?q=Kathmandu&t=&z=13&ie=UTF8&iwloc=&output=embed') }}"
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="container footer-bottom-inner">
+            <p>&copy; {{ date('Y') }} {{ $siteName }}. All Rights Reserved.</p>
+            <p>Designed with <i class="fa-solid fa-heart"></i> for Education</p>
+        </div>
     </div>
 </footer>
-</div>
+
+<a href="#" class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></a>
 
 <!-- Scripts -->
-<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
-<script src="{{ asset('js/iconify-icon.min.js') }}"></script>
-<script src="{{ asset('js/gsap.min.js') }}"></script>
-<script src="{{ asset('js/ScrollTrigger.min.js') }}"></script>
-<script src="{{ asset('js/text-split.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-<script src="{{ asset('js/custom.js') }}"></script>
-<script src="https://www.youtube.com/iframe_api"></script>
-<script>
-    function onYouTubeIframeAPIReady() {
-        var heroVideoEl = document.getElementById('heroVideo');
-        if (!heroVideoEl || heroVideoEl.tagName !== 'IFRAME') return;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+<script src="{{ asset('js/script.js') }}"></script>
 
-        new YT.Player('heroVideo', {
-            events: {
-                'onStateChange': function(event) {
-                    // 1 = playing
-                    if (event.data === YT.PlayerState.PLAYING) {
-                        var poster = document.getElementById('heroYtPoster');
-                        if (poster) poster.classList.add('is-hidden');
-                    }
-                }
-            }
-        });
-    }
-</script>
-<!-- ── Custom Footer Scripts (raw HTML/JS from admin) ── -->
+<!-- Custom Footer Scripts (raw HTML/JS from admin) -->
 {!! $siteSettings->getByKey('footer_scripts', '') !!}
 </body>
 

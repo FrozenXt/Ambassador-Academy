@@ -13,47 +13,106 @@ class PageService
     /**
      * Data for the Home page.
      */
+
+    /**
+     * Data for the Home page.
+     */
+    /**
+     * Data for the Home page.
+     */
     public function getHomeData(): array
     {
-        $bannerAlbum = \Modules\Common\Entities\Album::where('code', 'banner')->first();
-        $bannerItem = $bannerAlbum ? $bannerAlbum->gallery->first() : null;
+        $bannerAlbum   = Album::where('code', 'banner')->first();
+        $bannerImages  = $bannerAlbum ? $bannerAlbum->gallery : collect();
+        $bannerContent = $bannerImages->first();
 
-        $heroAlbum = \Modules\Common\Entities\Album::where('code', 'hero')->first();
-        $heroBottleBack = $heroAlbum ? $heroAlbum->gallery->first() : null;
-        $heroBottleFront = $heroAlbum ? $heroAlbum->gallery->skip(1)->first() : null;
-        $storyPost = \Modules\Common\Entities\Post::where('code', 'story')->first();
+        $storyPost = Post::where('code', 'story')->first();
 
-        $revealFeatures = \Modules\Common\Entities\Service::where('status', 'active')
+        $checkListItems = collect();
+
+        if ($storyPost && $storyPost->content) {
+            preg_match_all('/<p>(.*?)<\/p>/s', $storyPost->content, $matches);
+
+            $checkListItems = !empty($matches[1])
+                ? collect($matches[1])->filter(fn($line) => trim(strip_tags($line)) !== '')
+                : collect(explode("\n", strip_tags($storyPost->content)))->filter(fn($line) => trim($line) !== '');
+        }
+
+        $academicFeatures = Service::where('status', 'active')
             ->where('type', 'home-features')
             ->orderBy('order')
             ->get();
 
-
-        $papasFeatures = \Modules\Common\Entities\Service::where('status', 'active')
+        $academics = Service::where('status', 'active')
             ->where('type', 'home-amenities')
             ->orderBy('order')
             ->get();
-        $menuCategory = \Modules\Common\Entities\Category::where('name', 'menu')
+
+        $ecaPost = Post::where('code', 'eca')->first();
+
+        $ecaGalleryAlbum = Album::where('code', 'gallery')->first();
+        $ecaGalleryImages = $ecaGalleryAlbum
+            ? $ecaGalleryAlbum->gallery->where('file_type', 'image')->take(5)->values()
+            : collect();
+
+        $menuCategory = Category::where('name', 'menu')
             ->where('status', 'active')
             ->with(['products' => function ($q) {
                 $q->where('status', 'active')->orderBy('sort_order')->take(4);
             }])
             ->first();
 
-        $galleryAlbum = \Modules\Common\Entities\Album::where('code', 'gallery')->first();
+        $galleryAlbum  = Album::where('code', 'gallery')->first();
         $galleryImages = $galleryAlbum ? $galleryAlbum->gallery : collect();
-        $menuAlbum = \Modules\Common\Entities\Album::where('code', 'menu')->first();
+
+        $menuAlbum         = Album::where('code', 'menu')->first();
         $menuGalleryImages = $menuAlbum ? $menuAlbum->gallery->take(2) : collect();
 
-        return compact('bannerItem', 'heroBottleBack', 'heroBottleFront', 'papasFeatures', 'revealFeatures', 'storyPost', 'menuCategory', 'menuGalleryImages', 'galleryImages');
-    }
+        $upcomingEvents = \Modules\Common\Entities\Event::where('status', 'published')
+            ->where('type', 'event')
+            ->where('start_date', '>=', now())
+            ->orderBy('start_date')
+            ->orderBy('order')
+            ->take(3)
+            ->get();
 
+        $latestBlogs = \Modules\Common\Entities\Blog::where('status', 'published')
+            ->orderBy('published_at', 'desc')
+            ->take(3)
+            ->get();
+        $testimonials = \Modules\Common\Entities\Testimonial::where('status', 'active')
+            ->orderBy('order')
+            ->get();
+
+        $testimonialAlbum = \Modules\Common\Entities\Album::where('code', 'testimonial')->first();
+        $testimonialImage = $testimonialAlbum ? $testimonialAlbum->gallery->first() : null;
+
+        return compact(
+            'bannerImages',
+            'bannerContent',
+            // 'academicFeatures',
+            'academics',
+            'storyPost',
+            'checkListItems',
+            'ecaPost',
+            'ecaGalleryImages',
+            'menuCategory',
+            'menuGalleryImages',
+            'galleryImages',
+            'upcomingEvents',
+            'latestBlogs',
+            'testimonials',
+            'testimonialImage'
+        );
+    }
     /**
      * Data for the About page.
      */
     public function getAboutData(): array
     {
         $aboutPost = \Modules\Common\Entities\Post::where('code', 'about-page')->first();
+
+        $chairpersonPost = \Modules\Common\Entities\Post::where('code', 'chairman')->first();
 
         $amenityMediaAlbum = \Modules\Common\Entities\Album::where('code', 'about-amenity-media')->first();
         $amenityImages = $amenityMediaAlbum ? $amenityMediaAlbum->gallery : collect();
@@ -70,9 +129,12 @@ class PageService
             ->orderBy('order')
             ->get();
 
-        return compact('aboutPost', 'amenityImages', 'amenities', 'upcomingEvents');
-    }
+        $counters = \Modules\Common\Entities\Counter::where('status', 'active')
+            ->orderBy('order')
+            ->get();
 
+        return compact('aboutPost', 'chairpersonPost', 'amenityImages', 'amenities', 'upcomingEvents', 'counters');
+    }
     /**
      * Data for the Menu page.
      */
@@ -131,5 +193,37 @@ class PageService
             ->firstOrFail();
 
         return compact('product');
+    }
+
+    public function getServiceData(): array
+    {
+        // $servicePost = \Modules\Common\Entities\Post::where('code', 'service-page')->first();
+
+        $quickServices = \Modules\Common\Entities\Service::where('status', 'active')
+            ->where('type', 'service-page-icon')
+            ->orderBy('order')
+            ->get();
+
+        $serviceFeatures = \Modules\Common\Entities\Service::where('status', 'active')
+            ->where('type', 'service-features')
+            ->orderBy('order')
+            ->get();
+
+        return compact('quickServices', 'serviceFeatures');
+    }
+    public function showDetail(string $slug): \Illuminate\View\View
+    {
+        $service = \Modules\Common\Entities\Service::where('status', 'active')
+            ->where('type', 'service-features')
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        $otherServices = \Modules\Common\Entities\Service::where('status', 'active')
+            ->where('type', 'service-features')
+            ->where('id', '!=', $service->id)
+            ->orderBy('order')
+            ->get();
+
+        return view('pages.service-detail', compact('service', 'otherServices'));
     }
 }

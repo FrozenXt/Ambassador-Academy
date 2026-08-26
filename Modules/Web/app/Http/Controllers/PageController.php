@@ -29,14 +29,33 @@ class PageController extends Controller
         return view('web::web.gallery', $this->pageService->getGalleryData());
     }
 
-    // public function services()
-    // {
-    //     return view('web::web.services', $this->pageService->getServicesData());
-    // }
+    public function services()
+    {
+        return view('web::web.services', $this->pageService->getServiceData());
+    }
+
+    public function servicesDetail()
+    {
+        return view('web::web.services', $this->pageService->getServiceData());
+    }
 
     public function contact()
     {
         return view('web::web.contact');
+    }
+
+    public function events()
+    {
+        return view('web::web.events');
+    }
+    public function apply()
+    {
+        return view('web::web.apply');
+    }
+
+    public function blog()
+    {
+        return view('web::web.blog');
     }
 
     public function menuDetail($slug)
