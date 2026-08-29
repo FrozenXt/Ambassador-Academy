@@ -155,7 +155,7 @@ class PageService
      */
     public function getGalleryData(): array
     {
-        $galleryAlbums = \Modules\Common\Entities\Album::where('is_gallery_category', true)
+        $galleryAlbums = \Modules\Common\Entities\Album::where('is_gallery_category', 1)
             ->where('status', 'active')
             ->with('gallery')
             ->orderBy('sort_order')
@@ -225,5 +225,162 @@ class PageService
             ->get();
 
         return view('pages.service-detail', compact('service', 'otherServices'));
+    }
+    /**
+     * Data for the Events page.
+     */
+    public function getEventsData(): array
+    {
+        $featuredEvents = \Modules\Common\Entities\Event::where('status', 'published')
+            ->where('type', 'event')
+            ->where('is_featured', true)
+            ->orderBy('start_date')
+            ->orderBy('order')
+            ->take(6)
+            ->get();
+
+        $upcomingEvents = \Modules\Common\Entities\Event::where('status', 'published')
+            ->where('type', 'event')
+            ->where('start_date', '>=', now())
+            ->orderBy('start_date')
+            ->orderBy('order')
+            ->take(5)
+            ->get();
+
+        $calMonth = \Carbon\Carbon::create(
+            request('year', now()->year),
+            request('month', now()->month),
+            1
+        );
+
+        $calendarEvents = \Modules\Common\Entities\Event::where('status', 'published')
+            ->where('type', 'event')
+            ->whereYear('start_date', $calMonth->year)
+            ->whereMonth('start_date', $calMonth->month)
+            ->get();
+
+        return compact('featuredEvents', 'upcomingEvents', 'calendarEvents');
+
+        // return compact('featuredEvents', 'upcomingEvents');
+    }
+
+    public function calendarPartial(Request $request)
+    {
+        $calMonth = \Carbon\Carbon::create(
+            $request->query('year', now()->year),
+            $request->query('month', now()->month),
+            1
+        );
+
+        $calendarEvents = \Modules\Common\Entities\Event::where('status', 'published')
+            ->where('type', 'event')
+            ->whereYear('start_date', $calMonth->year)
+            ->whereMonth('start_date', $calMonth->month)
+            ->get();
+
+        return view('web::partials.calendar', compact('calendarEvents'))->render();
+    }
+
+    public function getEcaData(): array
+    {
+        $ecaPost = \Modules\Common\Entities\Post::where('code', 'eca-page')->first();
+
+        $ecaCards = \Modules\Common\Entities\Service::where('status', 'active')
+            ->where('type', 'eca-page')
+            ->orderBy('order')
+            ->get();
+
+        return compact('ecaPost', 'ecaCards');
+    }
+
+    public function getBlogDetailData(string $slug): array
+    {
+        $blog = \Modules\Common\Entities\Blog::published()
+            ->where('slug', $slug)
+            ->with(['category', 'author'])
+            ->firstOrFail();
+
+        $blog->incrementViews();
+
+        $categories = \Modules\Common\Entities\BlogCategory::withCount(['blogs' => function ($q) {
+            $q->where('status', 'published');
+        }])
+            ->having('blogs_count', '>', 0)
+            ->orderBy('name')
+            ->get();
+
+        $recentPosts = \Modules\Common\Entities\Blog::published()
+            ->where('id', '!=', $blog->id)
+            ->orderBy('published_at', 'desc')
+            ->take(4)
+            ->get();
+
+        $relatedPosts = \Modules\Common\Entities\Blog::published()
+            ->where('id', '!=', $blog->id)
+            ->where('category_id', $blog->category_id)
+            ->orderBy('published_at', 'desc')
+            ->take(3)
+            ->get();
+
+        // fallback: if not enough related posts in same category, pad with recent posts
+        if ($relatedPosts->count() < 3) {
+            $exclude = $relatedPosts->pluck('id')->push($blog->id);
+            $extra = \Modules\Common\Entities\Blog::published()
+                ->whereNotIn('id', $exclude)
+                ->orderBy('published_at', 'desc')
+                ->take(3 - $relatedPosts->count())
+                ->get();
+            $relatedPosts = $relatedPosts->concat($extra);
+        }
+
+        return compact('blog', 'categories', 'recentPosts', 'relatedPosts');
+    }
+
+    public function getEventDetailData(string $slug): array
+    {
+        $event = \Modules\Common\Entities\Event::where('status', 'published')
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        $relatedEvents = \Modules\Common\Entities\Event::where('status', 'published')
+            ->where('id', '!=', $event->id)
+            ->where('type', $event->type)
+            ->orderBy('start_date', 'desc')
+            ->take(3)
+            ->get();
+
+        if ($relatedEvents->count() < 3) {
+            $exclude = $relatedEvents->pluck('id')->push($event->id);
+            $extra = \Modules\Common\Entities\Event::where('status', 'published')
+                ->whereNotIn('id', $exclude)
+                ->orderBy('start_date', 'desc')
+                ->take(3 - $relatedEvents->count())
+                ->get();
+            $relatedEvents = $relatedEvents->concat($extra);
+        }
+
+        return compact('event', 'relatedEvents');
+    }
+
+    public function getEcaDetailData(string $slug): array
+    {
+        $ecaItem = \Modules\Common\Entities\Service::where('status', 'active')
+            ->where('type', 'eca-page')
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        $categories = \Modules\Common\Entities\Service::where('status', 'active')
+            ->where('type', 'service-features')
+            ->orderBy('order')
+            ->get();
+
+        $galleryAlbum = \Modules\Common\Entities\Album::where('is_gallery_category', true)
+            ->where('title', $ecaItem->title)
+            ->with('gallery')
+            ->first();
+
+        $galleryImages = $galleryAlbum ? $galleryAlbum->gallery->take(4) : collect();
+
+        return compact('ecaItem', 'categories', 'galleryImages');
     }
 }

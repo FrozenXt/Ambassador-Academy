@@ -164,6 +164,10 @@
                             class="{{ request()->routeIs('blog') ? 'active' : '' }}">Blog</a></li>
                     <li><a href="{{ route('contact') }}"
                             class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a></li>
+                    <li><a href="{{ route('eca') }}"
+                            class="{{ request()->routeIs('eca') ? 'active' : '' }}">ECA</a></li>
+                    <li><a href="{{ route('gallery') }}"
+                            class="{{ request()->routeIs('gallery') ? 'active' : '' }}">Gallery</a></li>
                 </ul>
             </nav>
 

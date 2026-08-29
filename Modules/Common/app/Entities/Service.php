@@ -35,13 +35,15 @@ class Service extends Model
     const TYPE_SERVICE_PAGE_ICON = 'service-page-icon';
     const TYPE_HOME_AMENITIES = 'home-amenities';
     const TYPE_SERVICE_FEATURES = 'service-features';
+    const TYPE_ECA_PAGE = 'eca-page';
 
     const SERVICE_TYPES = [
 
 
         self::TYPE_SERVICE_PAGE_ICON  => 'Service Page — icons',
         self::TYPE_HOME_AMENITIES => 'Home Page - Amenities icons',
-        self::TYPE_SERVICE_FEATURES => 'Service Page - Features List'
+        self::TYPE_SERVICE_FEATURES => 'Service Page - Features List',
+        self::TYPE_ECA_PAGE => 'ECA Page - ECA Page'
     ];
     /**
      * Generate unique slug

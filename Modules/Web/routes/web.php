@@ -76,14 +76,23 @@ Route::get('menu/{slug}', [PageController::class, 'menuDetail'])->name('menu.det
 Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
 Route::get('/services', [PageController::class, 'services'])->name('services');
 Route::get('/events', [PageController::class, 'events'])->name('events');
+
+Route::get('/events/calendar-partial', [PageController::class, 'eventsCalendarPartial'])->name('events.calendar.partial');
+// Route::get('/events/{event}', [PageController::class, 'events'])->name('events.show');
+Route::get('/events/{slug}', [PageController::class, 'eventShow'])->name('events.show');
+Route::get('/eca', [PageController::class, 'eca'])->name('eca');
 Route::get('/blog', [PageController::class, 'blog'])->name('blog');
+Route::get('/blog/{blog}', [PageController::class, 'blogShow'])->name('blog.show');
 Route::get('/testimonials', [PageController::class, 'testimonials'])->name('testimonials');
 Route::get('/newsletter', [PageController::class, 'newsletter'])->name('newsletter.subscribe');
 Route::get('/applynow', [PageController::class, 'apply'])->name('apply');
 Route::get('/services{service}', [PageController::class, 'service-detail'])->name('service.detail');
 // Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 // Route::post('/contact', [PageController::class, 'processContact'])->name('contact.process');
-
-
+Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
+Route::get('/eca/{slug}', [PageController::class, 'ecaShow'])->name('eca.show');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'process'])->name('contact.process');
+
+Route::get('/blog/{slug}', [PageController::class, 'blogShow'])->name('blog.show');
+Route::get('/events/{slug}/calendar.ics', [PageController::class, 'eventIcs'])->name('events.calendar.ics');

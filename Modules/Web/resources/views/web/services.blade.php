@@ -61,13 +61,25 @@
                     <div class="service-card-img">
                         <img src="{{ $service->image ? Storage::url($service->image) : asset('images/placeholder.jpg') }}"
                             alt="{{ $service->title }}">
-                        <div class="service-card-icon {{ $cardColors[$loop->index % count($cardColors)] }}">
-                            <i class="{{ $service->icon ?? 'fa-solid fa-star' }}"></i>
-                        </div>
+                    </div>
+                    <div class="service-card-icon {{ $cardColors[$loop->index % count($cardColors)] }}">
+                        <i class="{{ $service->icon ?? 'fa-solid fa-star' }}"></i>
                     </div>
                     <div class="service-card-body">
                         <h4><a href="{{ route('service.detail', $service->slug) }}">{{ $service->title }}</a></h4>
                         <p>{{ $service->description }}</p>
+
+                        @php
+                            $checklist = [];
+                            if ($service->content) {
+                                // Extract text from each <p> tag
+                                preg_match_all('/<p[^>]*>(.*?)<\/p>/is', $service->content, $matches);
+                                $checklist = array_filter(array_map('trim', $matches[1] ?? []), function ($item) {
+                                    return $item !== '' && $item !== '<br>' && strip_tags($item) !== '';
+                                });
+                                $checklist = array_map('strip_tags', $checklist); // remove any inline tags like <strong>, <em>
+                            }
+                        @endphp
 
                         @if (count($checklist))
                             <ul class="service-checklist {{ count($checklist) > 4 ? 'two-col' : '' }}">

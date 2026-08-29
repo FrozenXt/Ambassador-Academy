@@ -34,6 +34,8 @@ class Album extends Model
     // const CODE_ABOUT_AMENITY_MEDIA = 'about-amenity-media';
     const CODE_CONTACT            = 'contact';
     const CODE_ABOUT           = 'about';
+    const CODE_GALLERY_PAGE          = 'gallery-page';
+
 
 
     const ALBUM_CODES = [
@@ -45,6 +47,7 @@ class Album extends Model
         // self::CODE_ABOUT_AMENITY_MEDIA => 'About Page — Amenity Circle Images',
         self::CODE_CONTACT             => 'Contact Page — Image',
         self::CODE_ABOUT            => 'About Page — Banner Image',
+        self::CODE_GALLERY_PAGE     => 'Gallery Page - Gallery Image',
     ];
     protected $appends = ['cover_image_url'];
 

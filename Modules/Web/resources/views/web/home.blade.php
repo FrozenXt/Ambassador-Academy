@@ -99,13 +99,13 @@
         <div class="welcome-media" data-aos="fade-left">
             <img src="{{ $storyPost && $storyPost->image ? Storage::url($storyPost->image) : 'https://images.unsplash.com/photo-1580582932707-8f0e5a9c1c2a?w=900&q=80' }}"
                 alt="{{ $storyPost->title ?? 'Ambassador School campus' }}"
-                onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=900&q=80'">
-            <div class="badge-card">
-                <i class="fa-solid fa-school"></i>
-                <h3>25+</h3>
-                <p>Years of<br>Excellence</p>
-            </div>
+                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=900&q=80'"
+                <div class="badge-card">
+            <i class="fa-solid fa-school"></i>
+            <h3>25+</h3>
+            <p>Years of<br>Excellence</p>
         </div>
+    </div>
     </div>
 </section>
 
@@ -140,7 +140,9 @@
                     </div>
                     <h4>{{ $academic->title }}</h4>
                     <span class="grade">{{ $academic->description }}</span>
-                    <p>{{ $academic->content }}</p>
+                    <div class="academic-content">
+                        {!! $academic->content !!}
+                    </div>
                     <div class="academic-icon {{ $iconColors[$index % count($iconColors)] }}">
                         <i class="{{ $icons[$index % count($icons)] }}"></i>
                     </div>
@@ -159,7 +161,8 @@
         </div>
 
         <div class="center-btn" data-aos="fade-up">
-            <a href="#" class="btn btn-dark-green">Explore Curriculum <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="#" class="btn btn-dark-green">Explore Curriculum <i
+                    class="fa-solid fa-arrow-right"></i></a>
         </div>
     </div>
 </section>

@@ -18,54 +18,53 @@
     </svg>
 </section>
 
+
 <!-- ============ BLOG CARDS ============ -->
 <section class="blog-section">
     <div class="container">
+
+        <div class="section-heading" data-aos="fade-up">
+            <span class="eyebrow eyebrow-green">What We Offer</span>
+            <h2>Services That Support<br>Every Step of <span class="text-accent">Growth</span></h2>
+            <div class="heading-divider"><span></span><i class="fa-solid fa-shield-halved"></i><span></span></div>
+        </div>
+
         <div class="blog-grid">
-            <article class="blog-card" data-aos="fade-up">
-                <div class="blog-card-img">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80"
-                        alt="Innovations in Learning">
-                </div>
-                <div class="blog-card-body">
-                    <h4>Innovations in Learning</h4>
-                    <p>Insights from Ambassador School. Discover stories of student success, educational excellence,
-                        and community events.</p>
-                    <a href="#" class="btn btn-dark-green btn-sm">Read More</a>
-                </div>
-            </article>
 
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="blog-card-img">
-                    <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&q=80"
-                        alt="Our Student Athletes Excel">
-                </div>
-                <div class="blog-card-body">
-                    <h4>Our Student Athletes Excel</h4>
-                    <p>Our student athletes excel to become student sensei innovators and athletes uplifting our
-                        student success.</p>
-                    <a href="#" class="btn btn-dark-green btn-sm">Read More</a>
-                </div>
-            </article>
+            @forelse ($blogs ?? [] as $i => $blog)
+                <article class="blog-card" data-aos="fade-up" data-aos-delay="{{ $i * 100 }}">
+                    <div class="blog-card-img">
+                        <img src="{{ $blog->featured_image ? Storage::url($blog->featured_image) : 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80' }}"
+                            alt="{{ $blog->title }}">
+                    </div>
+                    <div class="blog-card-body">
+                        <h4>{{ $blog->title }}</h4>
+                        <p>{{ Str::limit($blog->excerpt, 120) }}</p>
+                        <a href="{{ route('blog.show', $blog->slug) ?? '#' }}" class="btn btn-dark-green btn-sm">Read
+                            More</a>
+                    </div>
+                </article>
+            @empty
+                <article class="blog-card" data-aos="fade-up">
+                    <div class="blog-card-img">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80"
+                            alt="Innovations in Learning">
+                    </div>
+                    <div class="blog-card-body">
+                        <h4>Innovations in Learning</h4>
+                        <p>Insights from Ambassador School. Discover stories of student success, educational excellence,
+                            and community events.</p>
+                        <a href="#" class="btn btn-dark-green btn-sm">Read More</a>
+                    </div>
+                </article>
+            @endforelse
 
-            <article class="blog-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="blog-card-img">
-                    <img src="https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=600&q=80"
-                        alt="Meet the New Faculty">
-                </div>
-                <div class="blog-card-body">
-                    <h4>Meet the New Faculty</h4>
-                    <p>Meet the new faculty with top profession recover stories of student success, educational
-                        excellence and new faculty.</p>
-                    <a href="#" class="btn btn-dark-green btn-sm">Read More</a>
-                </div>
-            </article>
         </div>
     </div>
 </section>
 
 <!-- ============ BLOG PHOTO GALLERY ============ -->
-<section class="blog-gallery-section">
+{{-- <section class="blog-gallery-section">
     <div class="container blog-gallery-grid">
         <a href="#" data-aos="zoom-in">
             <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=600&q=80" alt="Classroom learning">
@@ -77,7 +76,7 @@
             <img src="https://images.unsplash.com/photo-1526676037777-05a232554f77?w=600&q=80" alt="Sports team">
         </a>
     </div>
-</section>
+</section> --}}
 
 <!-- ============ NEWSLETTER ============ -->
 <section class="newsletter-section variant-gray" data-aos="fade-up">

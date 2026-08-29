@@ -1,10 +1,22 @@
 /* =========================================================
    AMBASSADOR SCHOOL — SHARED JAVASCRIPT
-   Used by: index.html, about.html, services.html, blog.html,
-   events.html, contact.html, apply.html
+   Used by: index.html (home) and about.html (about page)
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
+    /* ---------- Broken image safety net (prevents any onerror retry-loop) ---------- */
+    document.querySelectorAll("img").forEach((img) => {
+        img.addEventListener(
+            "error",
+            function onImgError() {
+                this.removeEventListener("error", onImgError); // fire once, never loop
+                this.style.background = "#eee6de";
+                this.style.minHeight = "120px";
+            },
+            { once: true },
+        );
+    });
+
     /* ---------- Preloader ---------- */
     const preloader = document.getElementById("preloader");
     window.addEventListener("load", function () {

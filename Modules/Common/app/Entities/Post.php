@@ -42,13 +42,14 @@ class Post extends Model
     const CODE_ECA         = 'ECA';
     const CODE_ABOUT_PAGE  = 'about-page';
     const CODE_CHAIRMAN   = 'chairman';
-
+    const CODE_ECA_PAGE   = 'eca-page';
     const POST_CODES = [
         ''                     => '— Not linked to a page section —',
         self::CODE_STORY       => 'Story Section (Home page)',
         self::CODE_ECA         => 'ECA Section',
         self::CODE_ABOUT_PAGE  => 'About Page Intro',
-        self::CODE_CHAIRMAN => 'Chairman Section'
+        self::CODE_CHAIRMAN => 'Chairman Section',
+        self::CODE_ECA_PAGE => 'ECA Page'
     ];
 
     protected static function boot()
