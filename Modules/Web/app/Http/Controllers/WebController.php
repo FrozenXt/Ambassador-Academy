@@ -38,17 +38,17 @@ class WebController extends Controller
         return view('web::web.home', $data);
     }
 
-    public function contact()
-    {
-        return view('web::web.contact');
-    }
+    // public function contact()
+    // {
+    //     return view('web::web.contact');
+    // }
 
-    public function contactSubmit(ContactRequest $request)
-    {
-        $this->contactService->createContact($request->validated());
+    // public function contactSubmit(ContactRequest $request)
+    // {
+    //     $this->contactService->createContact($request->validated());
 
-        return back()->with('success', 'Your message has been sent! We will get back to you soon.');
-    }
+    //     return back()->with('success', 'Your message has been sent! We will get back to you soon.');
+    // }
     public function blogDetail($slug)
     {
         $blog = Blog::where('slug', $slug)->firstOrFail();

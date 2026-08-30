@@ -91,8 +91,11 @@ Route::get('/services{service}', [PageController::class, 'service-detail'])->nam
 // Route::post('/contact', [PageController::class, 'processContact'])->name('contact.process');
 Route::get('/gallery', [PageController::class, 'gallery'])->name('gallery');
 Route::get('/eca/{slug}', [PageController::class, 'ecaShow'])->name('eca.show');
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [ContactController::class, 'process'])->name('contact.process');
+// Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+// Route::post('/contact', [ContactController::class, 'process'])->name('contact.process');
 
 Route::get('/blog/{slug}', [PageController::class, 'blogShow'])->name('blog.show');
 Route::get('/events/{slug}/calendar.ics', [PageController::class, 'eventIcs'])->name('events.calendar.ics');
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'process'])->name('contact.process');

@@ -129,14 +129,24 @@ class ContactService
                 $formLabel   = 'Enquiry Form';
             }
 
+            $siteSettings = app(\Modules\Common\Services\SiteSettingService::class);
+
+            // Get the actual local file path for embedding (not a URL)
+            $logoPath = $siteSettings->getByKey('site_logo');
+            $logoAbsolutePath = $logoPath ? \Illuminate\Support\Facades\Storage::disk('public')->path($logoPath) : null;
+            $logoExists = $logoAbsolutePath && file_exists($logoAbsolutePath);
+
             $data = [
                 'contact'      => $contact,
                 'name'         => $contact->display_name ?? trim($contact->first_name . ' ' . $contact->last_name),
                 'initial'      => strtoupper(mb_substr($contact->display_name ?? $contact->first_name, 0, 1)),
                 'email'        => $contact->email,
                 'phone'        => $contact->phone ?? '—',
+                'subject'      => $contact->subject ?? 'General Enquiry',
                 'date'         => now_np()->format('d M Y'),
                 'time'         => now_np()->format('h:i A'),
+                'sentAt'       => now_np()->format('d M Y, h:i A'),
+                'userMessage'  => $contact->message ?? '',
                 'dashboardUrl' => url('/admin/contacts'),
                 'year'         => now_np()->format('Y'),
                 'isBooking'    => $isBooking,
@@ -146,6 +156,7 @@ class ContactService
                 'badgeText'    => $badgeText,
                 'badgeBorder'  => $badgeBorder,
                 'badgeLabel'   => $badgeLabel,
+                'siteName'     => $siteSettings->getByKey('site_name', 'Ambassador Academy'),
             ];
 
             $toEmails = array_filter(array_map('trim', explode(',', $setting->admin_mail ?? '')));
@@ -158,6 +169,8 @@ class ContactService
                 $toEmails,
                 $ccEmails,
                 $bccEmails,
+                $logoExists,
+                $logoAbsolutePath,
             ) {
                 $mail->to($toEmails)
                     ->from($setting->from_address, $setting->from_name)
@@ -170,12 +183,16 @@ class ContactService
                 if (!empty($bccEmails)) {
                     $mail->bcc($bccEmails);
                 }
+
+                // Embed logo as inline attachment — works regardless of APP_URL/localhost
+                if ($logoExists) {
+                    $mail->embed($logoAbsolutePath, 'site-logo');
+                }
             });
         } catch (\Exception $e) {
             Log::warning('Contact admin notification failed: ' . $e->getMessage());
         }
     }
-
     private function applyMailConfig($setting)
     {
         Config::set('mail.default',                 $setting->mailer);

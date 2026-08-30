@@ -323,11 +323,14 @@ h6 {
 .preloader {
     position: fixed;
     inset: 0;
+    width: 100vw;
+    height: 100vh;
     background: var(--cream);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
+    margin: 0;
     transition:
         opacity 0.5s ease,
         visibility 0.5s ease;
@@ -348,6 +351,12 @@ h6 {
     font-size: 26px;
     animation: pulse 1.1s ease-in-out infinite;
 }
+html.nav-locked,
+html.nav-locked body {
+    overflow: hidden;
+    height: 100%;
+}
+
 @keyframes pulse {
     0%,
     100% {
@@ -2355,6 +2364,155 @@ h6 {
     margin-top: 3px;
     flex-shrink: 0;
 }
+
+.badge-card {
+    position: absolute;
+    bottom: -24px;
+    right: 20px;
+    background: #fff;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    padding: 16px 20px;
+    text-align: center;
+    width: 120px;
+}
+.badge-card i {
+    color: var(--green);
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+.badge-card h3 {
+    color: var(--maroon);
+    font-size: 24px;
+}
+.badge-card p {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--ink);
+    margin-top: 2px;
+}
+
+a.upcoming-perf-item {
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+    gap: 0.7rem;
+    align-items: flex-start;
+}
+
+a.upcoming-perf-item:hover h6 {
+    color: var(--maroon);
+}
+
+@media (max-width: 991px) {
+    .event-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .eca-meta-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 991px) {
+    .events-main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .upcoming-row {
+        flex-wrap: wrap;
+    }
+
+    .upcoming-row img {
+        display: none; /* or shrink further, see below */
+    }
+
+    .upcoming-tag {
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .upcoming-date {
+        width: 48px;
+    }
+
+    .upcoming-body h5 {
+        font-size: 13.5px;
+    }
+
+    .upcoming-meta {
+        flex-direction: column;
+        gap: 4px;
+    }
+}
+@media (max-width: 640px) {
+    .featured-card {
+        height: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar-grid {
+        gap: 2px;
+    }
+
+    .calendar-grid .cal-day {
+        font-size: 11px;
+        padding: 6px 0;
+    }
+}
+/* @media (max-width: 640px) {
+    .featured-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+} */
+@media (max-width: 991px) {
+    .info-strip {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 640px) {
+    .info-strip {
+        grid-template-columns: 1fr;
+    }
+}
+/* form alert */
+.form-alert {
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    margin-bottom: 20px;
+}
+
+.form-alert-success {
+    background: #e6f4ea;
+    color: #1d5e3d;
+    border: 1px solid #b8e0c4;
+}
+
+.form-alert-error {
+    background: #fdeaea;
+    color: #8a1c34;
+    border: 1px solid #f3c6c6;
+}
+
+.form-alert-success {
+    background: #e6f4ea;
+    color: #1d5e3d;
+    border: 1px solid #b8e0c4;
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 20px;
+}
 /* =========================================================
    BACK TO TOP
    ========================================================= */
@@ -2392,6 +2550,92 @@ h6 {
         bottom: 16px;
         width: 40px;
         height: 40px;
+    }
+}
+
+/* ===== Mobile Nav Panel ===== */
+@media (max-width: 991px) {
+    .main-nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 340px;
+        height: 100vh;
+        background: #fff;
+        box-shadow: -6px 0 24px rgba(0, 0, 0, 0.15);
+        transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 700;
+        padding: 20px 24px 30px;
+        overflow-y: auto;
+    }
+
+    .main-nav.open {
+        right: 0;
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        gap: 4px;
+        margin-top: 10px;
+    }
+
+    .main-nav a {
+        display: block;
+        padding: 14px 4px;
+        border-bottom: 1px solid var(--gray-light);
+        font-size: 14px;
+    }
+
+    .nav-close {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--cream);
+        border: none;
+        padding: 12px 14px;
+        border-radius: var(--radius-sm);
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--maroon);
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .nav-close i {
+        font-size: 14px;
+    }
+
+    .nav-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 650;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
+    }
+
+    .nav-overlay.open {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .header-actions .btn-sm {
+        display: none;
+    }
+}
+
+@media (min-width: 992px) {
+    .nav-close,
+    .nav-overlay {
+        display: none;
     }
 }
 
@@ -3980,7 +4224,143 @@ a.upcoming-row:hover {
     font-size: 14px;
     line-height: 1.7;
 }
+/* ===== Contact page mobile fixes ===== */
+@media (max-width: 991px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
 
+    .map-section {
+        flex-direction: column;
+    }
+
+    .map-visual {
+        min-height: 260px;
+    }
+
+    .map-cta-panel {
+        padding: 36px 28px;
+    }
+}
+
+@media (max-width: 640px) {
+    .contact-info-item {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .contact-info-icon {
+        margin: 0 auto;
+    }
+
+    .contact-follow .socials {
+        justify-content: center;
+    }
+
+    .contact-form-card {
+        padding: 24px 20px;
+    }
+
+    .map-pin-card {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        max-width: none;
+    }
+
+    .page-banner .banner-lead {
+        font-size: 13.5px;
+    }
+}
+
+@media (max-width: 640px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+        padding: 50px 0 30px;
+        text-align: center;
+    }
+
+    .footer-about .footer-logo {
+        justify-content: center;
+    }
+
+    .footer-about p {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .footer-socials {
+        justify-content: center;
+    }
+
+    .footer-links ul,
+    .footer-contact ul {
+        align-items: center;
+    }
+
+    .footer-contact li {
+        justify-content: center;
+        text-align: left;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .footer-map .map-embed {
+        max-width: 100%;
+    }
+
+    .footer-bottom-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+}
+@media (max-width: 768px) {
+    .back-to-top {
+        right: 16px;
+        bottom: 16px;
+        width: 40px;
+        height: 40px;
+    }
+}
+@media (max-width: 768px) {
+    .footer-bottom {
+        padding-bottom: 70px; /* clears the back-to-top button */
+    }
+}
+
+.footer-map .map-embed {
+    width: 100%;
+    height: 150px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.footer-map .map-embed iframe {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+    border: 0;
+    display: block;
+}
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
 /* =========================================================
    APPLY NOW / ADMISSIONS PAGE (apply.html)
    ========================================================= */

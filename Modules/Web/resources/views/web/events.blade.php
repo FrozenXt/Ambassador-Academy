@@ -226,7 +226,7 @@
 </section>
 
 <!-- ============ NEWSLETTER ============ -->
-<section class="newsletter-section" data-aos="fade-up">
+{{-- <section class="newsletter-section" data-aos="fade-up">
     <div class="container">
         <div class="newsletter-card">
             <div class="newsletter-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
@@ -240,7 +240,7 @@
             </form>
         </div>
     </div>
-</section>
+</section> --}}
 <script>
     document.addEventListener('click', function(e) {
         const link = e.target.closest('.cal-nav');

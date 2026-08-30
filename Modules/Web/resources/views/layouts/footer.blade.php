@@ -2,7 +2,7 @@
     $siteSettings = app(\Modules\Common\Services\SiteSettingService::class);
     $logoUrl = $siteSettings->getByKey('site_logo') ? Storage::url($siteSettings->getByKey('site_logo')) : null;
     $siteName = $siteSettings->getByKey('site_name', 'Ambassador School');
-    $siteTagline = $siteSettings->getByKey('site_tagline', 'INSPIRE · INNOVATE · ACHIEVE');
+    $siteTagline = $siteSettings->getByKey('site_sub', 'INSPIRE · INNOVATE · ACHIEVE');
 @endphp
 
 <footer class="site-footer">
@@ -19,7 +19,7 @@
                     <span class="logo-tagline">{{ $siteTagline }}</span>
                 </div>
             </a>
-            <p>{{ $siteSettings->getByKey('footer_about_text', 'Inspiring young minds, building strong values and preparing future leaders to make a difference.') }}
+            <p>{{ $siteSettings->getByKey('footer_about', 'Inspiring young minds, building strong values and preparing future leaders to make a difference.') }}
             </p>
 
             <div class="footer-socials">
@@ -82,10 +82,9 @@
 
         <div class="footer-map">
             <h5>Location</h5>
+
             <div class="map-embed">
-                <iframe title="{{ $siteName }} Location"
-                    src="{{ $siteSettings->getByKey('google_map_embed', 'https://maps.google.com/maps?q=Kathmandu&t=&z=13&ie=UTF8&iwloc=&output=embed') }}"
-                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                {!! $siteSettings->getByKey('google_map_embed') !!}
             </div>
         </div>
     </div>
@@ -93,7 +92,7 @@
     <div class="footer-bottom">
         <div class="container footer-bottom-inner">
             <p>&copy; {{ date('Y') }} {{ $siteName }}. All Rights Reserved.</p>
-            <p>Designed with <i class="fa-solid fa-heart"></i> for Education</p>
+            <p>Developed by Sujal Lamichhane</p>
         </div>
     </div>
 </footer>

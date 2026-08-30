@@ -164,11 +164,11 @@
                 </ul>
             </div>
 
-            <div class="sidebar-card sidebar-join-card">
+            {{-- <div class="sidebar-card sidebar-join-card">
                 <h5>Interested in Joining?</h5>
                 <p>Join the {{ $ecaItem->title }} and let your talent shine!</p>
                 <a href="{{ route('apply') }}" class="btn btn-light-outline btn-block">Apply Now</a>
-            </div>
+            </div> --}}
 
             <!-- ===== CLUB INCHARGE — STATIC ===== -->
             <div class="sidebar-card">
@@ -191,39 +191,27 @@
             <div class="sidebar-card">
                 <h5>Upcoming Performances</h5>
                 <div class="sidebar-recent-list">
-                    <div class="sidebar-recent-item upcoming-perf-item">
-                        <div class="perf-date-box">
-                            <span class="mon">May</span>
-                            <span class="day">24</span>
-                        </div>
-                        <div>
-                            <h6>Summer Concert 2025</h6>
-                            <span>May 24, 2025 · School Auditorium</span>
-                        </div>
-                    </div>
-                    <div class="sidebar-recent-item upcoming-perf-item">
-                        <div class="perf-date-box">
-                            <span class="mon">Jun</span>
-                            <span class="day">15</span>
-                        </div>
-                        <div>
-                            <h6>Inter-School Music Fest</h6>
-                            <span>June 15, 2025 · Bright Future School</span>
-                        </div>
-                    </div>
-                    <div class="sidebar-recent-item upcoming-perf-item">
-                        <div class="perf-date-box">
-                            <span class="mon">Aug</span>
-                            <span class="day">10</span>
-                        </div>
-                        <div>
-                            <h6>Independence Day Celebration</h6>
-                            <span>August 10, 2025 · School Events</span>
-                        </div>
-                    </div>
+                    @forelse ($upcomingEvents as $event)
+                        <a href="{{ route('events.show', $event->slug) }}"
+                            class="sidebar-recent-item upcoming-perf-item">
+                            <div class="perf-date-box">
+                                <span
+                                    class="mon">{{ \Carbon\Carbon::parse($event->start_date)->format('M') }}</span>
+                                <span
+                                    class="day">{{ \Carbon\Carbon::parse($event->start_date)->format('d') }}</span>
+                            </div>
+                            <div>
+                                <h6>{{ $event->title }}</h6>
+                                <span>{{ \Carbon\Carbon::parse($event->start_date)->format('M d, Y') }} ·
+                                    {{ $event->venue ?? $event->location }}</span>
+                            </div>
+                        </a>
+                    @empty
+                        <p style="font-size:0.82rem; color:var(--gray);">No upcoming events at the moment.</p>
+                    @endforelse
                 </div>
-                <a href="{{ route('events') }}" class="view-all" style="margin-top:14px; display:inline-flex;">View
-                    All Events <i class="fa-solid fa-arrow-right"></i></a>
+                <a href="{{ route('events') }}" class="view-all" style="margin-top:14px; display:inline-flex;">View All
+                    Events <i class="fa-solid fa-arrow-right"></i></a>
             </div>
 
             <div class="sidebar-card">

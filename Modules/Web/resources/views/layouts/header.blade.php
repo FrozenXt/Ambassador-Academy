@@ -72,8 +72,8 @@
     @php
         $logoUrl = $siteSettings->getByKey('site_logo') ? Storage::url($siteSettings->getByKey('site_logo')) : null;
         $siteName = $siteSettings->getByKey('site_name', 'Ambassador School');
-        $siteTagline = $siteSettings->getByKey('site_tagline', 'INSPIRE · INNOVATE · ACHIEVE');
-        $topbarMessage = $siteSettings->getByKey('topbar_message', 'Welcome to Ambassador School');
+        $siteTagline = $siteSettings->getByKey('site_sub', 'INSPIRE · INNOVATE · ACHIEVE');
+        $topbarMessage = $siteSettings->getByKey('site_name', 'Welcome to Ambassador School');
         $phone = $siteSettings->getByKey('phone');
         $email = $siteSettings->getByKey('email');
         $facebook = $siteSettings->getByKey('facebook_url');
@@ -151,6 +151,9 @@
             </a>
 
             <nav class="main-nav" id="mainNav">
+                <button class="nav-close" id="navClose" aria-label="Close menu">
+                    <i class="fa-solid fa-arrow-left"></i> <span>Back</span>
+                </button>
                 <ul>
                     <li><a href="{{ route('home') }}"
                             class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a></li>
@@ -170,6 +173,7 @@
                             class="{{ request()->routeIs('gallery') ? 'active' : '' }}">Gallery</a></li>
                 </ul>
             </nav>
+            {{-- <div class="nav-overlay" id="navOverlay"></div> --}}
 
             <div class="header-actions">
                 <a href="{{ route('apply') }}" class="btn btn-primary btn-sm">Apply Now</a>

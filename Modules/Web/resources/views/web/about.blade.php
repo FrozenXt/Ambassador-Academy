@@ -35,7 +35,7 @@
                 alt="{{ $aboutPost->title }}">
             <div class="badge-card">
                 <i class="fa-solid fa-school"></i>
-                <h3>25+</h3>
+                <h3>20+</h3>
                 <p>Years of<br>Excellence</p>
             </div>
         </div>
@@ -43,15 +43,15 @@
 </section>
 
 <!-- ============ CHAIRPERSON MESSAGE ============ -->
-<!-- ============ CHAIRPERSON MESSAGE ============ -->
+
 <section class="chairperson-section">
     <div class="container chairperson-grid">
         <div class="chairperson-media" data-aos="fade-right">
             <img src="{{ $chairpersonPost->image ? Storage::url($chairpersonPost->image) : asset('images/placeholder.jpg') }}"
-                alt="{{ $chairpersonPost->name ?? 'Mrs. Anjana Shrestha' }}">
+                alt="{{ $chairpersonPost->name ?? 'Mr. Mohan Malla' }}">
             <div class="chairperson-tag">
                 <i class="fa-solid fa-quote-left"></i>
-                <strong>{{ $chairpersonPost->name ?? 'Mrs. Anjana Shrestha' }}</strong>
+                <strong>{{ $chairpersonPost->name ?? 'Mr. Mohan Malla' }}</strong>
                 <span>{{ $chairpersonPost->position }}</span>
             </div>
         </div>
@@ -108,7 +108,7 @@
 </section>
 
 <!-- ============ STATS BAR ============ -->
-<!-- ============ STATS BAR ============ -->
+
 <section class="stats-bar">
     <div class="stat-block sb-maroon" data-aos="fade-up">
         <i class="{{ optional($counters[0] ?? null)->icon ?? 'fa-solid fa-graduation-cap' }} stat-icon"></i>
@@ -160,4 +160,5 @@
 </section> --}}
 
 <!-- ============ FOOTER (identical to home page) ============ -->
+
 @include('web::layouts.footer')

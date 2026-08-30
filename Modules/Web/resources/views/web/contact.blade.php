@@ -1,5 +1,7 @@
 @include('web::layouts.header')
-
+@if ($settings['recaptcha_site_key'] ?? false)
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+@endif
 <!-- ============ PAGE BANNER ============ -->
 <section class="page-banner">
     <div class="container" data-aos="fade-up" data-aos-duration="800">
@@ -72,31 +74,72 @@
             <h2>Send Us A Message</h2>
             <div class="tri-divider"><span></span><span></span><span></span></div>
 
-            <form class="contact-form-card" id="contactForm">
+            @if (session('success'))
+                <div class="form-alert form-alert-success">{{ session('success') }}</div>
+            @endif
+
+            @if (session('error'))
+                <div class="form-alert form-alert-error">{{ session('error') }}</div>
+            @endif
+
+            @if ($errors->any())
+                <div class="form-alert form-alert-error">
+                    <ul style="margin:0; padding-left:18px;">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form class="contact-form-card" id="contactForm" action="{{ route('contact.process') }}" method="POST">
+                @csrf
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" name="first_name" value="{{ old('first_name') }}"
+                            placeholder="First Name *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name *"
+                            required>
+                    </div>
+                </div>
+
                 <div class="form-group">
-                    <input type="text" placeholder="Your Name *" required>
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="Email Address *"
+                        required>
                 </div>
                 <div class="form-group">
-                    <input type="email" placeholder="Email Address *" required>
-                </div>
-                <div class="form-group">
-                    <input type="tel" placeholder="Phone Number">
+                    <input type="tel" name="phone" value="{{ old('phone') }}" placeholder="Phone Number">
                 </div>
                 <div class="form-group">
                     <label for="subject">Subject *</label>
-                    <select id="subject" required>
-                        <option value="" selected disabled>Select Subject</option>
-                        <option>Admissions Enquiry</option>
-                        <option>General Information</option>
-                        <option>Feedback & Suggestions</option>
-                        <option>Careers</option>
-                        <option>Other</option>
+                    <select id="subject" name="subject" required>
+                        <option value="" {{ old('subject') ? '' : 'selected' }} disabled>Select Subject</option>
+                        <option value="Admissions Enquiry"
+                            {{ old('subject') == 'Admissions Enquiry' ? 'selected' : '' }}>Admissions Enquiry</option>
+                        <option value="General Information"
+                            {{ old('subject') == 'General Information' ? 'selected' : '' }}>General Information
+                        </option>
+                        <option value="Feedback & Suggestions"
+                            {{ old('subject') == 'Feedback & Suggestions' ? 'selected' : '' }}>Feedback & Suggestions
+                        </option>
+                        <option value="Careers" {{ old('subject') == 'Careers' ? 'selected' : '' }}>Careers</option>
+                        <option value="Other" {{ old('subject') == 'Other' ? 'selected' : '' }}>Other</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="message">Message *</label>
-                    <textarea id="message" placeholder="Write your message here..." required></textarea>
+                    <textarea id="message" name="message" placeholder="Write your message here..." required>{{ old('message') }}</textarea>
                 </div>
+
+                @if ($settings['recaptcha_site_key'] ?? false)
+                    <div class="form-group">
+                        <div class="g-recaptcha" data-sitekey="{{ $settings['recaptcha_site_key']->value }}"></div>
+                    </div>
+                @endif
+
                 <button type="submit" class="btn btn-dark-green">Send Message <i
                         class="fa-solid fa-paper-plane"></i></button>
             </form>

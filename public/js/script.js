@@ -1,15 +1,14 @@
 /* =========================================================
    AMBASSADOR SCHOOL — SHARED JAVASCRIPT
-   Used by: index.html (home) and about.html (about page)
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", function () {
-    /* ---------- Broken image safety net (prevents any onerror retry-loop) ---------- */
+    /* ---------- Broken image safety net ---------- */
     document.querySelectorAll("img").forEach((img) => {
         img.addEventListener(
             "error",
             function onImgError() {
-                this.removeEventListener("error", onImgError); // fire once, never loop
+                this.removeEventListener("error", onImgError);
                 this.style.background = "#eee6de";
                 this.style.minHeight = "120px";
             },
@@ -22,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("load", function () {
         setTimeout(() => preloader && preloader.classList.add("loaded"), 300);
     });
-    // fallback in case 'load' already fired
     setTimeout(() => preloader && preloader.classList.add("loaded"), 1500);
 
     /* ---------- AOS init ---------- */
@@ -35,20 +33,50 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    /* ---------- Mobile nav toggle ---------- */
+    /* ---------- Mobile nav toggle (hamburger + close button + overlay) ---------- */
     const hamburger = document.getElementById("hamburger");
     const mainNav = document.getElementById("mainNav");
+    const navClose = document.getElementById("navClose");
+    const navOverlay = document.getElementById("navOverlay");
+
+    function openNav() {
+        mainNav.classList.add("open");
+        hamburger.classList.add("active");
+        if (navOverlay) navOverlay.classList.add("open");
+        document.documentElement.classList.add("nav-locked");
+    }
+
+    function closeNav() {
+        mainNav.classList.remove("open");
+        hamburger.classList.remove("active");
+        if (navOverlay) navOverlay.classList.remove("open");
+        document.documentElement.classList.remove("nav-locked");
+    }
+
     if (hamburger && mainNav) {
         hamburger.addEventListener("click", function () {
-            mainNav.classList.toggle("open");
-            hamburger.classList.toggle("active");
+            if (mainNav.classList.contains("open")) {
+                closeNav();
+            } else {
+                openNav();
+            }
         });
+
         mainNav.querySelectorAll("a").forEach((link) => {
             link.addEventListener("click", () => {
-                mainNav.classList.remove("open");
-                hamburger.classList.remove("active");
+                document.body.style.overflow = "";
+                document.body.style.position = "";
+                closeNav();
             });
         });
+    }
+
+    if (navClose) {
+        navClose.addEventListener("click", closeNav);
+    }
+
+    if (navOverlay) {
+        navOverlay.addEventListener("click", closeNav);
     }
 
     /* ---------- Search toggle ---------- */
@@ -79,7 +107,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     : "0 2px 14px rgba(0,0,0,.05)";
         }
 
-        /* Back to top button */
         const backToTop = document.getElementById("backToTop");
         if (backToTop) {
             backToTop.classList.toggle("show", window.scrollY > 400);
@@ -136,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    /* ---------- Events Calendar widget (events page) ---------- */
+    /* ---------- Events Calendar widget (demo/legacy — real calendar uses AJAX partial) ---------- */
     const calGrid = document.getElementById("calGrid");
     if (calGrid) {
         const monthLabel = document.getElementById("calMonthLabel");
@@ -156,12 +183,11 @@ document.addEventListener("DOMContentLoaded", function () {
         ];
         const dowNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
-        // Demo event highlights (only shown for May 2025, matching the school's featured events)
         const eventDays = {
             "2025-4": { 10: "gold", 18: "maroon", 21: "green", 25: "maroon" },
         };
 
-        let current = new Date(2025, 4, 1); // May 2025
+        let current = new Date(2025, 4, 1);
 
         function renderCalendar() {
             const year = current.getFullYear();
@@ -177,17 +203,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 .map((d) => `<div class="cal-dow">${d}</div>`)
                 .join("");
 
-            // leading muted days from previous month
             for (let i = firstDay - 1; i >= 0; i--) {
                 html += `<div class="cal-day muted">${daysInPrevMonth - i}</div>`;
             }
-            // current month days
             for (let d = 1; d <= daysInMonth; d++) {
                 const color = highlights[d];
                 const cls = color ? `cal-day active tag-${color}` : "cal-day";
                 html += `<div class="${cls}">${d}</div>`;
             }
-            // trailing days to complete the final week row
             const totalCells = firstDay + daysInMonth;
             const trailing = (7 - (totalCells % 7)) % 7;
             for (let d = 1; d <= trailing; d++) {
@@ -272,22 +295,10 @@ document.addEventListener("DOMContentLoaded", function () {
         counters.forEach((c) => observer.observe(c));
     }
 
-    /* ---------- Contact form (contact page, demo submit) ---------- */
-    const contactForm = document.getElementById("contactForm");
-    if (contactForm) {
-        contactForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            const btn = this.querySelector('button[type="submit"]');
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = 'Message Sent <i class="fa-solid fa-check"></i>';
-            btn.disabled = true;
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
-                this.reset();
-            }, 2500);
-        });
-    }
+    /* ---------- REMOVED: fake contact form demo handler ----------
+       This used to call e.preventDefault() on #contactForm submit,
+       which silently blocked the real Laravel POST to /contact.
+       The form now submits normally to ContactController@process. */
 
     /* ---------- Application form (apply page, demo submit) ---------- */
     const applicationForm = document.getElementById("applicationForm");

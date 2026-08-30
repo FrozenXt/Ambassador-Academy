@@ -381,6 +381,12 @@ class PageService
 
         $galleryImages = $galleryAlbum ? $galleryAlbum->gallery->take(4) : collect();
 
-        return compact('ecaItem', 'categories', 'galleryImages');
+        $upcomingEvents = \Modules\Common\Entities\Event::where('status', 'published')
+            ->where('start_date', '>=', now())
+            ->orderBy('start_date')
+            ->take(3)
+            ->get();
+
+        return compact('ecaItem', 'categories', 'galleryImages', 'upcomingEvents');
     }
 }
