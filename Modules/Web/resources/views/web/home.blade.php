@@ -15,7 +15,7 @@
 
         <div class="hero-media" data-aos="fade-left" data-aos-duration="900">
             <div class="hero-shape"></div>
-            <div class="swiper hero-swiper">
+            <div class="swiper heroSlider">
                 <div class="swiper-wrapper">
                     @forelse ($bannerImages as $banner)
                         <div class="swiper-slide">

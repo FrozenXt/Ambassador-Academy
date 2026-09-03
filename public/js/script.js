@@ -295,11 +295,6 @@ document.addEventListener("DOMContentLoaded", function () {
         counters.forEach((c) => observer.observe(c));
     }
 
-    /* ---------- REMOVED: fake contact form demo handler ----------
-       This used to call e.preventDefault() on #contactForm submit,
-       which silently blocked the real Laravel POST to /contact.
-       The form now submits normally to ContactController@process. */
-
     /* ---------- Application form (apply page, demo submit) ---------- */
     const applicationForm = document.getElementById("applicationForm");
     if (applicationForm) {

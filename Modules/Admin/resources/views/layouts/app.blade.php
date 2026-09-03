@@ -367,6 +367,19 @@
                         </li>
 
                         <li class="nav-item">
+                            <a href="{{ route('admin.applications.index', ['source' => 'contact']) }}"
+                                class="nav-link {{ request()->get('source') == 'contact' ? 'active' : '' }}">
+
+                                <i class="nav-icon fas fa-envelope"></i>
+
+                                <p>
+                                    Applications
+
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{{ route('admin.testimonials.index') }}"
                                 class="nav-link {{ request()->is('admin/testimonials*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-quote-left"></i>

@@ -28,6 +28,7 @@ use Modules\Admin\Http\Controllers\BlogController;
 use Modules\Admin\Http\Controllers\BrochureController;
 use Modules\Admin\Http\Controllers\PostController;
 use Modules\Admin\Http\Controllers\AccountController;
+use Modules\Admin\Http\Controllers\ApplicationController;
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
@@ -74,7 +75,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('categories/{category}',   [CategoryController::class, 'destroy'])->name('categories.destroy')->middleware('checkRole:superadmin,admin');
             Route::post('categories/update-order', [CategoryController::class, 'updateOrder'])->name('categories.update-order')->middleware('checkRole:superadmin,admin,manager');
 
-
+            Route::prefix('applications')->name('applications.')->middleware('checkRole:superadmin,admin,manager,staff')->group(function () {
+                Route::get('/', [ApplicationController::class, 'index'])->name('index');
+                Route::get('/{application}/edit', [ApplicationController::class, 'edit'])->name('edit')->middleware('checkRole:superadmin,admin,manager');
+                Route::put('/{application}', [ApplicationController::class, 'update'])->name('update')->middleware('checkRole:superadmin,admin,manager');
+                Route::delete('/{application}', [ApplicationController::class, 'destroy'])->name('destroy')->middleware('checkRole:superadmin,admin');
+                Route::post('/bulk-action', [ApplicationController::class, 'bulkAction'])->name('bulk-action')->middleware('checkRole:superadmin,admin');
+            });
             // ── Products ──
             Route::get('products',           [ProductController::class, 'index'])->name('products.index')->middleware('checkRole:superadmin,admin,manager,staff');
             Route::get('products/create',    [ProductController::class, 'create'])->name('products.create')->middleware('checkRole:superadmin,admin,manager');

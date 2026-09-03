@@ -121,18 +121,20 @@
 </section>
 
 <!-- ============ NEWSLETTER ============ -->
-<section class="newsletter-section variant-gray" data-aos="fade-up">
+<section class="newsletter-section" data-aos="fade-up">
     <div class="container newsletter-inner">
         <div class="newsletter-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
         <div class="newsletter-text">
             <h4>Stay Connected</h4>
             <p>Subscribe to our newsletter for the latest updates, events and news.</p>
         </div>
-        <form class="newsletter-form" id="newsletterForm">
-            <input type="email" placeholder="Enter your email address" required>
+        <form class="newsletter-form" id="newsletterForm" action="{{ route('newsletter.subscribe') }}" method="POST">
+            @csrf
+            <input type="email" name="email" placeholder="Enter your email address" required>
             <button type="submit" class="btn btn-dark-green">Subscribe</button>
         </form>
     </div>
+    <div class="newsletter-leaf"></div>
 </section>
 
 <!-- ============ FOOTER (identical to home & about pages) ============ -->

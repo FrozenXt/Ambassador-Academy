@@ -66,68 +66,115 @@
 
         <div class="application-grid">
 
-            <form class="application-form-card" id="applicationForm" data-aos="fade-right">
+            <form class="application-form-card" id="applicationForm" data-aos="fade-right"
+                action="{{ route('apply.store') }}" method="POST">
+                @csrf
+
+                @if (session('success'))
+                    <div class="form-alert form-alert-success">{{ session('success') }}</div>
+                @endif
+                @if (session('error'))
+                    <div class="form-alert form-alert-error">{{ session('error') }}</div>
+                @endif
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="applyingFor">Applying For *</label>
-                        <select id="applyingFor" required>
+                        <select id="applyingFor" name="applying_for" required>
                             <option value="" selected disabled>Select Grade</option>
-                            <option>Pre-KG</option>
-                            <option>KG</option>
-                            <option>Grade 1 – 5</option>
-                            <option>Grade 6 – 8</option>
-                            <option>Grade 9 – 12</option>
+                            <option value="Pre-KG" {{ old('applying_for') == 'Pre-KG' ? 'selected' : '' }}>Pre-KG
+                            </option>
+                            <option value="KG" {{ old('applying_for') == 'KG' ? 'selected' : '' }}>KG</option>
+                            <option value="Grade 1 - 5" {{ old('applying_for') == 'Grade 1 - 5' ? 'selected' : '' }}>
+                                Grade 1 – 5</option>
+                            <option value="Grade 6 - 8" {{ old('applying_for') == 'Grade 6 - 8' ? 'selected' : '' }}>
+                                Grade 6 – 8</option>
+                            <option value="Grade 9 - 12" {{ old('applying_for') == 'Grade 9 - 12' ? 'selected' : '' }}>
+                                Grade 9 – 12</option>
                         </select>
+                        @error('applying_for')
+                            <small style="color:var(--maroon)">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Student's Full Name *</label>
                     <div class="form-row-3">
-                        <input type="text" placeholder="First Name" required>
-                        <input type="text" placeholder="Middle Name">
-                        <input type="text" placeholder="Last Name" required>
+                        <input type="text" name="first_name" value="{{ old('first_name') }}" placeholder="First Name"
+                            required>
+                        <input type="text" name="middle_name" value="{{ old('middle_name') }}"
+                            placeholder="Middle Name">
+                        <input type="text" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name"
+                            required>
                     </div>
+                    @error('first_name')
+                        <small style="color:var(--maroon)">{{ $message }}</small>
+                    @enderror
+                    @error('last_name')
+                        <small style="color:var(--maroon)">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="dob">Date of Birth *</label>
-                        <input type="date" id="dob" required>
+                        <input type="date" id="dob" name="dob" value="{{ old('dob') }}" required>
+                        @error('dob')
+                            <small style="color:var(--maroon)">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="gender">Gender *</label>
-                        <select id="gender" required>
+                        <select id="gender" name="gender" required>
                             <option value="" selected disabled>Select Gender</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Other</option>
+                            <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
+                            <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
+                            <option value="Other" {{ old('gender') == 'Other' ? 'selected' : '' }}>Other</option>
                         </select>
+                        @error('gender')
+                            <small style="color:var(--maroon)">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="guardianName">Parent/Guardian Name *</label>
-                    <input type="text" id="guardianName" placeholder="Full Name" required>
+                    <input type="text" id="guardianName" name="guardian_name" value="{{ old('guardian_name') }}"
+                        placeholder="Full Name" required>
+                    @error('guardian_name')
+                        <small style="color:var(--maroon)">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="applyEmail">Email Address *</label>
-                        <input type="email" id="applyEmail" placeholder="you@example.com" required>
+                        <input type="email" id="applyEmail" name="email" value="{{ old('email') }}"
+                            placeholder="you@example.com" required>
+                        @error('email')
+                            <small style="color:var(--maroon)">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="applyPhone">Phone Number *</label>
-                        <input type="tel" id="applyPhone" placeholder="+977" required>
+                        <input type="tel" id="applyPhone" name="phone" value="{{ old('phone') }}"
+                            placeholder="+977" required>
+                        @error('phone')
+                            <small style="color:var(--maroon)">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="address">Address *</label>
-                    <textarea id="address" placeholder="Full residential address" required></textarea>
+                    <textarea id="address" name="address" placeholder="Full residential address" required>{{ old('address') }}</textarea>
+                    @error('address')
+                        <small style="color:var(--maroon)">{{ $message }}</small>
+                    @enderror
                 </div>
 
-                <button type="submit" class="btn btn-dark-green">Next Step <i
+                <button type="submit" class="btn btn-dark-green">Submit Application <i
                         class="fa-solid fa-arrow-right"></i></button>
             </form>
 

@@ -138,6 +138,10 @@ class CommonServiceProvider extends ModuleServiceProvider
             \Modules\Common\Repositories\BlogCategoryRepositoryInterface::class,
             \Modules\Common\Repositories\BlogCategoryRepository::class
         );
+        $this->app->bind(
+            \Modules\Common\Repositories\ApplicationRepositoryInterface::class,
+            \Modules\Common\Repositories\ApplicationRepository::class
+        );
     }
     public function boot(): void
     {

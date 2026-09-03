@@ -7,6 +7,7 @@ use Modules\Common\Entities\SiteSetting;
 use Modules\Common\Entities\Contact;
 use Modules\Web\Http\Controllers\ContactController;
 use Modules\Web\Http\Controllers\PageController;
+use Modules\Web\Http\Controllers\ApplyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,7 +86,9 @@ Route::get('/blog', [PageController::class, 'blog'])->name('blog');
 Route::get('/blog/{blog}', [PageController::class, 'blogShow'])->name('blog.show');
 Route::get('/testimonials', [PageController::class, 'testimonials'])->name('testimonials');
 Route::get('/newsletter', [PageController::class, 'newsletter'])->name('newsletter.subscribe');
-Route::get('/applynow', [PageController::class, 'apply'])->name('apply');
+// 
+Route::get('/apply', [ApplyController::class, 'index'])->name('apply');
+Route::post('/apply', [ApplyController::class, 'store'])->name('apply.store');
 Route::get('/services{service}', [PageController::class, 'service-detail'])->name('service.detail');
 // Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 // Route::post('/contact', [PageController::class, 'processContact'])->name('contact.process');
