@@ -104,6 +104,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
 <script src="{{ asset('js/script.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 <!-- Custom Footer Scripts (raw HTML/JS from admin) -->
 {!! $siteSettings->getByKey('footer_scripts', '') !!}

@@ -4560,10 +4560,137 @@ body {
         padding: 30px 24px;
     }
 }
-* =========================================================
-   EVENTS PAGE (events.html)
+
+/* =========================================================
+   APPLY PAGE — RESPONSIVE FIXES
    ========================================================= */
- 
+
+@media (max-width: 991px) {
+    .application-sidebar {
+        order: -1; /* show "Documents Required" + "Need Help" above the form on tablets */
+    }
+}
+
+@media (max-width: 640px) {
+    .process-section {
+        padding: 60px 0 40px;
+    }
+
+    .process-track {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 36px;
+        column-gap: 20px;
+    }
+
+    .process-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .process-num {
+        width: 20px;
+        height: 20px;
+        font-size: 9px;
+    }
+
+    .process-node h4 {
+        font-size: 12px;
+        padding: 0 4px;
+    }
+
+    .application-section {
+        padding: 40px 0 60px;
+    }
+
+    .application-section h2 {
+        font-size: 22px;
+    }
+
+    .application-form-card {
+        padding: 22px 18px;
+    }
+
+    .form-group label {
+        font-size: 12.5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 11px 14px;
+        font-size: 13.5px;
+    }
+
+    .doc-required-card {
+        padding: 20px;
+    }
+
+    .doc-item {
+        gap: 10px;
+        margin-bottom: 14px;
+    }
+
+    .doc-item span {
+        font-size: 12px;
+        padding-top: 4px;
+    }
+
+    .help-card {
+        padding: 20px;
+    }
+
+    .help-card p {
+        font-size: 12px;
+    }
+
+    /* reCAPTCHA scaling — Google's widget is a fixed 304px iframe,
+       so scale it down to fit narrow viewports without cutting it off */
+    .g-recaptcha {
+        transform: scale(0.87);
+        transform-origin: left top;
+    }
+}
+
+@media (max-width: 480px) {
+    .process-track {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 30px;
+    }
+
+    .page-banner h1 {
+        font-size: 26px;
+    }
+
+    .page-banner .banner-lead {
+        font-size: 13px;
+    }
+
+    .form-row-3 {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .btn.btn-dark-green {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Scale reCAPTCHA further on very small phones */
+    .g-recaptcha {
+        transform: scale(0.77);
+        transform-origin: left top;
+    }
+}
+
+@media (max-width: 360px) {
+    .g-recaptcha {
+        transform: scale(0.7);
+        transform-origin: left top;
+    }
+}
+
 /* ---- Featured Events swiper ---- */
 .featured-events-section {
     padding: 90px 0 70px;

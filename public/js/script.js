@@ -296,20 +296,20 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     /* ---------- Application form (apply page, demo submit) ---------- */
-    const applicationForm = document.getElementById("applicationForm");
-    if (applicationForm) {
-        applicationForm.addEventListener("submit", function (e) {
-            e.preventDefault();
-            const btn = this.querySelector('button[type="submit"]');
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = 'Submitted <i class="fa-solid fa-check"></i>';
-            btn.disabled = true;
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                btn.disabled = false;
-            }, 2500);
-        });
-    }
+    // const applicationForm = document.getElementById("applicationForm");
+    // if (applicationForm) {
+    //     applicationForm.addEventListener("submit", function (e) {
+    //         e.preventDefault();
+    //         const btn = this.querySelector('button[type="submit"]');
+    //         const originalHTML = btn.innerHTML;
+    //         btn.innerHTML = 'Submitted <i class="fa-solid fa-check"></i>';
+    //         btn.disabled = true;
+    //         setTimeout(() => {
+    //             btn.innerHTML = originalHTML;
+    //             btn.disabled = false;
+    //         }, 2500);
+    //     });
+    // }
 
     /* ---------- Newsletter form (demo submit) ---------- */
     const newsletterForm = document.getElementById("newsletterForm");

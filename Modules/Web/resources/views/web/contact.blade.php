@@ -8,7 +8,7 @@
         <h1>Contact Us</h1>
         <div class="heading-underline"></div>
         <div class="breadcrumb">
-            <a href="index.html">Home</a>
+            <a href="{{ url('/') }}">Home</a>
             <i class="fa-solid fa-chevron-right"></i>
             <span class="current">Contact Us</span>
         </div>
@@ -33,41 +33,55 @@
                     <div class="contact-info-icon bg-green"><i class="fa-solid fa-location-dot"></i></div>
                     <div>
                         <h5>Our Address</h5>
-                        <p>123 Education Street,<br>Kathmandu, Nepal</p>
+                        <p>{{ $settings['site_address']->value ?? '123 Education Street, Kathmandu, Nepal' }}</p>
                     </div>
                 </div>
                 <div class="contact-info-item">
                     <div class="contact-info-icon bg-maroon"><i class="fa-solid fa-phone"></i></div>
                     <div>
                         <h5>Phone Number</h5>
-                        <p>+977 1 1234567<br>+977 9801234567</p>
+                        <p>
+                            {{ $settings['site_phone']->value ?? '+977 1 1234567' }}
+                            @if (!empty($settings['site_telephone']->value ?? null))
+                                <br>{{ $settings['site_telephone']->value }}
+                            @endif
+                        </p>
                     </div>
                 </div>
                 <div class="contact-info-item">
                     <div class="contact-info-icon bg-gold"><i class="fa-solid fa-envelope"></i></div>
                     <div>
                         <h5>Email Address</h5>
-                        <p>info@ambassadorschool.edu.np<br>admissions@ambassadorschool.edu.np</p>
+                        <p>{{ $settings['site_email']->value ?? 'info@ambassadorschool.edu.np' }}</p>
                     </div>
                 </div>
                 <div class="contact-info-item">
                     <div class="contact-info-icon bg-green"><i class="fa-solid fa-clock"></i></div>
                     <div>
                         <h5>School Hours</h5>
-                        <p>Mon - Fri: 8:00 AM - 4:00 PM<br>Saturday: 9:00 AM - 1:00 PM</p>
+                        <p>
+                            {{ $settings['opening_hours_weekday']->value ?? 'Mon - Fri: 8:00 AM - 4:00 PM' }}
+                            @if (!empty($settings['opening_hours_weekend']->value ?? null))
+                                <br>{{ $settings['opening_hours_weekend']->value }}
+                            @endif
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <div class="contact-follow">
-                <h5>Follow Us</h5>
-                <div class="socials">
-                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            @if ($socialLinks->isNotEmpty())
+                <div class="contact-follow">
+                    <h5>Follow Us</h5>
+                    <div class="socials">
+                        @foreach ($socialLinks as $social)
+                            <a href="{{ $social['url'] }}" target="_blank" rel="noopener"
+                                aria-label="{{ $social['label'] }}">
+                                <i class="{{ $social['icon'] }}"></i>
+                            </a>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
 
         <div class="contact-col" data-aos="fade-left">
@@ -151,22 +165,29 @@
 <!-- ============ MAP ============ -->
 <section class="map-section" data-aos="fade-up">
     <div class="map-visual">
-        <iframe title="Ambassador School Location"
-            src="https://maps.google.com/maps?q=Kathmandu%20Durbar%20Square&t=&z=15&ie=UTF8&iwloc=&output=embed"
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        @if (!empty($settings['google_map_embed']->value ?? null))
+            {!! $settings['google_map_embed']->value !!}
+        @else
+            <iframe title="{{ $settings['site_name']->value ?? 'Ambassador Academy' }} Location"
+                src="https://maps.google.com/maps?q=Kathmandu%20Durbar%20Square&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        @endif
         <div class="map-pin-card">
             <i class="fa-solid fa-location-dot"></i>
             <div>
-                <h5>Ambassador School</h5>
-                <p>123 Education Street, Kathmandu, Nepal</p>
+                <h5>{{ $settings['site_name']->value ?? 'Ambassador Academy' }}</h5>
+                <p>{{ $settings['site_address']->value ?? '123 Education Street, Kathmandu, Nepal' }}</p>
             </div>
         </div>
     </div>
     <div class="map-cta-panel">
         <h3>We Are Here</h3>
-        <p>Visit our campus and experience Ambassador School.</p>
-        <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn btn-dark-green"
-            style="background:var(--gold); color:#3a2a08;">Directions <i class="fa-solid fa-arrow-right"></i></a>
+        <p>Visit our campus and experience {{ $settings['site_name']->value ?? 'Ambassador Academy' }}.</p>
+        <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($settings['site_address']->value ?? 'Kathmandu, Nepal') }}"
+            target="_blank" rel="noopener" class="btn btn-dark-green"
+            style="background:var(--gold); color:#3a2a08;">
+            Directions <i class="fa-solid fa-arrow-right"></i>
+        </a>
     </div>
 </section>
 

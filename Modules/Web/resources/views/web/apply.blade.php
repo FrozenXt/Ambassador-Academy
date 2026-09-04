@@ -174,6 +174,12 @@
                     @enderror
                 </div>
 
+                @if (!empty($settings['recaptcha_site_key']?->value))
+                    <div class="form-group">
+                        <div class="g-recaptcha" data-sitekey="{{ $settings['recaptcha_site_key']->value }}"></div>
+                    </div>
+                @endif
+
                 <button type="submit" class="btn btn-dark-green">Submit Application <i
                         class="fa-solid fa-arrow-right"></i></button>
             </form>
@@ -200,7 +206,7 @@
                     <span class="doc-note">* All documents should be clear and valid.</span>
                 </div>
 
-                <div class="help-card">
+                {{-- <div class="help-card">
                     <h5>Need Help?</h5>
                     <p>Our admission team is here to assist you with any queries.</p>
                     <a href="contact.html" class="btn btn-primary btn-block">Contact Admissions Office <i
@@ -208,7 +214,7 @@
                     <span class="help-contact"><i class="fa-solid fa-phone"></i> +977 1 1234567</span>
                     <span class="help-contact"><i class="fa-solid fa-envelope"></i>
                         admissions@ambassadorschool.edu.np</span>
-                </div>
+                </div> --}}
             </div>
 
         </div>
