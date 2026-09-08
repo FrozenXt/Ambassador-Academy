@@ -6,7 +6,7 @@
         <h1>About Us</h1>
         <div class="heading-underline"></div>
         <div class="breadcrumb">
-            <a href="index.html">Home</a>
+            <a href="{{ url('/') }}">Home</a>
             <i class="fa-solid fa-chevron-right"></i>
             <span class="current">About Us</span>
         </div>

@@ -5137,6 +5137,75 @@ body {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
+.hero-media {
+    position: relative;
+    min-width: 0;
+    width: 100%;
+}
+
+.hero-shape {
+    position: absolute;
+    top: -22px;
+    right: -22px;
+    width: 92%;
+    height: 92%;
+    background: linear-gradient(145deg, var(--gold), var(--gold-dark));
+    border-radius: var(--radius-lg);
+    z-index: 0;
+}
+
+.hero-swiper {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 10; /* enforces frame size BEFORE Swiper JS runs */
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.hero-swiper .swiper-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.hero-swiper .swiper-slide {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.hero-swiper .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.event-blog-link {
+    display: flex;
+    width: 100%;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.event-blog-link:hover {
+    text-decoration: none;
+    color: inherit;
+    transform: translateY(-2px);
+}
+
+.event-blog-link h5 {
+    transition: color 0.3s ease;
+}
+
+.event-blog-link:hover h5 {
+    color: #800000;
+}
 .testimonial-media {
     position: relative;
     width: 32%;
@@ -5344,7 +5413,13 @@ body {
         grid-template-columns: 1fr 1fr;
     }
 }
-
+.featured-card:hover {
+    transform: scale(1.035) translateY(-6px);
+    box-shadow: var(--shadow-md);
+    transition:
+        transform 0.45s ease-in-out,
+        box-shadow 0.45s ease-in-out;
+}
 /* =========================================================
    APPLY PAGE — RESPONSIVE FIXES
    ========================================================= */

@@ -92,7 +92,14 @@
     <div class="footer-bottom">
         <div class="container footer-bottom-inner">
             <p>&copy; {{ date('Y') }} {{ $siteName }}. All Rights Reserved.</p>
-            <p>Developed by Sujal Lamichhane</p>
+
+            <p>
+                Developed by:
+                <a href="https://sujal-lamichhane.netlify.app/" target="_blank" rel="noopener noreferrer"
+                    style="color: #d4af37; text-decoration: none;">
+                    Sujal Lamichhane
+                </a>
+            </p>
         </div>
     </div>
 </footer>

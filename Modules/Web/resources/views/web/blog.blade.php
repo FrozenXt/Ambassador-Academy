@@ -6,7 +6,7 @@
         <h1>Latest News &amp; Blogs</h1>
         <div class="heading-underline"></div>
         <div class="breadcrumb">
-            <a href="index.html">Home</a>
+            <a href="{{ url('/') }}">Home</a>
             <i class="fa-solid fa-chevron-right"></i>
             <span class="current">Blogs</span>
         </div>

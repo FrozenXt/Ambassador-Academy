@@ -9,7 +9,7 @@
             </p>
             <div class="hero-btns">
                 <a href="#academics" class="btn btn-primary">Discover More <i class="fa-solid fa-arrow-right"></i></a>
-                <a href="#" class="btn btn-outline">Admissions Open</a>
+                <a href="{{ route('apply') }}" class="btn btn-outline">Admissions Open</a>
             </div>
         </div>
 
@@ -229,15 +229,17 @@
 
                 @forelse ($upcomingEvents as $index => $event)
                     <li>
-                        <div class="date-badge {{ $badgeColors[$index % count($badgeColors)] }}">
-                            <span>{{ \Carbon\Carbon::parse($event->start_date)->format('d') }}</span>{{ \Carbon\Carbon::parse($event->start_date)->format('M') }}
-                        </div>
-                        <div>
-                            <h5>{{ $event->title }}</h5>
-                            <span
-                                class="event-date">{{ \Carbon\Carbon::parse($event->start_date)->format('l, d F Y') }}</span>
-                            <p>{{ $event->short_description }}</p>
-                        </div>
+                        <a href="{{ route('events.show', $event->slug) }}" class="event-blog-link">
+                            <div class="date-badge {{ $badgeColors[$index % count($badgeColors)] }}">
+                                <span>{{ \Carbon\Carbon::parse($event->start_date)->format('d') }}</span>{{ \Carbon\Carbon::parse($event->start_date)->format('M') }}
+                            </div>
+                            <div>
+                                <h5>{{ $event->title }}</h5>
+                                <span
+                                    class="event-date">{{ \Carbon\Carbon::parse($event->start_date)->format('l, d F Y') }}</span>
+                                <p>{{ $event->short_description }}</p>
+                            </div>
+                        </a>
                     </li>
                 @empty
                     <li>
@@ -262,13 +264,15 @@
             <ul class="blog-list">
                 @forelse ($latestBlogs as $blog)
                     <li>
-                        <img src="{{ $blog->featured_image ? Storage::url($blog->featured_image) : asset('image/blog-placeholder.jpg') }}"
-                            alt="{{ $blog->title }}">
-                        <div>
-                            <h5>{{ $blog->title }}</h5>
-                            <span
-                                class="event-date">{{ \Carbon\Carbon::parse($blog->published_at)->format('F d, Y') }}</span>
-                        </div>
+                        <a href="{{ route('blog.show', $blog->slug) }}" class="event-blog-link">
+                            <img src="{{ $blog->featured_image ? Storage::url($blog->featured_image) : asset('image/blog-placeholder.jpg') }}"
+                                alt="{{ $blog->title }}">
+                            <div>
+                                <h5>{{ $blog->title }}</h5>
+                                <span
+                                    class="event-date">{{ \Carbon\Carbon::parse($blog->published_at)->format('F d, Y') }}</span>
+                            </div>
+                        </a>
                     </li>
                 @empty
                     <li>
@@ -286,7 +290,7 @@
 </section>
 
 <!-- ============ TESTIMONIAL ============ -->
-<section class="testimonial-section">
+{{-- <section class="testimonial-section">
     <div class="testimonial-inner">
         <div class="testimonial-content">
             <div class="testimonial-badge">
@@ -310,7 +314,7 @@
         <div class="testimonial-pagination"></div>
         <button class="scroll-top" aria-label="Scroll to top"><i class="fa-solid fa-arrow-up"></i></button>
     </div>
-</section>
+</section> --}}
 
 <!-- ============ NEWSLETTER ============ -->
 <section class="newsletter-section" data-aos="fade-up">

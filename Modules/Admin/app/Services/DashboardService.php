@@ -86,8 +86,7 @@ class DashboardService
         return [
             'totalCounters'      => Counter::count(),
             'totalSiteViews'     => $totalViews,
-            // No real page-view tracking table exists yet — this is the same
-            // total shown for "this month" until a proper view-log is added.
+
             'siteViewsThisMonth' => Counter::where('updated_at', '>=', now()->startOfMonth())->sum('number'),
             'counters'           => Counter::where('status', 'active')
                 ->orderBy('order')
@@ -117,10 +116,10 @@ class DashboardService
             'Shortlisted' => Application::where('status', 'replied')->count(),
         ];
 
-        // Filter out zero-count statuses so the donut/legend don't show empty slices
+
         $breakdown = array_filter($breakdown, fn($count) => $count > 0);
 
-        // Always show at least one entry so the donut chart doesn't error on empty data
+
         if (empty($breakdown)) {
             $breakdown = ['No Applications' => 1];
         }

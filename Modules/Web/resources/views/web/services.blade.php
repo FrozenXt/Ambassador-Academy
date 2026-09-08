@@ -96,26 +96,37 @@
     </div>
 </section>
 <!-- ============ HIGHLIGHT STRIP ============ -->
-<section class="highlight-strip">
-    <div class="highlight-block hl-green" data-aos="fade-up">
-        <div class="highlight-icon"><i class="fa-solid fa-award"></i></div>
-        <div>
-            <h4>Holistic Development</h4>
-            <p>We focus on academic, physical, emotional and social growth.</p>
-        </div>
-    </div>
-    <div class="highlight-block hl-gold" data-aos="fade-up" data-aos-delay="100">
-        <div class="highlight-icon"><i class="fa-solid fa-people-group"></i></div>
-        <div>
-            <h4>Safe & Inclusive Environment</h4>
-            <p>A place where every child feels safe, respected and valued.</p>
-        </div>
-    </div>
-    <div class="highlight-block hl-maroon" data-aos="fade-up" data-aos-delay="200">
-        <div class="highlight-icon"><i class="fa-solid fa-bullseye"></i></div>
-        <div>
-            <h4>Excellence in Every Step</h4>
-            <p>Our services are designed to bring out the best in every learner.</p>
+<section class="eca-info-strip-section">
+    <div class="container">
+        <div class="eca-info-strip">
+            <div class="eca-info-item" data-aos="fade-up">
+                <div class="eca-info-icon"><i class="fa-solid fa-seedling"></i></div>
+                <div>
+                    <h5>Holistic Development</h5>
+                    <p>Nurturing mind, body and character through diverse activities.</p>
+                </div>
+            </div>
+            <div class="eca-info-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="eca-info-icon"><i class="fa-solid fa-compass"></i></div>
+                <div>
+                    <h5>Discover &amp; Explore</h5>
+                    <p>Helping students find their passions and unlock their potential.</p>
+                </div>
+            </div>
+            <div class="eca-info-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="eca-info-icon"><i class="fa-solid fa-people-group"></i></div>
+                <div>
+                    <h5>Leadership &amp; Teamwork</h5>
+                    <p>Building confidence, communication, and leadership for a brighter future.</p>
+                </div>
+            </div>
+            <div class="eca-info-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="eca-info-icon"><i class="fa-solid fa-face-smile"></i></div>
+                <div>
+                    <h5>Fun &amp; Engagement</h5>
+                    <p>Creating joyful experiences that make learning meaningful.</p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
