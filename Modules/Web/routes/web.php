@@ -15,12 +15,12 @@ use Modules\Web\Http\Controllers\ApplyController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/phpinfo-test', function () {
-    phpinfo();
-});
+// Route::get('/phpinfo-test', function () {
+//     phpinfo();
+// });
 
-// ── Home
-Route::get('/', [WebController::class, 'home'])->name('web.home');
+// // ── Home
+// Route::get('/', [WebController::class, 'home'])->name('web.home');
 
 // ── Products
 // Route::get('/products',           [WebController::class, 'products'])->name('web.products');
@@ -47,21 +47,21 @@ Route::get('/', [WebController::class, 'home'])->name('web.home');
 //Route::get('/faq', [WebController::class, 'faq'])->name('web.faq');
 
 //-─ Pricing
-Route::get('/pricing', [WebController::class, 'pricing'])->name('web.pricing');
-Route::get('/blog',                 [WebController::class, 'blog'])->name('web.blog');
-Route::get('/blog/category/{slug}', [WebController::class, 'blogCategory'])->name('web.blog.category');
-Route::get('/blog/{slug}',          [WebController::class, 'blogDetail'])->name('web.blog.detail');
-Route::get('/blog/{slug}', [WebController::class, 'blogDetail'])->name('web.blog.detail');
+// Route::get('/pricing', [WebController::class, 'pricing'])->name('web.pricing');
+// Route::get('/blog',                 [WebController::class, 'blog'])->name('web.blog');
+// Route::get('/blog/category/{slug}', [WebController::class, 'blogCategory'])->name('web.blog.category');
+// Route::get('/blog/{slug}',          [WebController::class, 'blogDetail'])->name('web.blog.detail');
+// Route::get('/blog/{slug}', [WebController::class, 'blogDetail'])->name('web.blog.detail');
 // ── Pages
-Route::get('/page/{slug}', function (string $slug) {
-    $page = Page::where('slug', $slug)
-        ->where('status', 'published')
-        ->firstOrFail();
-    $settings = SiteSetting::all()->keyBy('key');
-    return view('web::web.page', compact('page', 'settings'));
-})->name('web.page');
+// Route::get('/page/{slug}', function (string $slug) {
+//     $page = Page::where('slug', $slug)
+//         ->where('status', 'published')
+//         ->firstOrFail();
+//     $settings = SiteSetting::all()->keyBy('key');
+//     return view('web::web.page', compact('page', 'settings'));
+// })->name('web.page');
 
-Route::view('/menu', 'web.pages.menu')->name('menu');
+// Route::view('/menu', 'web.pages.menu')->name('menu');
 
 //Route::get('/contact', [ContactController::class, 'index'])->name('web.contact');
 // Route::post('/contact', [ContactController::class, 'submit'])->name('web.contact.submit');
@@ -97,7 +97,7 @@ Route::get('/eca/{slug}', [PageController::class, 'ecaShow'])->name('eca.show');
 // Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 // Route::post('/contact', [ContactController::class, 'process'])->name('contact.process');
 
-Route::get('/blog/{slug}', [PageController::class, 'blogShow'])->name('blog.show');
+// Route::get('/blog/{slug}', [PageController::class, 'blogShow'])->name('blog.show');
 Route::get('/events/{slug}/calendar.ics', [PageController::class, 'eventIcs'])->name('events.calendar.ics');
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
