@@ -453,6 +453,28 @@
                         </li>
 
                         <li class="nav-item">
+                            <a href="{{ route('admin.services.index') }}"
+                                class="nav-link {{ request()->is('admin/services*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-concierge-bell"></i>
+                                <p>Services
+                                    <span
+                                        class="badge badge-info right">{{ \Modules\Common\Entities\Service::count() }}</span>
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('admin.counters.index') }}"
+                                class="nav-link {{ request()->is('admin/counters*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-graduate"></i>
+                                <p>Counters
+                                    <span
+                                        class="badge badge-info right">{{ \Modules\Common\Entities\Counter::count() }}</span>
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{{ route('admin.media.index') }}"
                                 class="nav-link {{ request()->is('admin/media*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-photo-video"></i>

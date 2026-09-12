@@ -194,7 +194,7 @@
         </div>
     </div>
 
-    {{ $services->links() }}
+    {{ $services->links('pagination::bootstrap-5') }}
 @endsection
 
 @section('extra_js')
